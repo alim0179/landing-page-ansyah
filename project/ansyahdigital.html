@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ansyah Digital | Kumpulan Website & Layanan Digital</title>
+
+<meta name="description" content="Ansyah Digital adalah branding utama yang menaungi berbagai website dan layanan digital, dikembangkan secara bertahap dengan fokus pada fungsi dan kemudahan penggunaan.">
+<meta name="keywords" content="Ansyah Digital, website digital, top up game, layanan digital, website Indonesia">
+<meta name="author" content="Ansyah Digital">
+
+<link rel="icon" type="image/png" href="favicon.png">
+
+<style>
+:root{
+  --primary:#1e6bff;
+  --bg:#f6f9ff;
+  --text:#1f2937;
+  --card:#ffffff;
+}
+
+body.dark{
+  --bg:#0b1220;
+  --text:#e5e7eb;
+  --card:#111827;
+  --primary:#4f8cff;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto;
+}
+
+body{
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.6;
+  transition:background .4s ease,color .4s ease;
+}
+
+/* NAVBAR (✔ ditambah transition) */
+nav{
+  position:sticky;
+  top:0;
+  background:var(--card);
+  padding:12px 20px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 2px 10px rgba(0,0,0,.05);
+  z-index:100;
+  transition:background .4s ease, box-shadow .4s ease;
+}
+
+body.dark nav{
+  background:#0f172a;
+  box-shadow:0 2px 12px rgba(0,0,0,.6);
+}
+
+.brand{
+  font-weight:700;
+  color:var(--primary);
+}
+
+.toggle{
+  border:none;
+  background:var(--primary);
+  color:#fff;
+  padding:6px 14px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* SECTION */
+section{
+  padding:36px 20px;
+  max-width:1100px;
+  margin:auto;
+}
+
+/* HERO */
+.hero{
+  text-align:center;
+  padding-top:50px;
+}
+
+.hero h1{
+  font-size:32px;
+  margin-bottom:12px;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+/* CARD */
+.card{
+  background:var(--card);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 8px 25px rgba(0,0,0,.06);
+  transition:
+    transform .35s cubic-bezier(.22,1,.36,1),
+    box-shadow .35s cubic-bezier(.22,1,.36,1);
+}
+
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+
+body.dark .card{
+  box-shadow:0 12px 32px rgba(0,0,0,.6);
+}
+
+.card h3{
+  color:var(--primary);
+  margin-bottom:6px;
+}
+
+.card p{
+  font-size:14px;
+  opacity:.85;
+  margin-bottom:14px;
+}
+
+.card a{
+  display:block;
+  text-align:center;
+  background:linear-gradient(135deg,var(--primary),#2563eb);
+  color:#fff;
+  padding:9px;
+  border-radius:10px;
+  text-decoration:none;
+}
+
+.card a:active{
+  transform:scale(.97);
+}
+
+/* DISABLED */
+.card .disabled{
+  background:#9ca3af;
+  cursor:not-allowed;
+  position:relative;
+}
+
+.card .disabled::after{
+  content:attr(data-status);
+  position:absolute;
+  bottom:-34px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#111827;
+  color:#fff;
+  font-size:12px;
+  padding:4px 8px;
+  border-radius:6px;
+  opacity:0;
+  pointer-events:none;
+  transition:.3s;
+}
+
+.card .disabled:hover::after{
+  opacity:1;
+}
+
+/* CTA (✔ teks diperjelas, tetap jujur) */
+.cta{
+  background:linear-gradient(135deg,#1e6bff,#3b82f6);
+  color:#fff;
+  border-radius:18px;
+  padding:34px 25px;
+  text-align:center;
+}
+
+/* FOOTER */
+footer{
+  text-align:center;
+  padding:24px;
+  font-size:13px;
+  opacity:.7;
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(20px);
+  transition:
+    opacity .9s cubic-bezier(.22,1,.36,1),
+    transform .9s cubic-bezier(.22,1,.36,1);
+}
+
+.reveal.show{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* FLOATING WA */
+.floating-wa{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  background:#25D366;
+  color:#fff;
+  padding:14px 16px;
+  border-radius:50px;
+  display:flex;
+  align-items:center;
+  text-decoration:none;
+  box-shadow:0 10px 30px rgba(0,0,0,.25);
+  z-index:300;
+}
+
+/* SKELETON */
+.skeleton{
+  height:160px;
+  border-radius:14px;
+  background:linear-gradient(90deg,#e5e7eb 25%,#f3f4f6 37%,#e5e7eb 63%);
+  background-size:400% 100%;
+  animation:shimmer 1.2s infinite;
+}
+
+@keyframes shimmer{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="brand">Ansyah Digital</div>
+  <button class="toggle" onclick="toggleDark()">🌙</button>
+</nav>
+
+<section class="hero reveal">
+  <h1>Satu Identitas untuk Beragam Website</h1>
+  <p>Branding utama untuk berbagai kebutuhan digital, dikembangkan bertahap.</p>
+</section>
+
+<!-- SKELETON -->
+<div id="skeleton" class="grid" style="padding:36px 20px;max-width:1100px;margin:auto">
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+  <div class="skeleton"></div>
+</div>
+
+<!-- CONTENT -->
+<div id="content" style="display:none">
+<section>
+  <div class="grid">
+    <div class="card reveal">
+      <h3>Game & Top Up</h3>
+      <p>Layanan top up game yang dibuat sederhana dan jelas.</p>
+      <a href="https://ansyahtopup.my.id" target="_blank">Kunjungi Website</a>
+    </div>
+
+    <div class="card reveal">
+      <h3>Jasa & Layanan</h3>
+      <p>Layanan digital berbasis kebutuhan harian.</p>
+      <a class="disabled" data-status="Sedang dikembangkan">Segera Hadir</a>
+    </div>
+
+    <div class="card reveal">
+      <h3>Website & Template</h3>
+      <p>Template dan proyek website sederhana.</p>
+      <a class="disabled" data-status="Masih tahap persiapan">Segera Hadir</a>
+    </div>
+
+    <div class="card reveal">
+      <h3>Proyek Lainnya</h3>
+      <p>Beberapa ide masih diuji dan disiapkan.</p>
+      <a class="disabled" data-status="Dalam proses">Dalam Proses</a>
+    </div>
+  </div>
+</section>
+</div>
+
+<section class="reveal">
+  <div class="cta">
+    <h2>Dibangun Bertahap, Dengan Arah yang Jelas</h2>
+    <p>Tidak semua proyek ditampilkan. Beberapa masih disiapkan secara internal.</p>
+  </div>
+</section>
+
+<footer class="reveal">
+  © <span id="year"></span> ANSYAH.DIGITAL
+</footer>
+
+<a href="https://wa.me/6285189296975" target="_blank" class="floating-wa">WhatsApp</a>
+
+<script>
+const body = document.body;
+const toggleBtn = document.querySelector('.toggle');
+
+/* THEME */
+function autoThemeByTime(){
+  const h = new Date().getHours();
+  if(h >= 18 || h < 6) body.classList.add('dark');
+}
+const saved = localStorage.getItem('theme');
+saved ? body.classList.toggle('dark', saved==='dark') : autoThemeByTime();
+
+function toggleDark(){
+  body.classList.toggle('dark');
+  localStorage.setItem('theme', body.classList.contains('dark')?'dark':'light');
+  toggleBtn.textContent = body.classList.contains('dark')?'☀️':'🌙';
+}
+toggleBtn.textContent = body.classList.contains('dark')?'☀️':'🌙';
+
+/* YEAR */
+document.getElementById("year").textContent = new Date().getFullYear();
+
+/* REVEAL OBSERVER */
+const items = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      e.target.style.transitionDelay = `${i*0.08}s`;
+      e.target.classList.add('show');
+    }
+  });
+},{threshold:0.12});
+
+/* ✔ FIXED: reveal di-trigger setelah skeleton hilang */
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('skeleton').remove();
+    document.getElementById('content').style.display='block';
+    items.forEach(el=>observer.observe(el));
+  },400);
+});
+</script>
+
+</body>
+</html>
