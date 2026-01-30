@@ -1,0 +1,597 @@
+<!-- credits : kasan -->
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ansyah | Digital Architect</title>
+    <link rel="icon" type="image/jpeg" href="logo.jpg">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: {
+                            bg: '#0B1120',
+                            card: 'rgba(30, 58, 138, 0.15)',
+                        },
+                        light: {
+                            bg: '#F0F9FF',
+                            card: 'rgba(255, 255, 255, 0.7)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+        
+        body { 
+            transition: background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), color 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-nav {
+            backdrop-filter: blur(16px);
+            transition: all 0.5s ease;
+        }
+
+        .dark .glass-nav {
+            background: rgba(11, 17, 32, 0.8);
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+        }
+
+        .glass-card {
+            backdrop-filter: blur(12px);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dark .glass-card {
+            background: rgba(30, 58, 138, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(226, 232, 240, 0.8);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+        
+        .glass-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .dark .glass-card:hover {
+            background: rgba(30, 58, 138, 0.25);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 30px -5px rgba(6, 182, 212, 0.2);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(56, 189, 248, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.15);
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradientMove 3s linear infinite;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-1 { transition-delay: 100ms; }
+        .stagger-2 { transition-delay: 200ms; }
+        .stagger-3 { transition-delay: 300ms; }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transition: opacity 0.5s ease;
+        }
+
+        .typing-cursor::after {
+            content: '|';
+            animation: blink 1s step-start infinite;
+            color: #0ea5e9;
+        }
+        
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        .theme-toggle {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .theme-icon {
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55), opacity 0.3s ease;
+        }
+
+        .rotate-in {
+            transform: rotate(0deg) scale(1);
+            opacity: 1;
+        }
+
+        .rotate-out {
+            transform: rotate(180deg) scale(0);
+            opacity: 0;
+            position: absolute;
+        }
+
+    </style>
+</head>
+<body class="bg-light-bg dark:bg-dark-bg text-slate-800 dark:text-slate-200 antialiased selection:bg-cyan-500/30 selection:text-cyan-600 dark:selection:text-cyan-200 overflow-x-hidden">
+
+    <canvas id="bgCanvas"></canvas>
+
+    <div class="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-400 via-blue-500 to-indigo-500 z-[60]"></div>
+
+    <nav class="fixed w-full z-50 glass-nav">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div class="relative w-10 h-10">
+                        <img src="logo.jpg" alt="Logo" class="w-full h-full object-contain relative z-10" onerror="this.onerror=null;this.src='https://placehold.co/40x40/0ea5e9/ffffff?text=A';">
+                        <div class="absolute inset-0 bg-cyan-500 blur-md opacity-20 group-hover:opacity-40 transition-opacity rounded-full"></div>
+                    </div>
+                    <span class="text-xl font-bold tracking-tight text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">
+                        Ansyah<span class="text-blue-500">.dev</span>
+                    </span>
+                </div>
+                
+                <div class="hidden md:flex items-center gap-6">
+                    <div class="flex items-baseline space-x-8">
+                        <a href="#home" class="text-sm font-medium hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors relative group py-2">
+                            Home
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#about" class="text-sm font-medium hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors relative group py-2">
+                            About
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                        <a href="#projects" class="text-sm font-medium hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors relative group py-2">
+                            Projects
+                            <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-cyan-500 transition-all duration-300 group-hover:w-full"></span>
+                        </a>
+                    </div>
+                    
+                    <button onclick="toggleTheme()" class="theme-toggle w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-yellow-400 hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors focus:outline-none">
+                        <i data-lucide="sun" id="icon-sun" class="theme-icon w-5 h-5 absolute"></i>
+                        <i data-lucide="moon" id="icon-moon" class="theme-icon w-5 h-5 absolute"></i>
+                    </button>
+
+                    <a href="#contact" class="px-6 py-2.5 rounded-full bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-500 hover:to-cyan-500 text-white text-sm font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all hover:-translate-y-0.5 flex items-center gap-2">
+                        Contact Me
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-4 md:hidden">
+                    <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-yellow-400 focus:outline-none relative">
+                        <i data-lucide="sun" id="icon-sun-mobile" class="theme-icon w-5 h-5 absolute"></i>
+                        <i data-lucide="moon" id="icon-moon-mobile" class="theme-icon w-5 h-5 absolute"></i>
+                    </button>
+                    <button onclick="toggleMenu()" class="p-2 rounded-lg text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-slate-200 dark:border-slate-800 absolute w-full">
+            <div class="px-4 pt-4 pb-6 space-y-2">
+                <a href="#home" class="block px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Home</a>
+                <a href="#about" class="block px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">About</a>
+                <a href="#projects" class="block px-4 py-3 rounded-xl text-base font-medium hover:bg-blue-50 dark:hover:bg-blue-900/20 text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 transition-colors">Projects</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 min-h-screen flex items-center overflow-hidden">
+        
+        <div class="absolute top-1/4 left-0 w-96 h-96 bg-blue-500/10 dark:bg-blue-600/20 rounded-full blur-[120px] pointer-events-none transition-colors duration-500"></div>
+        <div class="absolute bottom-0 right-0 w-[500px] h-[500px] bg-cyan-500/10 dark:bg-cyan-600/10 rounded-full blur-[100px] pointer-events-none transition-colors duration-500"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-20">
+                <div class="flex-1 text-center lg:text-left">
+                    <div class="reveal">
+                        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cyan-500/30 bg-white/50 dark:bg-cyan-950/30 text-cyan-600 dark:text-cyan-300 text-xs font-semibold tracking-wide uppercase mb-8 shadow-sm dark:shadow-[0_0_15px_rgba(34,211,238,0.2)] backdrop-blur-sm">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                            </span>
+                            Ready to Innovate
+                        </div>
+                    </div>
+                    
+                    <h1 class="reveal stagger-1 text-5xl lg:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6 leading-tight transition-colors duration-500">
+                        Building The <br>
+                        <span class="text-gradient typing-cursor" id="typing-text"></span>
+                    </h1>
+                    
+                    <p class="reveal stagger-2 mt-6 text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed transition-colors duration-500">
+                        Hi, Saya <strong>Ansyah</strong>. Saya merancang sistem digital cerdas dengan integrasi AI untuk mempercepat pertumbuhan bisnis Anda di era modern.
+                    </p>
+                    
+                    <div class="reveal stagger-3 flex flex-col sm:flex-row gap-5 justify-center lg:justify-start">
+                        <a href="#projects" class="px-8 py-4 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-blue-950 font-bold transition-all hover:scale-105 hover:shadow-xl flex items-center justify-center gap-2">
+                            Explore Projects
+                            <i data-lucide="zap" class="w-5 h-5 text-yellow-400 dark:text-blue-600 fill-current"></i>
+                        </a>
+                        <a href="#contact" class="px-8 py-4 rounded-xl glass-card hover:bg-white dark:hover:bg-slate-800/50 text-slate-900 dark:text-white font-semibold transition-all border border-slate-200 dark:border-slate-700 hover:border-cyan-500/50 flex items-center justify-center gap-2">
+                            Let's Talk
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stats" class="relative py-12 border-y border-slate-200 dark:border-slate-800/50 bg-white/30 dark:bg-slate-900/30 backdrop-blur-md z-10 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center reveal">
+                <div class="group cursor-pointer">
+                    <div class="text-4xl font-bold text-slate-800 dark:text-white mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors duration-300">100%</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-blue-300/70 uppercase tracking-widest">AI Powered</div>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="text-4xl font-bold text-slate-800 dark:text-white mb-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">24/7</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-blue-300/70 uppercase tracking-widest">Support</div>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="text-4xl font-bold text-slate-800 dark:text-white mb-1 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors duration-300">50+</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-blue-300/70 uppercase tracking-widest">Completed</div>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="text-4xl font-bold text-slate-800 dark:text-white mb-1 group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors duration-300">Fast</div>
+                    <div class="text-xs font-semibold text-slate-500 dark:text-blue-300/70 uppercase tracking-widest">Delivery</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-32 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal">
+                <div class="max-w-xl">
+                    <h2 class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-500">Featured <span class="text-cyan-600 dark:text-cyan-400">Works</span></h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-lg transition-colors duration-500">Inovasi digital terbaru yang saya kembangkan.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <div class="group relative rounded-3xl glass-card overflow-hidden transition-all duration-500 reveal stagger-1 flex flex-col h-full">
+                    <div class="absolute inset-0 bg-gradient-to-b from-cyan-500/5 to-blue-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="p-8 relative z-10 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 flex items-center justify-center text-cyan-600 dark:text-cyan-400 group-hover:scale-110 transition-all duration-500 shadow-sm">
+                                <i data-lucide="search" class="w-7 h-7"></i>
+                            </div>
+                            <div class="px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/30 border border-cyan-200 dark:border-cyan-500/20 text-xs text-cyan-700 dark:text-cyan-300 font-medium">
+                                API Tool
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-cyan-600 dark:group-hover:text-cyan-400 transition-colors">Cek ID Game</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed flex-1">
+                            Sistem validasi ID otomatis untuk berbagai game online. Memastikan username valid sebelum proses topup dilakukan.
+                        </p>
+
+                        <div class="space-y-6 mt-auto">
+                            <a href="#" class="flex items-center justify-between w-full p-4 rounded-xl bg-white/50 dark:bg-slate-900/40 hover:bg-cyan-50 dark:hover:bg-cyan-600 border border-slate-200 dark:border-slate-700 hover:border-cyan-400 text-slate-800 dark:text-white hover:text-cyan-700 dark:hover:text-white font-medium transition-all group/btn shadow-sm hover:shadow-md">
+                                Try Demo
+                                <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl glass-card overflow-hidden transition-all duration-500 reveal stagger-2 flex flex-col h-full">
+                    <div class="absolute inset-0 bg-gradient-to-b from-blue-500/5 to-indigo-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="p-8 relative z-10 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-all duration-500 shadow-sm">
+                                <i data-lucide="zap" class="w-7 h-7"></i>
+                            </div>
+                            <div class="px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-500/20 text-xs text-blue-700 dark:text-blue-300 font-medium">
+                                Best Seller
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">Topup Game</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed flex-1">
+                            Gateway pembayaran otomatis dan sistem manajemen stok produk digital. Terintegrasi dengan payment gateway populer.
+                        </p>
+
+                        <div class="space-y-6 mt-auto">
+                            <a href="#" class="flex items-center justify-between w-full p-4 rounded-xl bg-white/50 dark:bg-slate-900/40 hover:bg-blue-50 dark:hover:bg-blue-600 border border-slate-200 dark:border-slate-700 hover:border-blue-400 text-slate-800 dark:text-white hover:text-blue-700 dark:hover:text-white font-medium transition-all group/btn shadow-sm hover:shadow-md">
+                                Visit Store
+                                <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="group relative rounded-3xl glass-card overflow-hidden transition-all duration-500 reveal stagger-3 flex flex-col h-full">
+                    <div class="absolute inset-0 bg-gradient-to-b from-indigo-500/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    
+                    <div class="p-8 relative z-10 flex flex-col h-full">
+                        <div class="flex justify-between items-start mb-8">
+                            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700/50 flex items-center justify-center text-indigo-600 dark:text-indigo-400 group-hover:scale-110 transition-all duration-500 shadow-sm">
+                                <i data-lucide="layout" class="w-7 h-7"></i>
+                            </div>
+                            <div class="px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/30 border border-indigo-200 dark:border-indigo-500/20 text-xs text-indigo-700 dark:text-indigo-300 font-medium">
+                                Premium
+                            </div>
+                        </div>
+
+                        <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">Store Template</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-8 text-sm leading-relaxed flex-1">
+                            Katalog template website premium dengan desain responsif, clean code, dan siap pakai untuk berbagai kebutuhan bisnis.
+                        </p>
+
+                        <div class="space-y-6 mt-auto">
+                            <a href="#" class="flex items-center justify-between w-full p-4 rounded-xl bg-white/50 dark:bg-slate-900/40 hover:bg-indigo-50 dark:hover:bg-indigo-600 border border-slate-200 dark:border-slate-700 hover:border-indigo-400 text-slate-800 dark:text-white hover:text-indigo-700 dark:hover:text-white font-medium transition-all group/btn shadow-sm hover:shadow-md">
+                                See Catalog
+                                <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="bg-white dark:bg-[#050914] border-t border-slate-200 dark:border-slate-800 pt-20 pb-10 relative z-10 transition-colors duration-500">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 mb-12">
+                <div class="flex items-center gap-3">
+                     <img src="image/logo.png" alt="Logo" class="w-10 h-10 object-contain" onerror="this.onerror=null;this.src='https://placehold.co/40x40/0ea5e9/ffffff?text=A';">
+                     <span class="text-2xl font-bold text-slate-900 dark:text-white transition-colors">Ansyah.dev</span>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-black hover:scale-110 transition-all">
+                        <i data-lucide="github" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-pink-500 hover:text-white hover:scale-110 transition-all">
+                        <i data-lucide="instagram" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-center text-slate-500 dark:text-slate-400 hover:bg-blue-600 hover:text-white hover:scale-110 transition-all">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="border-t border-slate-200 dark:border-slate-800/50 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 transition-colors">
+                <p class="text-slate-500 text-sm">© 2024 Ansyah. All rights reserved.</p>
+                <div class="flex flex-col items-center md:items-end gap-1">
+                    <p class="text-slate-500 text-sm flex items-center gap-1">
+                        Made by <span class="text-cyan-600 dark:text-cyan-400 font-semibold">kasan</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        const words = ["Digital Future.", "AI Solutions.", "Web Systems."];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typeTarget = document.getElementById('typing-text');
+        
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            if (isDeleting) {
+                typeTarget.innerText = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typeTarget.innerText = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+            }
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIndex === currentWord.length) {
+                isDeleting = true;
+                typeSpeed = 2000; 
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+                typeSpeed = 500;
+            }
+            setTimeout(typeEffect, typeSpeed);
+        }
+        document.addEventListener('DOMContentLoaded', typeEffect);
+
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.size = Math.random() * 2 + 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+            draw() {
+                const isDark = document.documentElement.classList.contains('dark');
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = isDark ? 'rgba(34, 211, 238, 0.2)' : 'rgba(14, 165, 233, 0.3)'; 
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particles = [];
+            const particleCount = Math.min(window.innerWidth / 10, 100); 
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, width, height);
+            const isDark = document.documentElement.classList.contains('dark');
+            particles.forEach((p, index) => {
+                p.update();
+                p.draw();
+                for (let j = index + 1; j < particles.length; j++) {
+                    const p2 = particles[j];
+                    const dx = p.x - p2.x;
+                    const dy = p.y - p2.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < 150) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = isDark 
+                            ? `rgba(34, 211, 238, ${0.1 - dist/1500})`
+                            : `rgba(14, 165, 233, ${0.15 - dist/1500})`;
+                        ctx.lineWidth = 1;
+                        ctx.moveTo(p.x, p.y);
+                        ctx.lineTo(p2.x, p2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            resize();
+            initParticles();
+        });
+
+        // Theme Logic
+        function toggleTheme() {
+            const html = document.documentElement;
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+                updateIcons('light');
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+                updateIcons('dark');
+            }
+        }
+
+        function updateIcons(theme) {
+            const suns = document.querySelectorAll('#icon-sun, #icon-sun-mobile');
+            const moons = document.querySelectorAll('#icon-moon, #icon-moon-mobile');
+            
+            if (theme === 'dark') {
+                suns.forEach(el => {
+                    el.classList.remove('rotate-in');
+                    el.classList.add('rotate-out');
+                });
+                moons.forEach(el => {
+                    el.classList.remove('rotate-out');
+                    el.classList.add('rotate-in');
+                });
+            } else {
+                moons.forEach(el => {
+                    el.classList.remove('rotate-in');
+                    el.classList.add('rotate-out');
+                });
+                suns.forEach(el => {
+                    el.classList.remove('rotate-out');
+                    el.classList.add('rotate-in');
+                });
+            }
+        }
+
+        // Init Theme
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            updateIcons('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+            updateIcons('light');
+        }
+
+        resize();
+        initParticles();
+        animateParticles();
+    </script>
+</body>
+</html>
+
+
