@@ -1,192 +1,133 @@
-<!-- credits : kasan -->
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ansyah Tools Catalog</title>
 
-<title>Ansyah Tools | Katalog Online Tools Digital</title>
-<meta name="description" content="Katalog tools online Ansyah. Downloader, cek ID game, cek bank, dan berbagai web tools praktis dalam satu tempat.">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<link rel="icon" type="image/jpeg" href="logo.jpg">
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
-
-<script>
-tailwind.config = {
-  darkMode: 'class',
-  theme: {
-    extend: {
-      fontFamily: {
-        sans: ['Plus Jakarta Sans', 'sans-serif'],
-        heading: ['Outfit', 'sans-serif'],
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2563eb',
+          }
+        }
       }
     }
-  }
-}
-</script>
+  </script>
 
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
-
-body {
-  transition: background-color .4s, color .4s;
-}
-
-.glass-card {
-  backdrop-filter: blur(14px);
-  transition: all .4s ease;
-}
-
-.dark .glass-card {
-  background: rgba(30,58,138,.15);
-  border: 1px solid rgba(56,189,248,.15);
-}
-
-.glass-card {
-  background: rgba(255,255,255,.6);
-  border: 1px solid rgba(226,232,240,.8);
-}
-
-.glass-card:hover {
-  transform: translateY(-6px);
-}
-
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all .7s ease;
-}
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-canvas {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-}
-</style>
+  <!-- Dark mode init -->
+  <script>
+    if (
+      localStorage.theme === 'dark' ||
+      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
+    ) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  </script>
 </head>
 
-<body class="bg-slate-50 dark:bg-[#0B1120] text-slate-800 dark:text-slate-200 overflow-x-hidden">
+<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
 
-<canvas id="bgCanvas"></canvas>
-
-<!-- HEADER -->
-<header class="pt-24 pb-16 text-center relative z-10">
-  <h1 class="text-4xl md:text-5xl font-bold mb-4">
-    Ansyah <span class="text-cyan-500">Online Tools</span>
-  </h1>
-  <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-    Kumpulan web tools digital yang bisa langsung digunakan tanpa instalasi. Praktis, cepat, dan terpusat.
-  </p>
-</header>
-
-<!-- TOOLS CATALOG -->
-<section class="pb-32 relative z-10">
-  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-
-    <!-- TOOL CARD -->
-    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
-      <div class="flex justify-between items-start mb-6">
-        <div class="w-14 h-14 rounded-2xl bg-cyan-100 dark:bg-cyan-950 flex items-center justify-center text-cyan-600">
-          <i data-lucide="download"></i>
-        </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-900/40 text-cyan-600">
-          Online Tools
-        </span>
-      </div>
-      <h3 class="text-xl font-bold mb-3">Video Downloader</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
-        Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa aplikasi tambahan.
-      </p>
-      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition">
-        Gunakan Tool
-        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-      </a>
-    </div>
-
-    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
-      <div class="flex justify-between items-start mb-6">
-        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-blue-600">
-          <i data-lucide="search"></i>
-        </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-600">
-          Online Tools
-        </span>
-      </div>
-      <h3 class="text-xl font-bold mb-3">Cek ID Game</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
-        Validasi ID dan nickname game secara otomatis sebelum melakukan top up atau transaksi.
-      </p>
-      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition">
-        Cek Sekarang
-        <i data-lucide="arrow-right"></i>
-      </a>
-    </div>
-
-    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
-      <div class="flex justify-between items-start mb-6">
-        <div class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center text-indigo-600">
-          <i data-lucide="credit-card"></i>
-        </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600">
-          Online Tools
-        </span>
-      </div>
-      <h3 class="text-xl font-bold mb-3">Cek Bank</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
-        Periksa status bank dan validasi rekening secara cepat melalui sistem online.
-      </p>
-      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-indigo-500 text-white font-semibold hover:bg-indigo-600 transition">
-        Gunakan
-        <i data-lucide="arrow-right"></i>
-      </a>
-    </div>
-
+  <!-- Toggle Dark Mode -->
+  <div class="fixed top-4 right-4 z-50">
+    <button onclick="toggleDarkMode()" class="px-4 py-2 text-sm rounded-full bg-primary text-white shadow hover:scale-105 transition">
+      🌙 / ☀️
+    </button>
   </div>
-</section>
 
-<!-- FOOTER -->
-<footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-sm text-slate-500 relative z-10">
-  © 2026 Ansyah · Tools Catalog
-</footer>
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-6xl mx-auto px-4 py-16">
+    
+    <!-- Header -->
+    <div class="text-center mb-14 animate-fadeIn">
+      <h1 class="text-4xl font-bold text-primary mb-4">
+        Ansyah Tools
+      </h1>
+      <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+        Kumpulan tools digital gratis dan praktis untuk kebutuhan harian, creator, gamer, dan pengguna digital Indonesia.
+      </p>
+    </div>
 
-<script>
-lucide.createIcons();
+    <!-- Grid Tools -->
+    <div class="grid md:grid-cols-3 gap-8">
 
-// reveal animation
-const observer = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(e.isIntersecting){
-      e.target.classList.add('active');
-      observer.unobserve(e.target);
+      <!-- Card -->
+      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
+        <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
+          Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa aplikasi tambahan.
+        </p>
+        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
+          Gunakan →
+        </a>
+      </div>
+
+      <!-- Card -->
+      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
+        <h3 class="text-xl font-semibold mb-3">Cek ID Game</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
+          Cek nickname dan validasi ID game populer dengan cepat sebelum melakukan top up.
+        </p>
+        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
+          Cek Sekarang →
+        </a>
+      </div>
+
+      <!-- Card -->
+      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
+        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
+        <h3 class="text-xl font-semibold mb-3">Cek Bank & E-Wallet</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
+          Validasi rekening dan e-wallet untuk meminimalkan kesalahan transfer dan penipuan.
+        </p>
+        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
+          Mulai →
+        </a>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER (SELALU DI BAWAH) -->
+  <footer class="mt-auto bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
+    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-center text-slate-500">
+      © 2026 Ansyah Digital • Tools & Katalog Digital Indonesia
+    </div>
+  </footer>
+
+  <!-- Script -->
+  <script>
+    function toggleDarkMode() {
+      if (document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.remove('dark')
+        localStorage.theme = 'light'
+      } else {
+        document.documentElement.classList.add('dark')
+        localStorage.theme = 'dark'
+      }
     }
-  })
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
 
-// particles
-const canvas = document.getElementById('bgCanvas');
-const ctx = canvas.getContext('2d');
-let w,h,pts=[];
-function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
-class P{
-  constructor(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4}
-  u(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}
-  d(){ctx.fillStyle='rgba(14,165,233,.25)';ctx.beginPath();ctx.arc(this.x,this.y,2,0,Math.PI*2);ctx.fill()}
-}
-function init(){pts=[];for(let i=0;i<80;i++)pts.push(new P())}
-function anim(){
-  ctx.clearRect(0,0,w,h);
-  pts.forEach(p=>{p.u();p.d()});
-  requestAnimationFrame(anim);
-}
-resize();init();anim();
-addEventListener('resize',()=>{resize();init()});
-</script>
+  <!-- Simple animation -->
+  <style>
+    .animate-fadeIn {
+      animation: fadeIn 0.8s ease-in-out both;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 
 </body>
 </html>
