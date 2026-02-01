@@ -1,133 +1,149 @@
 <!DOCTYPE html>
-<html lang="id" class="dark">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ansyah Tools Catalog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ansyah Tools – Katalog Tools Digital</title>
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            primary: '#2563eb',
-          }
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          primary: '#3b82f6'
         }
       }
     }
-  </script>
+  }
+</script>
 
-  <!-- Dark mode init -->
-  <script>
-    if (
-      localStorage.theme === 'dark' ||
-      (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  </script>
+<style>
+  .card {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: all 0.6s ease;
+  }
+  .card.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
 
-  <!-- Toggle Dark Mode -->
-  <div class="fixed top-4 right-4 z-50">
-    <button onclick="toggleDarkMode()" class="px-4 py-2 text-sm rounded-full bg-primary text-white shadow hover:scale-105 transition">
-      🌙 / ☀️
-    </button>
-  </div>
+<!-- HEADER -->
+<header class="py-16 text-center px-4">
+  <h1 class="text-4xl font-bold text-primary">
+    Ansyah Tools
+  </h1>
+  <p class="mt-3 text-sm text-primary font-medium">
+    Katalog Tools Digital
+  </p>
+  <p class="mt-5 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+    Kumpulan tools online yang dirancang untuk membantu kebutuhan digital sehari-hari secara cepat,
+    praktis, dan mudah diakses tanpa instalasi aplikasi tambahan.
+  </p>
+</header>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-grow max-w-6xl mx-auto px-4 py-16">
-    
-    <!-- Header -->
-    <div class="text-center mb-14 animate-fadeIn">
-      <h1 class="text-4xl font-bold text-primary mb-4">
-        Ansyah Tools
-      </h1>
-      <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-        Kumpulan tools digital gratis dan praktis untuk kebutuhan harian, creator, gamer, dan pengguna digital Indonesia.
+<!-- MAIN -->
+<main class="flex-1 px-4 pb-20">
+  <div class="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+
+    <!-- CARD -->
+    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
+      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+        TOOLS
+      </span>
+      <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400">
+        Unduh video dari berbagai platform populer dengan proses cepat,
+        tanpa watermark, dan tanpa perlu login.
       </p>
+      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
+        Buka Tool →
+      </a>
     </div>
 
-    <!-- Grid Tools -->
-    <div class="grid md:grid-cols-3 gap-8">
-
-      <!-- Card -->
-      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
-        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
-        <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
-          Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa aplikasi tambahan.
-        </p>
-        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
-          Gunakan →
-        </a>
-      </div>
-
-      <!-- Card -->
-      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
-        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
-        <h3 class="text-xl font-semibold mb-3">Cek ID Game</h3>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
-          Cek nickname dan validasi ID game populer dengan cepat sebelum melakukan top up.
-        </p>
-        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
-          Cek Sekarang →
-        </a>
-      </div>
-
-      <!-- Card -->
-      <div class="group bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition-all hover:-translate-y-1">
-        <div class="text-xs text-primary font-semibold mb-2">TOOLS</div>
-        <h3 class="text-xl font-semibold mb-3">Cek Bank & E-Wallet</h3>
-        <p class="text-sm text-slate-600 dark:text-slate-400 mb-5">
-          Validasi rekening dan e-wallet untuk meminimalkan kesalahan transfer dan penipuan.
-        </p>
-        <a href="#" class="inline-block text-primary font-medium group-hover:underline">
-          Mulai →
-        </a>
-      </div>
-
+    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
+      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+        TOOLS
+      </span>
+      <h3 class="text-xl font-semibold mb-3">Cek ID Game</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400">
+        Validasi ID dan nickname game secara instan untuk memastikan
+        keakuratan data sebelum melakukan transaksi.
+      </p>
+      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
+        Cek Sekarang →
+      </a>
     </div>
-  </main>
 
-  <!-- FOOTER (SELALU DI BAWAH) -->
-  <footer class="mt-auto bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-sm text-center text-slate-500">
-      © 2026 Ansyah Digital • Tools & Katalog Digital Indonesia
+    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
+      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
+        TOOLS
+      </span>
+      <h3 class="text-xl font-semibold mb-3">Cek Bank</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400">
+        Periksa status bank dan validasi rekening secara otomatis
+        untuk meminimalkan kesalahan transfer.
+      </p>
+      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
+        Gunakan →
+      </a>
     </div>
-  </footer>
 
-  <!-- Script -->
-  <script>
-    function toggleDarkMode() {
-      if (document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.remove('dark')
-        localStorage.theme = 'light'
-      } else {
-        document.documentElement.classList.add('dark')
-        localStorage.theme = 'dark'
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-200 dark:border-slate-700 py-5 text-center text-sm text-slate-500">
+  © 2026 Ansyah Digital · Tools Catalog
+</footer>
+
+<!-- DARK MODE TOGGLE -->
+<button id="themeToggle"
+  class="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-white shadow-lg">
+  <span id="iconSun">☀️</span>
+  <span id="iconMoon" class="hidden">🌙</span>
+</button>
+
+<!-- SCRIPT -->
+<script>
+  // Dark mode init
+  const html = document.documentElement;
+  const sun = document.getElementById('iconSun');
+  const moon = document.getElementById('iconMoon');
+
+  if (localStorage.theme === 'dark') {
+    html.classList.add('dark');
+    sun.classList.add('hidden');
+    moon.classList.remove('hidden');
+  }
+
+  document.getElementById('themeToggle').onclick = () => {
+    html.classList.toggle('dark');
+    const isDark = html.classList.contains('dark');
+    localStorage.theme = isDark ? 'dark' : 'light';
+    sun.classList.toggle('hidden', isDark);
+    moon.classList.toggle('hidden', !isDark);
+  };
+
+  // Card animation
+  const cards = document.querySelectorAll('.card');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('show');
       }
-    }
-  </script>
+    });
+  }, { threshold: 0.1 });
 
-  <!-- Simple animation -->
-  <style>
-    .animate-fadeIn {
-      animation: fadeIn 0.8s ease-in-out both;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-  </style>
+  cards.forEach(card => observer.observe(card));
+</script>
 
 </body>
 </html>
