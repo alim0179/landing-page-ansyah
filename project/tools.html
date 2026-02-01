@@ -1,96 +1,192 @@
+<!-- credits : kasan -->
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ansyah Tools Catalog</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- Tailwind CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
+<title>Ansyah Tools | Katalog Online Tools Digital</title>
+<meta name="description" content="Katalog tools online Ansyah. Downloader, cek ID game, cek bank, dan berbagai web tools praktis dalam satu tempat.">
 
-  <!-- Animate on Scroll -->
-  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
-  <style>
-    body {
-      background: linear-gradient(180deg, #0f172a, #020617);
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: {
+        sans: ['Plus Jakarta Sans', 'sans-serif'],
+        heading: ['Outfit', 'sans-serif'],
+      }
     }
-  </style>
+  }
+}
+</script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
+
+body {
+  transition: background-color .4s, color .4s;
+}
+
+.glass-card {
+  backdrop-filter: blur(14px);
+  transition: all .4s ease;
+}
+
+.dark .glass-card {
+  background: rgba(30,58,138,.15);
+  border: 1px solid rgba(56,189,248,.15);
+}
+
+.glass-card {
+  background: rgba(255,255,255,.6);
+  border: 1px solid rgba(226,232,240,.8);
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all .7s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+canvas {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+}
+</style>
 </head>
 
-<body class="min-h-screen flex flex-col text-white">
+<body class="bg-slate-50 dark:bg-[#0B1120] text-slate-800 dark:text-slate-200 overflow-x-hidden">
 
-  <!-- HEADER -->
-  <header class="text-center py-14 px-4">
-    <h1 class="text-3xl md:text-4xl font-bold text-blue-400">
-      Ansyah Tools
-    </h1>
-    <p class="mt-4 text-gray-300 max-w-2xl mx-auto">
-      Kumpulan tools online gratis untuk kebutuhan digital sehari-hari — mulai dari
-      downloader, pengecekan data, hingga utilitas praktis berbasis web.
-    </p>
-  </header>
+<canvas id="bgCanvas"></canvas>
 
-  <!-- MAIN CONTENT -->
-  <main class="flex-1 px-4 pb-16">
-    <div class="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+<!-- HEADER -->
+<header class="pt-24 pb-16 text-center relative z-10">
+  <h1 class="text-4xl md:text-5xl font-bold mb-4">
+    Ansyah <span class="text-cyan-500">Online Tools</span>
+  </h1>
+  <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+    Kumpulan web tools digital yang bisa langsung digunakan tanpa instalasi. Praktis, cepat, dan terpusat.
+  </p>
+</header>
 
-      <!-- CARD -->
-      <div data-aos="fade-up"
-        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
-        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
-        <h3 class="mt-3 text-xl font-semibold">Video Downloader</h3>
-        <p class="mt-2 text-gray-400 text-sm">
-          Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa instal aplikasi.
-        </p>
-        <a href="#"
-          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
-          Buka Tool →
-        </a>
+<!-- TOOLS CATALOG -->
+<section class="pb-32 relative z-10">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- TOOL CARD -->
+    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
+      <div class="flex justify-between items-start mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-cyan-100 dark:bg-cyan-950 flex items-center justify-center text-cyan-600">
+          <i data-lucide="download"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-900/40 text-cyan-600">
+          Online Tools
+        </span>
       </div>
-
-      <div data-aos="fade-up" data-aos-delay="100"
-        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
-        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
-        <h3 class="mt-3 text-xl font-semibold">Cek ID Game</h3>
-        <p class="mt-2 text-gray-400 text-sm">
-          Validasi ID dan nickname game secara instan untuk memastikan data akun sebelum transaksi.
-        </p>
-        <a href="#"
-          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
-          Cek Sekarang →
-        </a>
-      </div>
-
-      <div data-aos="fade-up" data-aos-delay="200"
-        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
-        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
-        <h3 class="mt-3 text-xl font-semibold">Cek Bank</h3>
-        <p class="mt-2 text-gray-400 text-sm">
-          Periksa status bank dan validasi rekening dengan cepat melalui sistem otomatis.
-        </p>
-        <a href="#"
-          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
-          Gunakan →
-        </a>
-      </div>
-
+      <h3 class="text-xl font-bold mb-3">Video Downloader</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
+        Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa aplikasi tambahan.
+      </p>
+      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-cyan-500 text-white font-semibold hover:bg-cyan-600 transition">
+        Gunakan Tool
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
+      </a>
     </div>
-  </main>
 
-  <!-- FOOTER (SELALU DI BAWAH) -->
-  <footer class="border-t border-blue-500/20 py-5 text-center text-sm text-gray-400">
-    © 2026 Ansyah Digital · Online Tools Catalog
-  </footer>
+    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
+      <div class="flex justify-between items-start mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-blue-950 flex items-center justify-center text-blue-600">
+          <i data-lucide="search"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-blue-50 dark:bg-blue-900/40 text-blue-600">
+          Online Tools
+        </span>
+      </div>
+      <h3 class="text-xl font-bold mb-3">Cek ID Game</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
+        Validasi ID dan nickname game secara otomatis sebelum melakukan top up atau transaksi.
+      </p>
+      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-blue-500 text-white font-semibold hover:bg-blue-600 transition">
+        Cek Sekarang
+        <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
 
-  <!-- AOS SCRIPT -->
-  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-  <script>
-    AOS.init({
-      duration: 700,
-      once: true
-    });
-  </script>
+    <div class="glass-card rounded-3xl p-8 reveal flex flex-col">
+      <div class="flex justify-between items-start mb-6">
+        <div class="w-14 h-14 rounded-2xl bg-indigo-100 dark:bg-indigo-950 flex items-center justify-center text-indigo-600">
+          <i data-lucide="credit-card"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-900/40 text-indigo-600">
+          Online Tools
+        </span>
+      </div>
+      <h3 class="text-xl font-bold mb-3">Cek Bank</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 flex-1">
+        Periksa status bank dan validasi rekening secara cepat melalui sistem online.
+      </p>
+      <a href="#" class="mt-6 inline-flex justify-between items-center px-5 py-3 rounded-xl bg-indigo-500 text-white font-semibold hover:bg-indigo-600 transition">
+        Gunakan
+        <i data-lucide="arrow-right"></i>
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-sm text-slate-500 relative z-10">
+  © 2026 Ansyah · Tools Catalog
+</footer>
+
+<script>
+lucide.createIcons();
+
+// reveal animation
+const observer = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.classList.add('active');
+      observer.unobserve(e.target);
+    }
+  })
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// particles
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let w,h,pts=[];
+function resize(){w=canvas.width=innerWidth;h=canvas.height=innerHeight}
+class P{
+  constructor(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.4;this.vy=(Math.random()-.5)*.4}
+  u(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}
+  d(){ctx.fillStyle='rgba(14,165,233,.25)';ctx.beginPath();ctx.arc(this.x,this.y,2,0,Math.PI*2);ctx.fill()}
+}
+function init(){pts=[];for(let i=0;i<80;i++)pts.push(new P())}
+function anim(){
+  ctx.clearRect(0,0,w,h);
+  pts.forEach(p=>{p.u();p.d()});
+  requestAnimationFrame(anim);
+}
+resize();init();anim();
+addEventListener('resize',()=>{resize();init()});
+</script>
 
 </body>
 </html>
