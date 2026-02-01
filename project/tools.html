@@ -1,148 +1,178 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ansyah Tools – Katalog Tools Digital</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ansyah Tools | Online Tools</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <script>
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        colors: {
-          primary: '#3b82f6'
-        }
-      }
-    }
-  }
+tailwind.config = {
+  darkMode: 'class',
+}
 </script>
 
 <style>
-  .card {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: all 0.6s ease;
-  }
-  .card.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* === GLASS STYLE === */
+.glass-card {
+  background: rgba(255,255,255,.65);
+  backdrop-filter: blur(14px);
+}
+.dark .glass-card {
+  background: rgba(15,23,42,.55);
+}
+
+/* === REVEAL ANIMATION (SAMA DENGAN CODE UTAMA) === */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all .8s ease;
+}
+.reveal.active {
+  opacity: 1;
+  transform: none;
+}
+.stagger-1 { transition-delay: .1s }
+.stagger-2 { transition-delay: .2s }
+.stagger-3 { transition-delay: .3s }
 </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-100">
+<body class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-cyan-50 dark:from-slate-950 dark:to-slate-900 text-slate-800 dark:text-slate-200">
 
-<!-- HEADER -->
-<header class="py-16 text-center px-4">
-  <h1 class="text-4xl font-bold text-primary">
-    Ansyah Tools
-  </h1>
-  <p class="mt-3 text-sm text-primary font-medium">
-    Katalog Tools Digital
-  </p>
-  <p class="mt-5 max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
-    Kumpulan tools online yang dirancang untuk membantu kebutuhan digital sehari-hari secara cepat,
-    praktis, dan mudah diakses tanpa instalasi aplikasi tambahan.
-  </p>
-</header>
+<!-- ===== DARK MODE TOGGLE (SAMA PERSIS) ===== -->
+<button onclick="toggleTheme()"
+  class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full
+         bg-white/70 dark:bg-slate-900/70 backdrop-blur
+         border border-slate-200 dark:border-slate-700
+         flex items-center justify-center shadow-lg">
 
-<!-- MAIN -->
-<main class="flex-1 px-4 pb-20">
-  <div class="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  <i id="iconSun" data-lucide="sun" class="w-6 h-6 rotate-0 scale-100 transition-all"></i>
+  <i id="iconMoon" data-lucide="moon" class="w-6 h-6 absolute rotate-90 scale-0 transition-all"></i>
+</button>
 
-    <!-- CARD -->
-    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
-      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-        TOOLS
-      </span>
-      <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        Unduh video dari berbagai platform populer dengan proses cepat,
-        tanpa watermark, dan tanpa perlu login.
+<!-- ===== MAIN ===== -->
+<main class="flex-1 max-w-7xl mx-auto px-6 py-24">
+
+  <div class="text-center mb-20 reveal">
+    <span class="text-cyan-600 dark:text-cyan-400 font-semibold">Online Tools</span>
+    <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-6">
+      Katalog Tools Digital
+    </h1>
+    <p class="max-w-2xl mx-auto text-slate-600 dark:text-slate-400">
+      Kumpulan tools online yang dapat digunakan untuk berbagai kebutuhan digital
+      secara praktis, cepat, dan terpusat dalam satu platform.
+    </p>
+  </div>
+
+  <!-- ===== GRID TOOLS ===== -->
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+    <!-- CARD 1 -->
+    <div class="glass-card rounded-3xl p-8 reveal stagger-1 flex flex-col group">
+      <div class="flex justify-between items-start mb-8">
+        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <i data-lucide="download" class="w-7 h-7"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300">
+          Online Tools
+        </span>
+      </div>
+
+      <h3 class="text-2xl font-bold mb-3">Video Downloader</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
+        Tool untuk mengunduh video dari berbagai platform secara cepat tanpa watermark
+        dan tanpa perlu login.
       </p>
-      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
-        Buka Tool →
+
+      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
+         bg-white/70 dark:bg-slate-900/60
+         hover:bg-cyan-50 dark:hover:bg-cyan-600
+         transition-all font-medium">
+        Gunakan
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
     </div>
 
-    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
-      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-        TOOLS
-      </span>
-      <h3 class="text-xl font-semibold mb-3">Cek ID Game</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        Validasi ID dan nickname game secara instan untuk memastikan
-        keakuratan data sebelum melakukan transaksi.
+    <!-- CARD 2 -->
+    <div class="glass-card rounded-3xl p-8 reveal stagger-2 flex flex-col group">
+      <div class="flex justify-between items-start mb-8">
+        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <i data-lucide="user-search" class="w-7 h-7"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40">
+          Online Tools
+        </span>
+      </div>
+
+      <h3 class="text-2xl font-bold mb-3">Cek ID Game</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
+        Tool untuk mengecek ID dan nickname game sebelum melakukan transaksi digital.
       </p>
-      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
-        Cek Sekarang →
+
+      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
+         bg-white/70 dark:bg-slate-900/60 hover:bg-cyan-50 dark:hover:bg-cyan-600 transition-all">
+        Gunakan
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
     </div>
 
-    <div class="card relative bg-white dark:bg-slate-800 rounded-2xl p-6 shadow hover:shadow-xl transition">
-      <span class="absolute top-4 right-4 text-[10px] px-2 py-1 rounded-full bg-primary/10 text-primary font-semibold">
-        TOOLS
-      </span>
-      <h3 class="text-xl font-semibold mb-3">Cek Bank</h3>
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        Periksa status bank dan validasi rekening secara otomatis
-        untuk meminimalkan kesalahan transfer.
+    <!-- CARD 3 -->
+    <div class="glass-card rounded-3xl p-8 reveal stagger-3 flex flex-col group">
+      <div class="flex justify-between items-start mb-8">
+        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+          <i data-lucide="banknote" class="w-7 h-7"></i>
+        </div>
+        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40">
+          Online Tools
+        </span>
+      </div>
+
+      <h3 class="text-2xl font-bold mb-3">Cek Bank</h3>
+      <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
+        Tool untuk mengecek informasi rekening bank secara cepat dan praktis.
       </p>
-      <a href="#" class="inline-block mt-4 text-sm font-medium text-primary hover:underline">
-        Gunakan →
+
+      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
+         bg-white/70 dark:bg-slate-900/60 hover:bg-cyan-50 dark:hover:bg-cyan-600 transition-all">
+        Gunakan
+        <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
     </div>
 
   </div>
 </main>
 
-<!-- FOOTER -->
-<footer class="border-t border-slate-200 dark:border-slate-700 py-5 text-center text-sm text-slate-500">
-  © 2026 Ansyah Digital · Tools Catalog
+<!-- ===== FOOTER (LENGKET BAWAH) ===== -->
+<footer class="text-center py-6 text-sm text-slate-500 dark:text-slate-500">
+© 2026 Ansyah Digital
 </footer>
 
-<!-- DARK MODE TOGGLE -->
-<button id="themeToggle"
-  class="fixed bottom-6 right-6 p-3 rounded-full bg-primary text-white shadow-lg">
-  <span id="iconSun">☀️</span>
-  <span id="iconMoon" class="hidden">🌙</span>
-</button>
-
-<!-- SCRIPT -->
+<!-- ===== SCRIPT UTAMA (SAMA) ===== -->
 <script>
-  // Dark mode init
-  const html = document.documentElement;
-  const sun = document.getElementById('iconSun');
-  const moon = document.getElementById('iconMoon');
+lucide.createIcons()
 
-  if (localStorage.theme === 'dark') {
-    html.classList.add('dark');
-    sun.classList.add('hidden');
-    moon.classList.remove('hidden');
-  }
+function toggleTheme() {
+  document.documentElement.classList.toggle('dark')
+  updateIcons()
+}
 
-  document.getElementById('themeToggle').onclick = () => {
-    html.classList.toggle('dark');
-    const isDark = html.classList.contains('dark');
-    localStorage.theme = isDark ? 'dark' : 'light';
-    sun.classList.toggle('hidden', isDark);
-    moon.classList.toggle('hidden', !isDark);
-  };
+function updateIcons() {
+  const dark = document.documentElement.classList.contains('dark')
+  iconSun.style.transform = dark ? 'rotate(90deg) scale(0)' : 'rotate(0) scale(1)'
+  iconMoon.style.transform = dark ? 'rotate(0) scale(1)' : 'rotate(-90deg) scale(0)'
+}
+updateIcons()
 
-  // Card animation
-  const cards = document.querySelectorAll('.card');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('show');
-      }
-    });
-  }, { threshold: 0.1 });
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('active')
+  })
+}, { threshold: 0.15 })
 
-  cards.forEach(card => observer.observe(card));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el))
 </script>
 
 </body>
