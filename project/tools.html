@@ -1,149 +1,96 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ansyah Tools Catalog</title>
 
-<title>Tools Digital | Ansyah</title>
-<meta name="description" content="Katalog tools digital Ansyah. Berisi berbagai online tools, checker, dan utilities digital dalam satu platform.">
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Animate on Scroll -->
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
 
-<script>
-tailwind.config = {
-  darkMode: 'class'
-}
-</script>
-
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
-
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-.text-gradient {
-  background: linear-gradient(135deg,#38bdf8,#2563eb,#6366f1);
-  -webkit-background-clip:text;
-  -webkit-text-fill-color:transparent;
-}
-
-.glass {
-  backdrop-filter: blur(14px);
-  background: rgba(15,23,42,.6);
-  border: 1px solid rgba(56,189,248,.15);
-}
-
-.reveal {
-  opacity:0;
-  transform:translateY(30px);
-  transition:.8s ease;
-}
-.reveal.active {
-  opacity:1;
-  transform:none;
-}
-</style>
+  <style>
+    body {
+      background: linear-gradient(180deg, #0f172a, #020617);
+    }
+  </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-slate-950 text-slate-200">
+<body class="min-h-screen flex flex-col text-white">
 
-<!-- ===== NAVBAR ===== -->
-<nav class="fixed top-0 w-full z-50 glass">
-  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-    <div class="font-bold text-xl text-blue-400">Ansyah</div>
-
-    <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center">
-      <i data-lucide="sun" id="themeIcon"></i>
-    </button>
-  </div>
-</nav>
-
-<main class="flex-grow pt-32">
-
-<!-- ===== HERO ===== -->
-<section class="pb-28">
-  <div class="max-w-7xl mx-auto px-6 reveal">
-    <h1 class="text-5xl md:text-6xl font-bold mb-6">
-      Tools <span class="text-gradient">Digital</span>
+  <!-- HEADER -->
+  <header class="text-center py-14 px-4">
+    <h1 class="text-3xl md:text-4xl font-bold text-blue-400">
+      Ansyah Tools
     </h1>
-    <p class="max-w-2xl text-slate-400 text-lg leading-relaxed">
-      Kumpulan tools online untuk mendukung berbagai kebutuhan digital,
-      mulai dari checker, downloader, hingga utilities praktis.
+    <p class="mt-4 text-gray-300 max-w-2xl mx-auto">
+      Kumpulan tools online gratis untuk kebutuhan digital sehari-hari — mulai dari
+      downloader, pengecekan data, hingga utilitas praktis berbasis web.
     </p>
-  </div>
-</section>
+  </header>
 
-<!-- ===== KATALOG ===== -->
-<section class="pb-32">
-<div class="max-w-7xl mx-auto px-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+  <!-- MAIN CONTENT -->
+  <main class="flex-1 px-4 pb-16">
+    <div class="max-w-6xl mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
-<div class="glass rounded-3xl p-8 reveal">
-  <div class="flex justify-between mb-6">
-    <i data-lucide="download" class="text-blue-400"></i>
-    <span class="text-xs text-blue-400">Online Tool</span>
-  </div>
-  <h3 class="text-xl font-semibold mb-2">Video Downloader</h3>
-  <p class="text-slate-400 text-sm">
-    Download video dari berbagai platform secara cepat.
-  </p>
-</div>
+      <!-- CARD -->
+      <div data-aos="fade-up"
+        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
+        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
+        <h3 class="mt-3 text-xl font-semibold">Video Downloader</h3>
+        <p class="mt-2 text-gray-400 text-sm">
+          Download video dari berbagai platform dengan cepat tanpa watermark dan tanpa instal aplikasi.
+        </p>
+        <a href="#"
+          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
+          Buka Tool →
+        </a>
+      </div>
 
-<div class="glass rounded-3xl p-8 reveal">
-  <div class="flex justify-between mb-6">
-    <i data-lucide="user-check" class="text-blue-400"></i>
-    <span class="text-xs text-blue-400">Checker</span>
-  </div>
-  <h3 class="text-xl font-semibold mb-2">Cek ID Game</h3>
-  <p class="text-slate-400 text-sm">
-    Validasi nickname game sebelum transaksi digital.
-  </p>
-</div>
+      <div data-aos="fade-up" data-aos-delay="100"
+        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
+        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
+        <h3 class="mt-3 text-xl font-semibold">Cek ID Game</h3>
+        <p class="mt-2 text-gray-400 text-sm">
+          Validasi ID dan nickname game secara instan untuk memastikan data akun sebelum transaksi.
+        </p>
+        <a href="#"
+          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
+          Cek Sekarang →
+        </a>
+      </div>
 
-<div class="glass rounded-3xl p-8 reveal">
-  <div class="flex justify-between mb-6">
-    <i data-lucide="credit-card" class="text-blue-400"></i>
-    <span class="text-xs text-blue-400">Utility</span>
-  </div>
-  <h3 class="text-xl font-semibold mb-2">Cek Rekening</h3>
-  <p class="text-slate-400 text-sm">
-    Membantu pengecekan rekening bank dengan aman.
-  </p>
-</div>
+      <div data-aos="fade-up" data-aos-delay="200"
+        class="bg-slate-900 border border-blue-500/20 rounded-2xl p-6 hover:scale-[1.02] transition">
+        <span class="text-xs text-blue-400 uppercase">Online Tools</span>
+        <h3 class="mt-3 text-xl font-semibold">Cek Bank</h3>
+        <p class="mt-2 text-gray-400 text-sm">
+          Periksa status bank dan validasi rekening dengan cepat melalui sistem otomatis.
+        </p>
+        <a href="#"
+          class="inline-block mt-4 text-sm font-medium text-blue-400 hover:underline">
+          Gunakan →
+        </a>
+      </div>
 
-</div>
-</section>
+    </div>
+  </main>
 
-</main>
+  <!-- FOOTER (SELALU DI BAWAH) -->
+  <footer class="border-t border-blue-500/20 py-5 text-center text-sm text-gray-400">
+    © 2026 Ansyah Digital · Online Tools Catalog
+  </footer>
 
-<!-- ===== FOOTER ===== -->
-<footer class="border-t border-slate-800 py-8">
-<div class="max-w-7xl mx-auto px-6 text-sm text-slate-500">
-© 2026 Ansyah. All rights reserved.
-</div>
-</footer>
-
-<script>
-lucide.createIcons();
-
-/* DARK MODE */
-function toggleTheme(){
-  document.documentElement.classList.toggle('dark');
-}
-
-/* REVEAL */
-const obs = new IntersectionObserver(entries=>{
- entries.forEach(e=>{
-  if(e.isIntersecting){
-    e.target.classList.add('active');
-    obs.unobserve(e.target);
-  }
- })
-},{threshold:.1});
-
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-</script>
+  <!-- AOS SCRIPT -->
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 700,
+      once: true
+    });
+  </script>
 
 </body>
 </html>
