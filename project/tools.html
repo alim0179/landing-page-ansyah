@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ansyah Tools | Online Tools</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
@@ -15,10 +15,14 @@ tailwind.config = {
 </script>
 
 <style>
-/* === GLASS STYLE === */
+/* === GLASS CARD (BIRU DOMINAN DI LIGHT MODE) === */
 .glass-card {
-  background: rgba(255,255,255,.65);
-  backdrop-filter: blur(14px);
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,.88),
+    rgba(239,246,255,.80)
+  );
+  backdrop-filter: blur(16px);
 }
 .dark .glass-card {
   background: rgba(15,23,42,.55);
@@ -40,24 +44,30 @@ tailwind.config = {
 </style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-gradient-to-br from-slate-50 to-cyan-50 dark:from-slate-950 dark:to-slate-900 text-slate-800 dark:text-slate-200">
+<body class="min-h-screen flex flex-col
+bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-100
+dark:from-slate-950 dark:to-slate-900
+text-slate-800 dark:text-slate-200">
 
-<!-- ===== DARK MODE TOGGLE (SAMA PERSIS) ===== -->
+<!-- ===== DARK MODE TOGGLE ===== -->
 <button onclick="toggleTheme()"
   class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full
-         bg-white/70 dark:bg-slate-900/70 backdrop-blur
-         border border-slate-200 dark:border-slate-700
+         bg-white/80 dark:bg-slate-900/70 backdrop-blur
+         border border-blue-200 dark:border-slate-700
          flex items-center justify-center shadow-lg">
 
-  <i id="iconSun" data-lucide="sun" class="w-6 h-6 rotate-0 scale-100 transition-all"></i>
-  <i id="iconMoon" data-lucide="moon" class="w-6 h-6 absolute rotate-90 scale-0 transition-all"></i>
+  <i id="iconSun" data-lucide="sun" class="w-6 h-6 transition-all"></i>
+  <i id="iconMoon" data-lucide="moon" class="w-6 h-6 absolute transition-all"></i>
 </button>
 
 <!-- ===== MAIN ===== -->
 <main class="flex-1 max-w-7xl mx-auto px-6 py-24">
 
+  <!-- HEADER -->
   <div class="text-center mb-20 reveal">
-    <span class="text-cyan-600 dark:text-cyan-400 font-semibold">Online Tools</span>
+    <span class="text-blue-600 dark:text-cyan-400 font-semibold">
+      Online Tools
+    </span>
     <h1 class="text-4xl md:text-5xl font-extrabold mt-4 mb-6">
       Katalog Tools Digital
     </h1>
@@ -67,30 +77,38 @@ tailwind.config = {
     </p>
   </div>
 
-  <!-- ===== GRID TOOLS ===== -->
+  <!-- GRID -->
   <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
     <!-- CARD 1 -->
     <div class="glass-card rounded-3xl p-8 reveal stagger-1 flex flex-col group">
       <div class="flex justify-between items-start mb-8">
-        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-slate-900/60
+                    flex items-center justify-center text-blue-600 dark:text-cyan-400">
           <i data-lucide="download" class="w-7 h-7"></i>
         </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300">
+        <span class="text-xs px-3 py-1 rounded-full
+                     bg-blue-100 text-blue-700
+                     dark:bg-cyan-950/40 dark:text-cyan-300">
           Online Tools
         </span>
       </div>
 
-      <h3 class="text-2xl font-bold mb-3">Video Downloader</h3>
+      <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
+        Video Downloader
+      </h3>
+
       <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
-        Tool untuk mengunduh video dari berbagai platform secara cepat tanpa watermark
-        dan tanpa perlu login.
+        Tool untuk mengunduh video dari berbagai platform secara cepat
+        tanpa watermark dan tanpa perlu login.
       </p>
 
-      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
-         bg-white/70 dark:bg-slate-900/60
-         hover:bg-cyan-50 dark:hover:bg-cyan-600
-         transition-all font-medium">
+      <a href="#"
+         class="mt-auto flex items-center justify-between p-4 rounded-xl
+                bg-white/80 hover:bg-blue-100
+                dark:bg-slate-900/60 dark:hover:bg-cyan-600
+                border border-blue-200 dark:border-slate-700
+                font-medium transition-all">
         Gunakan
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
@@ -99,21 +117,32 @@ tailwind.config = {
     <!-- CARD 2 -->
     <div class="glass-card rounded-3xl p-8 reveal stagger-2 flex flex-col group">
       <div class="flex justify-between items-start mb-8">
-        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-slate-900/60
+                    flex items-center justify-center text-blue-600 dark:text-cyan-400">
           <i data-lucide="user-search" class="w-7 h-7"></i>
         </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40">
+        <span class="text-xs px-3 py-1 rounded-full
+                     bg-blue-100 text-blue-700
+                     dark:bg-cyan-950/40 dark:text-cyan-300">
           Online Tools
         </span>
       </div>
 
-      <h3 class="text-2xl font-bold mb-3">Cek ID Game</h3>
+      <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
+        Cek ID Game
+      </h3>
+
       <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
-        Tool untuk mengecek ID dan nickname game sebelum melakukan transaksi digital.
+        Tool untuk mengecek ID dan nickname game sebelum melakukan
+        transaksi digital.
       </p>
 
-      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
-         bg-white/70 dark:bg-slate-900/60 hover:bg-cyan-50 dark:hover:bg-cyan-600 transition-all">
+      <a href="#"
+         class="mt-auto flex items-center justify-between p-4 rounded-xl
+                bg-white/80 hover:bg-blue-100
+                dark:bg-slate-900/60 dark:hover:bg-cyan-600
+                border border-blue-200 dark:border-slate-700
+                transition-all font-medium">
         Gunakan
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
@@ -122,21 +151,32 @@ tailwind.config = {
     <!-- CARD 3 -->
     <div class="glass-card rounded-3xl p-8 reveal stagger-3 flex flex-col group">
       <div class="flex justify-between items-start mb-8">
-        <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900/60 flex items-center justify-center text-cyan-600 dark:text-cyan-400">
+        <div class="w-14 h-14 rounded-2xl bg-blue-100 dark:bg-slate-900/60
+                    flex items-center justify-center text-blue-600 dark:text-cyan-400">
           <i data-lucide="banknote" class="w-7 h-7"></i>
         </div>
-        <span class="text-xs px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40">
+        <span class="text-xs px-3 py-1 rounded-full
+                     bg-blue-100 text-blue-700
+                     dark:bg-cyan-950/40 dark:text-cyan-300">
           Online Tools
         </span>
       </div>
 
-      <h3 class="text-2xl font-bold mb-3">Cek Bank</h3>
+      <h3 class="text-2xl font-bold mb-3 group-hover:text-blue-600 dark:group-hover:text-cyan-400 transition-colors">
+        Cek Bank
+      </h3>
+
       <p class="text-sm text-slate-600 dark:text-slate-400 mb-8 flex-1">
-        Tool untuk mengecek informasi rekening bank secara cepat dan praktis.
+        Tool untuk mengecek informasi rekening bank secara cepat
+        dan praktis.
       </p>
 
-      <a href="#" class="mt-auto flex items-center justify-between p-4 rounded-xl
-         bg-white/70 dark:bg-slate-900/60 hover:bg-cyan-50 dark:hover:bg-cyan-600 transition-all">
+      <a href="#"
+         class="mt-auto flex items-center justify-between p-4 rounded-xl
+                bg-white/80 hover:bg-blue-100
+                dark:bg-slate-900/60 dark:hover:bg-cyan-600
+                border border-blue-200 dark:border-slate-700
+                transition-all font-medium">
         Gunakan
         <i data-lucide="arrow-right" class="w-4 h-4"></i>
       </a>
@@ -145,12 +185,12 @@ tailwind.config = {
   </div>
 </main>
 
-<!-- ===== FOOTER (LENGKET BAWAH) ===== -->
+<!-- ===== FOOTER ===== -->
 <footer class="text-center py-6 text-sm text-slate-500 dark:text-slate-500">
 © 2026 Ansyah Digital
 </footer>
 
-<!-- ===== SCRIPT UTAMA (SAMA) ===== -->
+<!-- ===== SCRIPT UTAMA ===== -->
 <script>
 lucide.createIcons()
 
