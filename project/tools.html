@@ -1,179 +1,144 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="dark scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Tools Digital | Ansyah</title>
-  <meta name="description" content="Katalog tools online Ansyah untuk berbagai kebutuhan digital, praktis dan terpusat dalam satu website." />
+  <meta name="description" content="Katalog tools digital Ansyah dalam satu platform terpusat." />
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- Lucide Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
-    .text-gradient {
-      background: linear-gradient(90deg, #06b6d4, #3b82f6);
+    .gradient-text {
+      background: linear-gradient(90deg, #38bdf8, #2563eb);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .glass-card {
-      background: rgba(255, 255, 255, 0.7);
-      backdrop-filter: blur(10px);
-    }
-    .dark .glass-card {
-      background: rgba(15, 23, 42, 0.6);
+    .card-glow {
+      background: linear-gradient(
+        180deg,
+        rgba(37, 99, 235, 0.08),
+        rgba(2, 6, 23, 0.9)
+      );
     }
   </style>
 </head>
 
-<body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
+<body class="bg-slate-950 text-slate-100">
 
-<!-- ================= HEADER ================= -->
-<header class="fixed top-0 inset-x-0 z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+<!-- HEADER -->
+<header class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <span class="font-bold text-lg">Ansyah</span>
-    <nav class="text-sm text-slate-600 dark:text-slate-400">
-      Katalog Tools
-    </nav>
+    <span class="font-bold text-lg text-blue-400">Ansyah</span>
+    <span class="text-sm text-slate-400">Tools Catalog</span>
   </div>
 </header>
 
-<!-- ================= HERO ================= -->
-<section class="pt-40 pb-24">
+<!-- HERO -->
+<section class="pt-36 pb-28">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="max-w-3xl">
-      <h1 class="text-5xl md:text-6xl font-bold mb-6">
-        Tools <span class="text-gradient">Digital</span>
-      </h1>
-      <p class="text-lg text-slate-600 dark:text-slate-400 leading-relaxed">
-        Kumpulan tools online yang dapat digunakan untuk berbagai kebutuhan digital.
-        Semua tools disusun dalam satu katalog agar mudah diakses dan digunakan kapan saja.
-      </p>
-    </div>
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+      Tools <span class="gradient-text">Digital</span>
+    </h1>
+    <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+      Kumpulan tools online untuk berbagai kebutuhan digital.
+      Dirancang dalam satu katalog agar mudah diakses, cepat digunakan,
+      dan siap dikembangkan.
+    </p>
   </div>
 </section>
 
-<!-- ================= KATALOG TOOLS ================= -->
+<!-- KATALOG -->
 <section class="pb-32">
   <div class="max-w-7xl mx-auto px-6">
 
-    <!-- Section Title -->
-    <div class="mb-16">
-      <h2 class="text-4xl md:text-5xl font-bold mb-4">
-        Katalog <span class="text-cyan-600 dark:text-cyan-400">Tools</span>
+    <div class="mb-14">
+      <h2 class="text-4xl font-bold mb-3">
+        Katalog <span class="text-blue-400">Tools</span>
       </h2>
-      <p class="text-slate-600 dark:text-slate-400 text-lg">
-        Pilih tools sesuai kebutuhan digital Anda.
+      <p class="text-slate-400">
+        Pilih tools sesuai kebutuhan Anda.
       </p>
     </div>
 
-    <!-- Grid -->
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
-      <!-- TOOL CARD -->
-      <div class="group rounded-3xl glass-card border border-slate-200 dark:border-slate-800 overflow-hidden transition-all hover:-translate-y-1">
-        <div class="p-8 flex flex-col h-full">
-
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-cyan-600">
-              <i data-lucide="download"></i>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300">
-              Online Tool
-            </span>
+      <!-- CARD -->
+      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+        <div class="flex justify-between mb-6">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+            <i data-lucide="download"></i>
           </div>
-
-          <h3 class="text-xl font-bold mb-3">
-            Video Downloader
-          </h3>
-
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
-            Tool untuk mengunduh video dari berbagai platform dengan proses cepat,
-            sederhana, dan dapat diakses langsung tanpa instalasi.
-          </p>
-
-          <a href="#"
-             class="mt-6 flex items-center justify-between w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/40 hover:bg-cyan-50 dark:hover:bg-cyan-600 hover:text-cyan-700 dark:hover:text-white transition">
-            Gunakan
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-
+          <span class="text-xs text-blue-400">Online Tool</span>
         </div>
+
+        <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Mengunduh video dari berbagai platform dengan proses cepat,
+          sederhana, dan tanpa instalasi tambahan.
+        </p>
+
+        <a href="#"
+           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
+          Gunakan
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
       </div>
 
-      <!-- TOOL CARD -->
-      <div class="group rounded-3xl glass-card border border-slate-200 dark:border-slate-800 overflow-hidden transition-all hover:-translate-y-1">
-        <div class="p-8 flex flex-col h-full">
-
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-cyan-600">
-              <i data-lucide="user-check"></i>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300">
-              Utility
-            </span>
+      <!-- CARD -->
+      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+        <div class="flex justify-between mb-6">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+            <i data-lucide="user-check"></i>
           </div>
-
-          <h3 class="text-xl font-bold mb-3">
-            Cek Username Game
-          </h3>
-
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
-            Tool untuk mengecek nickname atau username game secara otomatis
-            sebelum melakukan transaksi atau top up.
-          </p>
-
-          <a href="#"
-             class="mt-6 flex items-center justify-between w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/40 hover:bg-cyan-50 dark:hover:bg-cyan-600 hover:text-cyan-700 dark:hover:text-white transition">
-            Gunakan
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-
+          <span class="text-xs text-blue-400">Utility</span>
         </div>
+
+        <h3 class="text-xl font-semibold mb-3">Cek Username Game</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Mengecek nickname game secara otomatis untuk memastikan
+          akun sebelum melakukan transaksi.
+        </p>
+
+        <a href="#"
+           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
+          Gunakan
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
       </div>
 
-      <!-- TOOL CARD -->
-      <div class="group rounded-3xl glass-card border border-slate-200 dark:border-slate-800 overflow-hidden transition-all hover:-translate-y-1">
-        <div class="p-8 flex flex-col h-full">
-
-          <div class="flex justify-between items-start mb-6">
-            <div class="w-14 h-14 rounded-2xl bg-slate-100 dark:bg-slate-900 flex items-center justify-center text-cyan-600">
-              <i data-lucide="credit-card"></i>
-            </div>
-            <span class="text-xs px-3 py-1 rounded-full bg-cyan-50 dark:bg-cyan-950/40 text-cyan-700 dark:text-cyan-300">
-              Checker
-            </span>
+      <!-- CARD -->
+      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+        <div class="flex justify-between mb-6">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+            <i data-lucide="credit-card"></i>
           </div>
-
-          <h3 class="text-xl font-bold mb-3">
-            Cek Rekening
-          </h3>
-
-          <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-1">
-            Tool untuk membantu mengecek informasi rekening bank
-            guna meningkatkan keamanan sebelum melakukan transfer.
-          </p>
-
-          <a href="#"
-             class="mt-6 flex items-center justify-between w-full p-4 rounded-xl border border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-900/40 hover:bg-cyan-50 dark:hover:bg-cyan-600 hover:text-cyan-700 dark:hover:text-white transition">
-            Gunakan
-            <i data-lucide="arrow-right" class="w-4 h-4"></i>
-          </a>
-
+          <span class="text-xs text-blue-400">Checker</span>
         </div>
+
+        <h3 class="text-xl font-semibold mb-3">Cek Rekening</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Membantu memverifikasi informasi rekening bank
+          demi transaksi yang lebih aman.
+        </p>
+
+        <a href="#"
+           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
+          Gunakan
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
       </div>
 
     </div>
   </div>
 </section>
 
-<!-- ================= FOOTER ================= -->
-<footer class="border-t border-slate-200 dark:border-slate-800 py-10">
-  <div class="max-w-7xl mx-auto px-6 text-sm text-slate-500 dark:text-slate-400">
-    © 2026 Ansyah Digital. All rights reserved.
+<!-- FOOTER -->
+<footer class="border-t border-slate-800 py-10">
+  <div class="max-w-7xl mx-auto px-6 text-sm text-slate-500">
+    © 2026 Ansyah Digital
   </div>
 </footer>
 
