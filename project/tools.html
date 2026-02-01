@@ -1,177 +1,148 @@
 <!DOCTYPE html>
 <html lang="id" class="dark scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tools Digital | Ansyah</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
+<title>Tools Digital | Ansyah</title>
+<meta name="description" content="Katalog tools digital Ansyah. Berisi berbagai online tools, checker, dan utilities digital dalam satu platform.">
 
-  <style>
-    .gradient-text {
-      background: linear-gradient(90deg, #38bdf8, #2563eb);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
-    .fade-up {
-      animation: fadeUp .8s ease forwards;
-      opacity: 0;
-      transform: translateY(24px);
-    }
+<script>
+tailwind.config = {
+  darkMode: 'class'
+}
+</script>
 
-    @keyframes fadeUp {
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 
-    .card-hover:hover {
-      box-shadow: 0 0 0 1px rgba(59,130,246,.4),
-                  0 20px 40px rgba(59,130,246,.2);
-    }
-  </style>
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg,#38bdf8,#2563eb,#6366f1);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+.glass {
+  backdrop-filter: blur(14px);
+  background: rgba(15,23,42,.6);
+  border: 1px solid rgba(56,189,248,.15);
+}
+
+.reveal {
+  opacity:0;
+  transform:translateY(30px);
+  transition:.8s ease;
+}
+.reveal.active {
+  opacity:1;
+  transform:none;
+}
+</style>
 </head>
 
-<body class="bg-slate-950 text-slate-100 transition-colors duration-500">
+<body class="min-h-screen flex flex-col bg-slate-950 text-slate-200">
 
-<!-- HERO -->
-<section class="pt-32 pb-24">
-  <div class="max-w-7xl mx-auto px-6 fade-up">
-    <span class="text-blue-400 font-semibold">Ansyah Digital</span>
-    <h1 class="mt-4 text-5xl md:text-6xl font-bold">
-      Tools <span class="gradient-text">Digital</span>
-    </h1>
-    <p class="mt-6 text-lg text-slate-400 max-w-2xl leading-relaxed">
-      Katalog tools online untuk berbagai kebutuhan digital.
-      Terpusat, cepat digunakan, dan siap dikembangkan ke berbagai layanan.
-    </p>
-  </div>
-</section>
+<!-- ===== NAVBAR ===== -->
+<nav class="fixed top-0 w-full z-50 glass">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+    <div class="font-bold text-xl text-blue-400">Ansyah</div>
 
-<!-- NAVBAR (DI BAWAH HERO) -->
-<nav class="border-t border-b border-slate-800 bg-slate-950">
-  <div class="max-w-7xl mx-auto px-6 h-14 flex items-center justify-between">
-    <div class="flex gap-6 text-sm text-slate-400">
-      <span class="text-blue-400 font-medium">Tools</span>
-      <span>Olshop</span>
-      <span>Template</span>
-    </div>
-
-    <!-- TOGGLE -->
-    <button id="themeToggle"
-      class="p-2 rounded-lg border border-slate-700 hover:bg-slate-800 transition">
-      <i id="themeIcon" data-lucide="sun" class="w-4 h-4 text-blue-400"></i>
+    <button onclick="toggleTheme()" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center">
+      <i data-lucide="sun" id="themeIcon"></i>
     </button>
   </div>
 </nav>
 
-<!-- KATALOG -->
-<section class="py-28">
-  <div class="max-w-7xl mx-auto px-6">
+<main class="flex-grow pt-32">
 
-    <div class="mb-14 fade-up">
-      <h2 class="text-4xl font-bold mb-3">
-        Katalog <span class="text-blue-400">Tools</span>
-      </h2>
-      <p class="text-slate-400">
-        Pilih tools sesuai kebutuhan Anda.
-      </p>
-    </div>
-
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-
-      <!-- CARD -->
-      <div class="fade-up card-hover rounded-3xl border border-slate-800 bg-slate-900 p-8 transition"
-           style="animation-delay:.1s">
-        <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
-            <i data-lucide="download"></i>
-          </div>
-          <span class="text-xs text-blue-400">Online Tool</span>
-        </div>
-
-        <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Mengunduh video dari berbagai platform secara cepat
-          dan tanpa instalasi tambahan.
-        </p>
-
-        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400">
-          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-      </div>
-
-      <!-- CARD -->
-      <div class="fade-up card-hover rounded-3xl border border-slate-800 bg-slate-900 p-8 transition"
-           style="animation-delay:.2s">
-        <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
-            <i data-lucide="user-check"></i>
-          </div>
-          <span class="text-xs text-blue-400">Utility</span>
-        </div>
-
-        <h3 class="text-xl font-semibold mb-3">Cek Username Game</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Mengecek nickname game sebelum melakukan transaksi.
-        </p>
-
-        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400">
-          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-      </div>
-
-      <!-- CARD -->
-      <div class="fade-up card-hover rounded-3xl border border-slate-800 bg-slate-900 p-8 transition"
-           style="animation-delay:.3s">
-        <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
-            <i data-lucide="credit-card"></i>
-          </div>
-          <span class="text-xs text-blue-400">Checker</span>
-        </div>
-
-        <h3 class="text-xl font-semibold mb-3">Cek Rekening</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Membantu memverifikasi rekening bank sebelum transfer.
-        </p>
-
-        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400">
-          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-      </div>
-
-    </div>
+<!-- ===== HERO ===== -->
+<section class="pb-28">
+  <div class="max-w-7xl mx-auto px-6 reveal">
+    <h1 class="text-5xl md:text-6xl font-bold mb-6">
+      Tools <span class="text-gradient">Digital</span>
+    </h1>
+    <p class="max-w-2xl text-slate-400 text-lg leading-relaxed">
+      Kumpulan tools online untuk mendukung berbagai kebutuhan digital,
+      mulai dari checker, downloader, hingga utilities praktis.
+    </p>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="border-t border-slate-800 py-10">
-  <div class="max-w-7xl mx-auto px-6 text-sm text-slate-500">
-    © 2026 Ansyah Digital
+<!-- ===== KATALOG ===== -->
+<section class="pb-32">
+<div class="max-w-7xl mx-auto px-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+<div class="glass rounded-3xl p-8 reveal">
+  <div class="flex justify-between mb-6">
+    <i data-lucide="download" class="text-blue-400"></i>
+    <span class="text-xs text-blue-400">Online Tool</span>
   </div>
+  <h3 class="text-xl font-semibold mb-2">Video Downloader</h3>
+  <p class="text-slate-400 text-sm">
+    Download video dari berbagai platform secara cepat.
+  </p>
+</div>
+
+<div class="glass rounded-3xl p-8 reveal">
+  <div class="flex justify-between mb-6">
+    <i data-lucide="user-check" class="text-blue-400"></i>
+    <span class="text-xs text-blue-400">Checker</span>
+  </div>
+  <h3 class="text-xl font-semibold mb-2">Cek ID Game</h3>
+  <p class="text-slate-400 text-sm">
+    Validasi nickname game sebelum transaksi digital.
+  </p>
+</div>
+
+<div class="glass rounded-3xl p-8 reveal">
+  <div class="flex justify-between mb-6">
+    <i data-lucide="credit-card" class="text-blue-400"></i>
+    <span class="text-xs text-blue-400">Utility</span>
+  </div>
+  <h3 class="text-xl font-semibold mb-2">Cek Rekening</h3>
+  <p class="text-slate-400 text-sm">
+    Membantu pengecekan rekening bank dengan aman.
+  </p>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer class="border-t border-slate-800 py-8">
+<div class="max-w-7xl mx-auto px-6 text-sm text-slate-500">
+© 2026 Ansyah. All rights reserved.
+</div>
 </footer>
 
 <script>
-  lucide.createIcons();
+lucide.createIcons();
 
-  const html = document.documentElement;
-  const toggle = document.getElementById("themeToggle");
-  const icon = document.getElementById("themeIcon");
+/* DARK MODE */
+function toggleTheme(){
+  document.documentElement.classList.toggle('dark');
+}
 
-  // default DARK
-  localStorage.theme ??= "dark";
-  html.classList.toggle("dark", localStorage.theme === "dark");
+/* REVEAL */
+const obs = new IntersectionObserver(entries=>{
+ entries.forEach(e=>{
+  if(e.isIntersecting){
+    e.target.classList.add('active');
+    obs.unobserve(e.target);
+  }
+ })
+},{threshold:.1});
 
-  toggle.onclick = () => {
-    const isDark = html.classList.toggle("dark");
-    localStorage.theme = isDark ? "dark" : "light";
-    icon.setAttribute("data-lucide", isDark ? "sun" : "moon");
-    lucide.createIcons();
-  };
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
 
 </body>
