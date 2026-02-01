@@ -1,51 +1,66 @@
 <!DOCTYPE html>
-<html lang="id" class="dark scroll-smooth">
+<html lang="id" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools Digital | Ansyah</title>
-  <meta name="description" content="Katalog tools digital Ansyah dalam satu platform terpusat." />
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
   <style>
+    /* Animasi masuk */
+    .fade-up {
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Glow biru */
+    .blue-glow:hover {
+      box-shadow: 0 0 0 1px rgba(59,130,246,.4),
+                  0 20px 40px rgba(59,130,246,.15);
+    }
+
     .gradient-text {
       background: linear-gradient(90deg, #38bdf8, #2563eb);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .card-glow {
-      background: linear-gradient(
-        180deg,
-        rgba(37, 99, 235, 0.08),
-        rgba(2, 6, 23, 0.9)
-      );
-    }
   </style>
 </head>
 
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500">
 
 <!-- HEADER -->
-<header class="fixed top-0 inset-x-0 z-50 bg-slate-950/80 backdrop-blur border-b border-slate-800">
+<header class="fixed inset-x-0 top-0 z-50 backdrop-blur bg-white/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800">
   <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-    <span class="font-bold text-lg text-blue-400">Ansyah</span>
-    <span class="text-sm text-slate-400">Tools Catalog</span>
+    <span class="font-bold text-lg text-blue-600 dark:text-blue-400">Ansyah</span>
+
+    <!-- Toggle -->
+    <button id="themeToggle"
+      class="p-2 rounded-lg border border-slate-300 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+      <i data-lucide="moon" class="w-4 h-4"></i>
+    </button>
   </div>
 </header>
 
 <!-- HERO -->
-<section class="pt-36 pb-28">
-  <div class="max-w-7xl mx-auto px-6">
+<section class="pt-36 pb-24">
+  <div class="max-w-7xl mx-auto px-6 fade-up">
     <h1 class="text-5xl md:text-6xl font-bold mb-6">
       Tools <span class="gradient-text">Digital</span>
     </h1>
-    <p class="text-lg text-slate-400 max-w-2xl leading-relaxed">
+    <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl leading-relaxed">
       Kumpulan tools online untuk berbagai kebutuhan digital.
-      Dirancang dalam satu katalog agar mudah diakses, cepat digunakan,
-      dan siap dikembangkan.
+      Dirangkum dalam satu katalog agar cepat, praktis,
+      dan mudah dikembangkan.
     </p>
   </div>
 </section>
@@ -54,11 +69,11 @@
 <section class="pb-32">
   <div class="max-w-7xl mx-auto px-6">
 
-    <div class="mb-14">
+    <div class="mb-14 fade-up" style="animation-delay:.1s">
       <h2 class="text-4xl font-bold mb-3">
-        Katalog <span class="text-blue-400">Tools</span>
+        Katalog <span class="text-blue-600 dark:text-blue-400">Tools</span>
       </h2>
-      <p class="text-slate-400">
+      <p class="text-slate-600 dark:text-slate-400">
         Pilih tools sesuai kebutuhan Anda.
       </p>
     </div>
@@ -66,68 +81,65 @@
     <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
 
       <!-- CARD -->
-      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+      <div class="fade-up blue-glow rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 transition-all hover:-translate-y-1"
+           style="animation-delay:.15s">
         <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-500">
             <i data-lucide="download"></i>
           </div>
-          <span class="text-xs text-blue-400">Online Tool</span>
+          <span class="text-xs text-blue-500">Online Tool</span>
         </div>
 
         <h3 class="text-xl font-semibold mb-3">Video Downloader</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Mengunduh video dari berbagai platform dengan proses cepat,
-          sederhana, dan tanpa instalasi tambahan.
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Mengunduh video dari berbagai platform secara cepat
+          dan tanpa instalasi.
         </p>
 
-        <a href="#"
-           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
-          Gunakan
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
 
       <!-- CARD -->
-      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+      <div class="fade-up blue-glow rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 transition-all hover:-translate-y-1"
+           style="animation-delay:.25s">
         <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-500">
             <i data-lucide="user-check"></i>
           </div>
-          <span class="text-xs text-blue-400">Utility</span>
+          <span class="text-xs text-blue-500">Utility</span>
         </div>
 
         <h3 class="text-xl font-semibold mb-3">Cek Username Game</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Mengecek nickname game secara otomatis untuk memastikan
-          akun sebelum melakukan transaksi.
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Mengecek nickname game secara otomatis
+          sebelum melakukan transaksi.
         </p>
 
-        <a href="#"
-           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
-          Gunakan
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
 
       <!-- CARD -->
-      <div class="rounded-3xl border border-slate-800 card-glow p-8 hover:border-blue-600 transition">
+      <div class="fade-up blue-glow rounded-3xl border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-8 transition-all hover:-translate-y-1"
+           style="animation-delay:.35s">
         <div class="flex justify-between mb-6">
-          <div class="w-12 h-12 rounded-xl bg-blue-600/20 flex items-center justify-center text-blue-400">
+          <div class="w-12 h-12 rounded-xl bg-blue-600/15 flex items-center justify-center text-blue-500">
             <i data-lucide="credit-card"></i>
           </div>
-          <span class="text-xs text-blue-400">Checker</span>
+          <span class="text-xs text-blue-500">Checker</span>
         </div>
 
         <h3 class="text-xl font-semibold mb-3">Cek Rekening</h3>
-        <p class="text-sm text-slate-400 leading-relaxed">
-          Membantu memverifikasi informasi rekening bank
-          demi transaksi yang lebih aman.
+        <p class="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+          Membantu memverifikasi rekening bank
+          sebelum melakukan transfer.
         </p>
 
-        <a href="#"
-           class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-400 hover:text-blue-300">
-          Gunakan
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        <a href="#" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-blue-600 dark:text-blue-400">
+          Gunakan <i data-lucide="arrow-right" class="w-4 h-4"></i>
         </a>
       </div>
 
@@ -136,14 +148,27 @@
 </section>
 
 <!-- FOOTER -->
-<footer class="border-t border-slate-800 py-10">
-  <div class="max-w-7xl mx-auto px-6 text-sm text-slate-500">
+<footer class="border-t border-slate-200 dark:border-slate-800 py-10">
+  <div class="max-w-7xl mx-auto px-6 text-sm text-slate-500 dark:text-slate-400">
     © 2026 Ansyah Digital
   </div>
 </footer>
 
 <script>
   lucide.createIcons();
+
+  const html = document.documentElement;
+  const toggle = document.getElementById("themeToggle");
+
+  // Load theme
+  if (localStorage.theme === "dark") {
+    html.classList.add("dark");
+  }
+
+  toggle.onclick = () => {
+    html.classList.toggle("dark");
+    localStorage.theme = html.classList.contains("dark") ? "dark" : "light";
+  };
 </script>
 
 </body>
