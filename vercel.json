@@ -3,3 +3,9 @@
     { "source": "/project/:slug", "destination": "/project/:slug.html" }
   ]
 }
+
+{
+  "rewrites": [
+    { "source": "/project/:slug", "destination": "/project/:slug.html" }
+  ]
+}
