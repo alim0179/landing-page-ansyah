@@ -4,8 +4,4 @@
   ]
 }
 
-{
-  "rewrites": [
-    { "source": "/project/tools/:slug", "destination": "/project/tools/:slug.html" }
-  ]
-}
+
