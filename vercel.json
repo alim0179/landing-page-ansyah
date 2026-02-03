@@ -1,6 +1,8 @@
 {
   "rewrites": [
     { "source": "/project/:slug", "destination": "/project/:slug.html" },
-    { "source": "/project/tools/:slug", "destination": "/project/tools/:slug.html" }
+    { "source": "/project/tools/:slug", "destination": "/project/tools/:slug.html" },
+    { "source": "/project/store/:slug", "destination": "/project/store/:slug.html" },
+    { "source": "/project/template/:slug", "destination": "/project/template/:slug.html" }
   ]
 }
