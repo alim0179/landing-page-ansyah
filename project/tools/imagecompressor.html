@@ -9,7 +9,6 @@
 <style>
 :root{
   --bg:#020617;
-  --card:#020617cc;
   --line:#334155;
   --muted:#94a3b8;
   --accent:#38bdf8;
@@ -36,15 +35,12 @@ body{
 .card{
   max-width:460px;
   width:100%;
-  background:linear-gradient(180deg,var(--card),#020617ee);
+  background:linear-gradient(180deg,#020617cc,#020617ee);
   backdrop-filter:blur(14px);
   border-radius:24px;
   padding:28px;
   border:1px solid var(--line);
-  box-shadow:
-    0 0 0 1px #020617,
-    0 0 40px #38bdf820,
-    0 30px 80px rgba(0,0,0,.7);
+  box-shadow:0 0 40px #38bdf820,0 30px 80px rgba(0,0,0,.7);
 }
 
 h1{
@@ -62,6 +58,8 @@ h1{
   margin:6px 0 14px;
 }
 
+.center{text-align:center}
+
 .badge{
   display:inline-block;
   padding:6px 12px;
@@ -71,10 +69,8 @@ h1{
   color:var(--muted);
 }
 
-.center{text-align:center}
-
 .upload{
-  margin-top:14px;
+  margin-top:16px;
   border:2px dashed #334155;
   border-radius:16px;
   padding:24px;
@@ -90,16 +86,17 @@ h1{
   background:#020617aa;
 }
 
+.upload.active{
+  border-color:var(--accent);
+  background:#020617cc;
+  box-shadow:0 0 30px #38bdf840;
+}
+
 .upload::before{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(
-    120deg,
-    transparent 40%,
-    #38bdf820 50%,
-    transparent 60%
-  );
+  background:linear-gradient(120deg,transparent 40%,#38bdf820 50%,transparent 60%);
   transform:translateX(-100%);
 }
 
@@ -107,19 +104,17 @@ h1{
   animation:scan 1.2s linear infinite;
 }
 
-@keyframes scan{
-  to{transform:translateX(100%)}
-}
+@keyframes scan{to{transform:translateX(100%)}}
 
-.upload strong{
-  display:block;
-  font-size:15px;
-}
-.upload span{
-  display:block;
-  margin-top:4px;
+.upload strong{display:block;font-size:15px}
+.upload span{display:block;margin-top:4px;font-size:12px;color:var(--muted)}
+
+.fileinfo{
+  display:none;
+  margin-top:10px;
   font-size:12px;
-  color:var(--muted);
+  color:var(--accent);
+  text-align:center;
 }
 
 button{
@@ -136,14 +131,7 @@ button{
   box-shadow:0 0 25px #38bdf850;
 }
 
-button:hover{
-  box-shadow:0 0 40px #38bdf880;
-}
-
-button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-}
+button:disabled{opacity:.6;cursor:not-allowed}
 
 .loading{
   display:none;
@@ -166,9 +154,7 @@ button:disabled{
   animation:load 1.6s ease forwards;
 }
 
-@keyframes load{
-  to{width:100%}
-}
+@keyframes load{to{width:100%}}
 
 .loading p{
   text-align:center;
@@ -184,9 +170,7 @@ button:disabled{
   animation:fadeUp .5s ease;
 }
 
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(10px)}
-}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}}
 
 .preview{
   margin-top:12px;
@@ -243,14 +227,15 @@ footer{
 
   <input type="file" id="imageInput" accept="image/*" hidden>
 
-  <div class="upload" onclick="imageInput.click()">
+  <div class="upload" id="uploadBox" onclick="imageInput.click()">
     <strong>Pilih atau drop gambar</strong>
     <span>JPG, PNG, WebP • max 10MB</span>
   </div>
 
+  <div class="fileinfo" id="fileinfo"></div>
+
   <button id="btn" onclick="compressImage()">⚡ Kompres Sekarang</button>
 
-  <!-- AI LOADING -->
   <div class="loading" id="loading">
     <div class="bar"><span></span></div>
     <p>AI sedang mengoptimalkan gambar…</p>
@@ -270,9 +255,31 @@ footer{
 </div>
 
 <script>
+const imageInput=document.getElementById("imageInput");
+const uploadBox=document.getElementById("uploadBox");
+const fileinfo=document.getElementById("fileinfo");
+const btn=document.getElementById("btn");
+const loading=document.getElementById("loading");
+const result=document.getElementById("result");
+const preview=document.getElementById("preview");
+const stats=document.getElementById("stats");
+const downloadLink=document.getElementById("downloadLink");
+
 function formatSize(b){
   return b<1024*1024?(b/1024).toFixed(1)+" KB":(b/1024/1024).toFixed(2)+" MB";
 }
+
+imageInput.onchange=()=>{
+  const file=imageInput.files[0];
+  if(!file) return;
+
+  uploadBox.classList.add("active");
+  uploadBox.querySelector("strong").textContent="Gambar siap dikompres";
+  uploadBox.querySelector("span").textContent="Klik tombol kompres untuk memulai";
+
+  fileinfo.style.display="block";
+  fileinfo.textContent=`📁 ${file.name} • ${formatSize(file.size)}`;
+};
 
 function compressImage(){
   const file=imageInput.files[0];
@@ -282,14 +289,12 @@ function compressImage(){
   loading.style.display="block";
   result.style.display="none";
 
-  setTimeout(()=>{ // efek AI processing
+  setTimeout(()=>{
     const reader=new FileReader();
     reader.readAsDataURL(file);
-
     reader.onload=e=>{
       const img=new Image();
       img.src=e.target.result;
-
       img.onload=()=>{
         const canvas=document.createElement("canvas");
         const ctx=canvas.getContext("2d");
@@ -306,7 +311,6 @@ function compressImage(){
 
         canvas.toBlob(blob=>{
           const url=URL.createObjectURL(blob);
-
           preview.src=url;
           downloadLink.href=url;
           downloadLink.download="ansyah-"+file.name;
@@ -325,6 +329,10 @@ function compressImage(){
 
 function resetTool(){
   imageInput.value="";
+  uploadBox.classList.remove("active");
+  uploadBox.querySelector("strong").textContent="Pilih atau drop gambar";
+  uploadBox.querySelector("span").textContent="JPG, PNG, WebP • max 10MB";
+  fileinfo.style.display="none";
   result.style.display="none";
 }
 </script>
