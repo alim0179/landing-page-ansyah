@@ -2,79 +2,115 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<title>Image Compressor — Ansyah</title>
+<title>AI Image Compressor — Ansyah</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Kompres gambar langsung di browser. Cepat, aman, tanpa upload, kualitas tetap tajam.">
+<meta name="description" content="AI Image Compressor. Kompres gambar langsung di browser, cepat, aman, tanpa upload.">
 
 <style>
 :root{
-  --bg:#0f172a;
-  --card:#020617;
+  --bg:#020617;
+  --card:#020617cc;
+  --line:#334155;
   --muted:#94a3b8;
-  --line:#1e293b;
   --accent:#38bdf8;
-  --accent2:#6366f1;
+  --accent2:#818cf8;
 }
-*{
-  box-sizing:border-box;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif
-}
+
+*{box-sizing:border-box;font-family:system-ui,sans-serif}
+
 body{
   margin:0;
-  background:radial-gradient(1200px 600px at top,var(--bg),#020617);
-  color:#e5e7eb;
   min-height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
   padding:20px;
+  color:#e5e7eb;
+  background:
+    radial-gradient(600px 300px at 10% 10%, #1e3a8a55, transparent),
+    radial-gradient(500px 400px at 90% 20%, #7c3aed55, transparent),
+    radial-gradient(400px 300px at 50% 90%, #38bdf855, transparent),
+    var(--bg);
 }
+
 .card{
-  background:linear-gradient(180deg,#020617,#020617cc);
-  border-radius:22px;
-  padding:28px;
   max-width:460px;
   width:100%;
-  box-shadow:0 30px 70px rgba(0,0,0,.65);
+  background:linear-gradient(180deg,var(--card),#020617ee);
+  backdrop-filter:blur(14px);
+  border-radius:24px;
+  padding:28px;
   border:1px solid var(--line);
+  box-shadow:
+    0 0 0 1px #020617,
+    0 0 40px #38bdf820,
+    0 30px 80px rgba(0,0,0,.7);
 }
+
 h1{
   text-align:center;
   margin:0;
-  font-size:22px;
+  font-size:23px;
   font-weight:900;
+  text-shadow:0 0 18px #38bdf840;
 }
+
 .subtitle{
   text-align:center;
   font-size:14px;
   color:var(--muted);
   margin:6px 0 14px;
 }
+
 .badge{
   display:inline-block;
   padding:6px 12px;
   border-radius:999px;
-  background:#020617;
   border:1px solid var(--line);
   font-size:12px;
   color:var(--muted);
-  margin-bottom:14px;
 }
+
 .center{text-align:center}
 
 .upload{
-  margin-top:10px;
+  margin-top:14px;
   border:2px dashed #334155;
   border-radius:16px;
-  padding:22px;
+  padding:24px;
   text-align:center;
   cursor:pointer;
+  position:relative;
+  overflow:hidden;
   transition:.25s;
 }
+
 .upload:hover{
   border-color:var(--accent);
   background:#020617aa;
 }
+
+.upload::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(
+    120deg,
+    transparent 40%,
+    #38bdf820 50%,
+    transparent 60%
+  );
+  transform:translateX(-100%);
+}
+
+.upload:hover::before{
+  animation:scan 1.2s linear infinite;
+}
+
+@keyframes scan{
+  to{transform:translateX(100%)}
+}
+
 .upload strong{
   display:block;
   font-size:15px;
@@ -97,34 +133,83 @@ button{
   font-size:15px;
   font-weight:800;
   cursor:pointer;
+  box-shadow:0 0 25px #38bdf850;
 }
+
+button:hover{
+  box-shadow:0 0 40px #38bdf880;
+}
+
 button:disabled{
   opacity:.6;
   cursor:not-allowed;
+}
+
+.loading{
+  display:none;
+  margin-top:16px;
+}
+
+.bar{
+  height:8px;
+  border-radius:999px;
+  background:#020617;
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+
+.bar span{
+  display:block;
+  height:100%;
+  width:0%;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  animation:load 1.6s ease forwards;
+}
+
+@keyframes load{
+  to{width:100%}
+}
+
+.loading p{
+  text-align:center;
+  font-size:12px;
+  color:var(--muted);
+  margin-top:8px;
 }
 
 .result{
   display:none;
   margin-top:24px;
   text-align:center;
+  animation:fadeUp .5s ease;
 }
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(10px)}
+}
+
 .preview{
   margin-top:12px;
   max-width:100%;
   border-radius:14px;
-  box-shadow:0 10px 30px rgba(0,0,0,.5);
+  border:1px solid var(--line);
+  box-shadow:0 10px 40px rgba(0,0,0,.6);
 }
+
 .stats{
   font-size:13px;
   color:var(--muted);
   margin-top:10px;
+  font-weight:600;
 }
+
 .actions{
   margin-top:14px;
   display:flex;
   gap:10px;
   justify-content:center;
 }
+
 a.download,button.reset{
   padding:10px 14px;
   border-radius:12px;
@@ -134,6 +219,7 @@ a.download,button.reset{
   border:1px solid var(--line);
   background:#020617;
 }
+
 a.download{color:var(--accent)}
 button.reset{color:#e5e7eb}
 
@@ -148,23 +234,27 @@ footer{
 
 <body>
 <div class="card">
-  <h1>Image Compressor</h1>
-  <div class="subtitle">Kompres otomatis • kualitas tetap tajam</div>
+  <h1>🧠 AI Image Compressor</h1>
+  <div class="subtitle">Optimasi otomatis • kualitas tetap tajam</div>
 
   <div class="center">
     <span class="badge">100% di browser • tanpa upload</span>
   </div>
 
-  <!-- INPUT FILE (AMAN DI MOBILE) -->
   <input type="file" id="imageInput" accept="image/*" hidden>
 
-  <!-- AREA KLIK -->
-  <div class="upload" onclick="document.getElementById('imageInput').click()">
+  <div class="upload" onclick="imageInput.click()">
     <strong>Pilih atau drop gambar</strong>
     <span>JPG, PNG, WebP • max 10MB</span>
   </div>
 
-  <button id="btn" onclick="compressImage()">Kompres Sekarang</button>
+  <button id="btn" onclick="compressImage()">⚡ Kompres Sekarang</button>
+
+  <!-- AI LOADING -->
+  <div class="loading" id="loading">
+    <div class="bar"><span></span></div>
+    <p>AI sedang mengoptimalkan gambar…</p>
+  </div>
 
   <div class="result" id="result">
     <img id="preview" class="preview">
@@ -176,76 +266,66 @@ footer{
     </div>
   </div>
 
-  <footer>© Ansyah.tools</footer>
+  <footer>⚡ Powered by Ansyah AI Tools</footer>
 </div>
 
 <script>
-function formatSize(bytes){
-  return bytes < 1024*1024
-    ? (bytes/1024).toFixed(1)+" KB"
-    : (bytes/1024/1024).toFixed(2)+" MB";
+function formatSize(b){
+  return b<1024*1024?(b/1024).toFixed(1)+" KB":(b/1024/1024).toFixed(2)+" MB";
 }
 
 function compressImage(){
-  const input = document.getElementById("imageInput");
-  const file = input.files[0];
-  if(!file){
-    alert("Pilih gambar terlebih dahulu");
-    return;
-  }
+  const file=imageInput.files[0];
+  if(!file){alert("Pilih gambar terlebih dahulu");return;}
 
-  const btn = document.getElementById("btn");
-  btn.disabled = true;
-  btn.textContent = "Mengompres...";
+  btn.disabled=true;
+  loading.style.display="block";
+  result.style.display="none";
 
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
+  setTimeout(()=>{ // efek AI processing
+    const reader=new FileReader();
+    reader.readAsDataURL(file);
 
-  reader.onload = e => {
-    const img = new Image();
-    img.src = e.target.result;
+    reader.onload=e=>{
+      const img=new Image();
+      img.src=e.target.result;
 
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
+      img.onload=()=>{
+        const canvas=document.createElement("canvas");
+        const ctx=canvas.getContext("2d");
 
-      const MAX = 1920;
-      const scale = Math.min(1, MAX / img.width);
-      canvas.width = img.width * scale;
-      canvas.height = img.height * scale;
+        const MAX=1920;
+        const scale=Math.min(1,MAX/img.width);
+        canvas.width=img.width*scale;
+        canvas.height=img.height*scale;
 
-      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img,0,0,canvas.width,canvas.height);
 
-      const outputType = file.type === "image/png" ? "image/png" : "image/jpeg";
-      const quality = outputType === "image/jpeg" ? 0.8 : undefined;
+        const type=file.type==="image/png"?"image/png":"image/jpeg";
+        const quality=type==="image/jpeg"?0.8:undefined;
 
-      canvas.toBlob(blob => {
-        const url = URL.createObjectURL(blob);
+        canvas.toBlob(blob=>{
+          const url=URL.createObjectURL(blob);
 
-        preview.src = url;
-        downloadLink.href = url;
-        downloadLink.download = "ansyah-" + file.name;
+          preview.src=url;
+          downloadLink.href=url;
+          downloadLink.download="ansyah-"+file.name;
 
-        const saved = 100 - (blob.size / file.size * 100);
-        stats.innerHTML =
-          `${formatSize(file.size)} → ${formatSize(blob.size)} • hemat ${saved.toFixed(0)}%`;
+          const saved=100-(blob.size/file.size*100);
+          stats.textContent=`${formatSize(file.size)} → ${formatSize(blob.size)} • hemat ${saved.toFixed(0)}%`;
 
-        result.style.display = "block";
-
-        downloadLink.onclick = () => {
-          setTimeout(() => URL.revokeObjectURL(url), 1000);
-        };
-
-        btn.disabled = false;
-        btn.textContent = "Kompres Sekarang";
-      }, outputType, quality);
+          loading.style.display="none";
+          result.style.display="block";
+          btn.disabled=false;
+        },type,quality);
+      };
     };
-  };
+  },1200);
 }
 
 function resetTool(){
-  imageInput.value = "";
-  result.style.display = "none";
+  imageInput.value="";
+  result.style.display="none";
 }
 </script>
 </body>
