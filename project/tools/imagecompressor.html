@@ -41,6 +41,8 @@ body{
   --soft-bg:#f8fafc;
   --soft-border:#e2e8f0;
   --muted:#64748b;
+
+  --btn-text:#0f172a; /* light */
 }
 
 .dark{
@@ -49,6 +51,8 @@ body{
   --soft-bg:#020617;
   --soft-border:#334155;
   --muted:#94a3b8;
+
+  --btn-text:#020617; /* dark */
 }
 
 /* ===== TOOL CARD ===== */
@@ -153,10 +157,20 @@ button.main{
   border:none;
   border-radius:14px;
   background:linear-gradient(135deg,#38bdf8,#818cf8);
-  color:#020617;
+  color:var(--btn-text);
   font-size:15px;
   font-weight:800;
   cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+button.main:active{
+  transform:scale(.97);
+}
+
+button.main:disabled{
+  opacity:.6;
+  cursor:not-allowed;
 }
 
 /* ===== LOADING ===== */
@@ -282,11 +296,12 @@ button.main{
 
 <script>
 lucide.createIcons();
+
 function toggleTheme(){
-  document.documentElement.classList.toggle('dark')
+  document.documentElement.classList.toggle('dark');
 }
 
-/* TOOL LOGIC (ASLI, TIDAK DIUBAH) */
+/* ===== TOOL LOGIC ===== */
 const imageInput=document.getElementById("imageInput");
 const uploadWrapper=document.getElementById("uploadWrapper");
 const filePanel=document.getElementById("filePanel");
@@ -314,6 +329,7 @@ function compressImage(){
   const f=imageInput.files[0];
   if(!f)return alert("Pilih gambar dulu");
   btn.disabled=true;
+
   loading.innerHTML=`<div class="bar"><span></span></div><p>AI mengoptimalkan gambar…</p>`;
   loading.style.display="block";
 
