@@ -15,7 +15,10 @@
   --accent:#38bdf8;
   --accent2:#6366f1;
 }
-*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif}
+*{
+  box-sizing:border-box;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif
+}
 body{
   margin:0;
   background:radial-gradient(1200px 600px at top,var(--bg),#020617);
@@ -40,25 +43,27 @@ h1{
   margin:0;
   font-size:22px;
   font-weight:900;
-  letter-spacing:.4px;
 }
 .subtitle{
   text-align:center;
   font-size:14px;
   color:var(--muted);
-  margin:6px 0 16px;
+  margin:6px 0 14px;
 }
 .badge{
   display:inline-block;
-  padding:6px 10px;
+  padding:6px 12px;
   border-radius:999px;
   background:#020617;
   border:1px solid var(--line);
   font-size:12px;
   color:var(--muted);
+  margin-bottom:14px;
 }
+.center{text-align:center}
+
 .upload{
-  margin-top:18px;
+  margin-top:10px;
   border:2px dashed #334155;
   border-radius:16px;
   padding:22px;
@@ -70,14 +75,17 @@ h1{
   border-color:var(--accent);
   background:#020617aa;
 }
-.upload input{
-  display:none;
+.upload strong{
+  display:block;
+  font-size:15px;
 }
 .upload span{
   display:block;
-  font-size:13px;
+  margin-top:4px;
+  font-size:12px;
   color:var(--muted);
 }
+
 button{
   width:100%;
   margin-top:18px;
@@ -89,13 +97,12 @@ button{
   font-size:15px;
   font-weight:800;
   cursor:pointer;
-  transition:.2s;
 }
-button:hover{opacity:.9}
 button:disabled{
   opacity:.6;
   cursor:not-allowed;
 }
+
 .result{
   display:none;
   margin-top:24px;
@@ -125,15 +132,11 @@ a.download,button.reset{
   font-weight:700;
   text-decoration:none;
   border:1px solid var(--line);
-}
-a.download{
   background:#020617;
-  color:var(--accent);
 }
-button.reset{
-  background:#020617;
-  color:#e5e7eb;
-}
+a.download{color:var(--accent)}
+button.reset{color:#e5e7eb}
+
 footer{
   margin-top:22px;
   text-align:center;
@@ -147,15 +150,19 @@ footer{
 <div class="card">
   <h1>Image Compressor</h1>
   <div class="subtitle">Kompres otomatis • kualitas tetap tajam</div>
-  <div style="text-align:center">
+
+  <div class="center">
     <span class="badge">100% di browser • tanpa upload</span>
   </div>
 
-  <label class="upload">
-    <input type="file" id="imageInput" accept="image/*">
+  <!-- INPUT FILE (AMAN DI MOBILE) -->
+  <input type="file" id="imageInput" accept="image/*" hidden>
+
+  <!-- AREA KLIK -->
+  <div class="upload" onclick="document.getElementById('imageInput').click()">
     <strong>Pilih atau drop gambar</strong>
     <span>JPG, PNG, WebP • max 10MB</span>
-  </label>
+  </div>
 
   <button id="btn" onclick="compressImage()">Kompres Sekarang</button>
 
@@ -180,54 +187,65 @@ function formatSize(bytes){
 }
 
 function compressImage(){
-  const input=document.getElementById("imageInput");
-  const file=input.files[0];
-  if(!file){alert("Pilih gambar terlebih dahulu");return}
+  const input = document.getElementById("imageInput");
+  const file = input.files[0];
+  if(!file){
+    alert("Pilih gambar terlebih dahulu");
+    return;
+  }
 
-  const btn=document.getElementById("btn");
-  btn.disabled=true;
-  btn.textContent="Mengompres...";
+  const btn = document.getElementById("btn");
+  btn.disabled = true;
+  btn.textContent = "Mengompres...";
 
-  const reader=new FileReader();
+  const reader = new FileReader();
   reader.readAsDataURL(file);
 
-  reader.onload=e=>{
-    const img=new Image();
-    img.src=e.target.result;
+  reader.onload = e => {
+    const img = new Image();
+    img.src = e.target.result;
 
-    img.onload=()=>{
-      const canvas=document.createElement("canvas");
-      const ctx=canvas.getContext("2d");
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
 
-      const MAX=1920;
-      const scale=Math.min(1,MAX/img.width);
-      canvas.width=img.width*scale;
-      canvas.height=img.height*scale;
+      const MAX = 1920;
+      const scale = Math.min(1, MAX / img.width);
+      canvas.width = img.width * scale;
+      canvas.height = img.height * scale;
 
-      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      canvas.toBlob(blob=>{
-        const url=URL.createObjectURL(blob);
+      const outputType = file.type === "image/png" ? "image/png" : "image/jpeg";
+      const quality = outputType === "image/jpeg" ? 0.8 : undefined;
 
-        document.getElementById("preview").src=url;
-        document.getElementById("downloadLink").href=url;
-        document.getElementById("downloadLink").download="ansyah-"+file.name;
+      canvas.toBlob(blob => {
+        const url = URL.createObjectURL(blob);
 
-        const saved=100-(blob.size/file.size*100);
-        document.getElementById("stats").innerHTML=
+        preview.src = url;
+        downloadLink.href = url;
+        downloadLink.download = "ansyah-" + file.name;
+
+        const saved = 100 - (blob.size / file.size * 100);
+        stats.innerHTML =
           `${formatSize(file.size)} → ${formatSize(blob.size)} • hemat ${saved.toFixed(0)}%`;
 
-        document.getElementById("result").style.display="block";
-        btn.disabled=false;
-        btn.textContent="Kompres Sekarang";
-      },"image/jpeg",0.8);
+        result.style.display = "block";
+
+        downloadLink.onclick = () => {
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        };
+
+        btn.disabled = false;
+        btn.textContent = "Kompres Sekarang";
+      }, outputType, quality);
     };
   };
 }
 
 function resetTool(){
-  document.getElementById("imageInput").value="";
-  document.getElementById("result").style.display="none";
+  imageInput.value = "";
+  result.style.display = "none";
 }
 </script>
 </body>
