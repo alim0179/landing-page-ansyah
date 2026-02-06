@@ -1,161 +1,234 @@
-
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8">
+<title>Image Compressor — Ansyah</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Kompres gambar langsung di browser. Cepat, aman, tanpa upload, kualitas tetap tajam.">
 
-  <title>Ansyah | Tools</title>
-  <meta name="description" content="Ansyah.tools — kumpulan web tools gratis berbasis browser, cepat dan praktis." />
-
-  <link rel="icon" href="logo.jpg" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/lucide@latest"></script>
-
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', 'system-ui', 'sans-serif']
-          },
-          colors: {
-            primary: '#2563eb'
-          }
-        }
-      }
-    }
-  </script>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-    body {
-      transition: background-color .3s ease, color .3s ease;
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: .5s ease;
-    }
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#020617;
+  --muted:#94a3b8;
+  --line:#1e293b;
+  --accent:#38bdf8;
+  --accent2:#6366f1;
+}
+*{box-sizing:border-box;font-family:system-ui,-apple-system,BlinkMacSystemFont,sans-serif}
+body{
+  margin:0;
+  background:radial-gradient(1200px 600px at top,var(--bg),#020617);
+  color:#e5e7eb;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+}
+.card{
+  background:linear-gradient(180deg,#020617,#020617cc);
+  border-radius:22px;
+  padding:28px;
+  max-width:460px;
+  width:100%;
+  box-shadow:0 30px 70px rgba(0,0,0,.65);
+  border:1px solid var(--line);
+}
+h1{
+  text-align:center;
+  margin:0;
+  font-size:22px;
+  font-weight:900;
+  letter-spacing:.4px;
+}
+.subtitle{
+  text-align:center;
+  font-size:14px;
+  color:var(--muted);
+  margin:6px 0 16px;
+}
+.badge{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:#020617;
+  border:1px solid var(--line);
+  font-size:12px;
+  color:var(--muted);
+}
+.upload{
+  margin-top:18px;
+  border:2px dashed #334155;
+  border-radius:16px;
+  padding:22px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+}
+.upload:hover{
+  border-color:var(--accent);
+  background:#020617aa;
+}
+.upload input{
+  display:none;
+}
+.upload span{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+}
+button{
+  width:100%;
+  margin-top:18px;
+  padding:15px;
+  border:none;
+  border-radius:14px;
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  color:#020617;
+  font-size:15px;
+  font-weight:800;
+  cursor:pointer;
+  transition:.2s;
+}
+button:hover{opacity:.9}
+button:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+.result{
+  display:none;
+  margin-top:24px;
+  text-align:center;
+}
+.preview{
+  margin-top:12px;
+  max-width:100%;
+  border-radius:14px;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+.stats{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:10px;
+}
+.actions{
+  margin-top:14px;
+  display:flex;
+  gap:10px;
+  justify-content:center;
+}
+a.download,button.reset{
+  padding:10px 14px;
+  border-radius:12px;
+  font-size:13px;
+  font-weight:700;
+  text-decoration:none;
+  border:1px solid var(--line);
+}
+a.download{
+  background:#020617;
+  color:var(--accent);
+}
+button.reset{
+  background:#020617;
+  color:#e5e7eb;
+}
+footer{
+  margin-top:22px;
+  text-align:center;
+  font-size:11px;
+  color:var(--muted);
+}
+</style>
 </head>
 
-<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
-
-<!-- NAVBAR -->
-<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-    <div class="flex items-center gap-3 font-bold text-lg">
-      <img src="../logo.jpg" class="w-8 h-8 object-contain"
-        onerror="this.src='https://placehold.co/32x32/2563eb/ffffff?text=A'" />
-      <span class="text-primary">Ansyah</span>
-    </div>
-
-    <button onclick="toggleTheme()" class="p-2 rounded-lg border dark:border-slate-700">
-      <i data-lucide="sun" class="w-5 h-5"></i>
-    </button>
+<body>
+<div class="card">
+  <h1>Image Compressor</h1>
+  <div class="subtitle">Kompres otomatis • kualitas tetap tajam</div>
+  <div style="text-align:center">
+    <span class="badge">100% di browser • tanpa upload</span>
   </div>
-</header>
 
-<!-- MAIN -->
-<main class="flex-grow pt-16">
+  <label class="upload">
+    <input type="file" id="imageInput" accept="image/*">
+    <strong>Pilih atau drop gambar</strong>
+    <span>JPG, PNG, WebP • max 10MB</span>
+  </label>
 
-  <!-- HEADER -->
-  <section class="py-16 text-center">
-    <div class="max-w-2xl mx-auto px-4 reveal">
-      <h1 class="text-3xl md:text-4xl font-bold mb-3">
-        Tools by <span class="text-primary">Ansyah</span>
-      </h1>
-      <p class="text-sm text-slate-600 dark:text-slate-400">
-        Tools gratis berbasis browser.
-      </p>
+  <button id="btn" onclick="compressImage()">Kompres Sekarang</button>
+
+  <div class="result" id="result">
+    <img id="preview" class="preview">
+    <div class="stats" id="stats"></div>
+
+    <div class="actions">
+      <a id="downloadLink" class="download" download>⬇ Download</a>
+      <button class="reset" onclick="resetTool()">Reset</button>
     </div>
-  </section>
+  </div>
 
-  <!-- TOOLS GRID -->
-  <section class="pb-24">
-    <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
-
-      <!-- IMAGE COMPRESSOR -->
-      <a href="tools/imagecompressor"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
-        <i data-lucide="image" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Compressor</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Perkecil ukuran gambar otomatis.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          JPG · PNG · WebP
-        </span>
-      </a>
-
-      <!-- IMAGE RESIZE -->
-      <a href="tools/imageresize"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
-        <i data-lucide="move" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Resize</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Ubah dimensi gambar presisi.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          
-        </span>
-      </a>
-
-      <!-- IMAGE CONVERTER -->
-      <a href="tools/imageconverter"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
-        <i data-lucide="repeat" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Converter</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Konversi format gambar.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          JPG · PNG · ICO
-        </span>
-      </a>
-
-      <!-- PLACEHOLDER TOOL -->
-      <div
-        class="reveal p-5 rounded-xl border border-dashed dark:border-slate-800 text-slate-400 flex flex-col justify-center items-center text-center">
-        <i data-lucide="plus" class="w-6 h-6 mb-2"></i>
-        <span class="text-xs">Coming soon</span>
-      </div>
-
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="border-t border-slate-200 dark:border-slate-800 py-10">
-  <p class="text-center text-xs text-slate-500">
-    © 2026 Ansyah.tools. All rights reserved.
-  </p>
-</footer>
+  <footer>© Ansyah.tools</footer>
+</div>
 
 <script>
-  lucide.createIcons();
+function formatSize(bytes){
+  return bytes < 1024*1024
+    ? (bytes/1024).toFixed(1)+" KB"
+    : (bytes/1024/1024).toFixed(2)+" MB";
+}
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('active');
-    });
-  }, { threshold: 0.1 });
+function compressImage(){
+  const input=document.getElementById("imageInput");
+  const file=input.files[0];
+  if(!file){alert("Pilih gambar terlebih dahulu");return}
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const btn=document.getElementById("btn");
+  btn.disabled=true;
+  btn.textContent="Mengompres...";
 
-  function toggleTheme() {
-    document.documentElement.classList.toggle('dark');
-  }
+  const reader=new FileReader();
+  reader.readAsDataURL(file);
+
+  reader.onload=e=>{
+    const img=new Image();
+    img.src=e.target.result;
+
+    img.onload=()=>{
+      const canvas=document.createElement("canvas");
+      const ctx=canvas.getContext("2d");
+
+      const MAX=1920;
+      const scale=Math.min(1,MAX/img.width);
+      canvas.width=img.width*scale;
+      canvas.height=img.height*scale;
+
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+      canvas.toBlob(blob=>{
+        const url=URL.createObjectURL(blob);
+
+        document.getElementById("preview").src=url;
+        document.getElementById("downloadLink").href=url;
+        document.getElementById("downloadLink").download="ansyah-"+file.name;
+
+        const saved=100-(blob.size/file.size*100);
+        document.getElementById("stats").innerHTML=
+          `${formatSize(file.size)} → ${formatSize(blob.size)} • hemat ${saved.toFixed(0)}%`;
+
+        document.getElementById("result").style.display="block";
+        btn.disabled=false;
+        btn.textContent="Kompres Sekarang";
+      },"image/jpeg",0.8);
+    };
+  };
+}
+
+function resetTool(){
+  document.getElementById("imageInput").value="";
+  document.getElementById("result").style.display="none";
+}
 </script>
-
 </body>
 </html>
