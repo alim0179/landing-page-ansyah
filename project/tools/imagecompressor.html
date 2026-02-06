@@ -5,9 +5,7 @@
 <title>AI Image Compressor — Ansyah</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Kompres gambar otomatis langsung di browser. Cepat, gratis, tanpa upload.">
-
-<link rel="icon" href="../logo.jpg">
+<link rel="icon" href="../logo.jpg" />
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -19,8 +17,8 @@ tailwind.config = {
       fontFamily: {
         sans: ['Inter','system-ui','sans-serif']
       },
-      colors: {
-        primary: '#2563eb'
+      colors:{
+        primary:'#2563eb'
       }
     }
   }
@@ -34,81 +32,71 @@ body{
   transition:background-color .3s,color .3s;
 }
 
-/* ===== TOOL CARD ===== */
+.reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:.5s ease;
+}
+.reveal.active{
+  opacity:1;
+  transform:none;
+}
+
+/* ===== CARD ===== */
 .card{
+  position:relative;
   max-width:460px;
   width:100%;
-  background:linear-gradient(180deg,#020617cc,#020617ee);
-  backdrop-filter:blur(16px);
   border-radius:24px;
   padding:28px;
-  border:1px solid #334155;
-  box-shadow:0 0 40px #38bdf820,0 30px 80px rgba(0,0,0,.7);
+  backdrop-filter:blur(16px);
+  box-shadow:
+    0 20px 40px rgba(0,0,0,.08),
+    0 30px 80px rgba(0,0,0,.12);
 }
 
-h1{
-  text-align:center;
-  font-size:23px;
-  font-weight:900;
-  text-shadow:0 0 18px #38bdf840;
-}
-
-.subtitle{
-  text-align:center;
-  font-size:14px;
-  color:#94a3b8;
-  margin:6px 0 14px;
-}
-
-.badge{
-  display:inline-block;
-  padding:6px 12px;
-  border-radius:999px;
-  border:1px solid #334155;
-  font-size:12px;
-  color:#94a3b8;
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-1px;
+  border-radius:24px;
+  background:linear-gradient(135deg,#38bdf8,#818cf8);
+  opacity:.12;
+  z-index:-1;
 }
 
 input[type=file]{display:none}
 
-/* ===== UPLOAD ===== */
-.upload-wrapper{
-  margin-top:16px;
-  transition:.45s cubic-bezier(.4,0,.2,1);
-}
-
-.upload-wrapper.hide{
-  opacity:0;
-  transform:scale(.96);
-  height:0;
-  margin:0;
-  overflow:hidden;
-}
-
+/* upload */
 .upload{
-  border:2px dashed #334155;
+  border:2px dashed #cbd5f5;
   border-radius:16px;
   padding:26px;
   text-align:center;
   cursor:pointer;
   transition:.3s;
 }
+.dark .upload{border-color:#334155}
+.upload:hover{border-color:#2563eb}
 
-.upload:hover{
-  border-color:#38bdf8;
-  background:#020617aa;
+.upload-wrapper.hide{
+  opacity:0;
+  height:0;
+  margin:0;
+  overflow:hidden;
+  transform:scale(.96);
+  transition:.4s;
 }
 
-/* ===== FILE PANEL ===== */
+/* file panel */
 .file-panel{
   display:none;
   margin-top:16px;
   padding:14px 16px;
   border-radius:14px;
-  border:1px solid #334155;
-  background:#020617;
-  animation:fadeSlide .4s cubic-bezier(.2,.8,.2,1);
+  border:1px solid #e5e7eb;
 }
+.dark .file-panel{border-color:#334155}
 
 .file-panel.show{
   display:flex;
@@ -128,106 +116,57 @@ input[type=file]{display:none}
   font-weight:900;
 }
 
-.file-info{
-  flex:1;
-  font-size:13px;
-}
-
-.file-info small{
-  display:block;
-  color:#94a3b8;
-  margin-top:2px;
-}
-
 .change{
   font-size:12px;
-  color:#38bdf8;
+  color:#2563eb;
   cursor:pointer;
 }
 
-/* ===== BUTTON ===== */
-button.main{
+/* button */
+.action-btn{
   width:100%;
   margin-top:18px;
   padding:15px;
-  border:none;
   border-radius:14px;
+  font-weight:800;
   background:linear-gradient(135deg,#38bdf8,#818cf8);
   color:#020617;
-  font-size:15px;
-  font-weight:800;
-  cursor:pointer;
-  box-shadow:0 0 25px #38bdf850;
 }
+.action-btn:disabled{opacity:.6}
 
-button:disabled{opacity:.6}
-
-/* ===== LOADING ===== */
+/* loading */
 .loading{display:none;margin-top:16px}
-
 .bar{
   height:8px;
   border-radius:999px;
-  border:1px solid #334155;
   overflow:hidden;
+  border:1px solid #e5e7eb;
 }
-
+.dark .bar{border-color:#334155}
 .bar span{
   display:block;
   height:100%;
   width:0%;
   background:linear-gradient(90deg,#38bdf8,#818cf8);
-  animation:load 1.4s ease forwards;
+  animation:load 1.4s forwards;
 }
+@keyframes load{to{width:100%}}
 
-.loading p{
-  text-align:center;
-  font-size:12px;
-  color:#94a3b8;
-  margin-top:8px;
-}
-
-/* ===== RESULT ===== */
 .result{display:none;margin-top:24px;text-align:center}
 
 .preview{
   margin-top:12px;
+  max-width:100%;
   border-radius:14px;
-  border:1px solid #334155;
+  border:1px solid #e5e7eb;
 }
-
-.stats{
-  font-size:13px;
-  color:#94a3b8;
-  margin-top:10px;
-}
-
-.actions{
-  margin-top:14px;
-  display:flex;
-  gap:10px;
-  justify-content:center;
-}
-
-.actions a,.actions button{
-  padding:10px 14px;
-  border-radius:12px;
-  font-size:13px;
-  border:1px solid #334155;
-  background:#020617;
-}
-
-.actions a{color:#38bdf8}
-
-/* ===== ANIMATION ===== */
-@keyframes load{to{width:100%}}
-@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px)}}
+.dark .preview{border-color:#334155}
 </style>
 </head>
 
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
 
-<!-- NAVBAR (SAMA DENGAN KATALOG) -->
+<!-- NAVBAR -->
 <header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
   <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
     <div class="flex items-center gap-3 font-bold text-lg">
@@ -241,58 +180,63 @@ button:disabled{opacity:.6}
 </header>
 
 <!-- MAIN -->
-<main class="flex-grow pt-16 flex items-center justify-center px-4">
-  <div class="card">
-    <h1>🧠 AI Image Compressor</h1>
-    <div class="subtitle">Optimasi otomatis • kualitas tetap tajam</div>
+<main class="flex-grow pt-16 flex justify-center items-start px-4 py-16">
+  <div class="card bg-white/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 reveal">
 
-    <div class="text-center">
-      <span class="badge">100% di browser • tanpa upload</span>
+    <h1 class="text-xl font-extrabold text-center mb-1">🧠 AI Image Compressor</h1>
+    <p class="text-sm text-center text-slate-600 dark:text-slate-400 mb-3">
+      Optimasi otomatis • kualitas tetap tajam
+    </p>
+
+    <div class="text-center mb-4">
+      <span class="text-xs border px-3 py-1 rounded-full">100% di browser</span>
     </div>
 
     <input type="file" id="imageInput" accept="image/*">
 
     <div class="upload-wrapper" id="uploadWrapper">
       <div class="upload" onclick="imageInput.click()">
-        <strong>Pilih atau drop gambar</strong><br>
-        <span class="text-xs text-slate-400">JPG, PNG, WebP • max 10MB</span>
+        <strong>Pilih gambar</strong><br>
+        <span class="text-xs text-slate-500">JPG · PNG · WebP</span>
       </div>
     </div>
 
     <div class="file-panel" id="filePanel">
       <div class="file-icon">🖼️</div>
-      <div class="file-info" id="fileInfo"></div>
+      <div id="fileInfo" class="text-sm flex-1"></div>
       <div class="change" onclick="resetTool()">Ganti</div>
     </div>
 
-    <button class="main" id="btn" onclick="compressImage()">⚡ Kompres Sekarang</button>
+    <button id="btn" class="action-btn" onclick="compressImage()">⚡ Kompres</button>
 
-    <div class="loading" id="loading"></div>
+    <div class="loading" id="loading">
+      <div class="bar"><span></span></div>
+      <p class="text-xs text-center mt-2">Mengoptimalkan gambar…</p>
+    </div>
 
     <div class="result" id="result">
       <img id="preview" class="preview">
-      <div class="stats" id="stats"></div>
-      <div class="actions">
-        <a id="downloadLink" download>⬇ Download</a>
-        <button onclick="resetTool()">Reset</button>
+      <div id="stats" class="text-xs mt-2"></div>
+      <div class="flex gap-2 justify-center mt-3">
+        <a id="downloadLink" class="text-sm text-primary" download>⬇ Download</a>
+        <button onclick="resetTool()" class="text-sm">Reset</button>
       </div>
     </div>
+
   </div>
 </main>
 
 <!-- FOOTER -->
 <footer class="border-t border-slate-200 dark:border-slate-800 py-10">
   <p class="text-center text-xs text-slate-500">
-    © 2026 Ansyah.tools. All rights reserved.
+    © 2026 Ansyah.tools
   </p>
 </footer>
 
 <script>
 lucide.createIcons();
-function toggleTheme(){document.documentElement.classList.toggle('dark')}
 
-/* ===== TOOL LOGIC ===== */
-const imageInput=imageInput=document.getElementById("imageInput");
+const imageInput=document.getElementById("imageInput");
 const uploadWrapper=document.getElementById("uploadWrapper");
 const filePanel=document.getElementById("filePanel");
 const fileInfo=document.getElementById("fileInfo");
@@ -309,43 +253,42 @@ function formatSize(b){
 
 imageInput.onchange=()=>{
   const f=imageInput.files[0];
-  if(!f)return;
+  if(!f) return;
   uploadWrapper.classList.add("hide");
-  fileInfo.innerHTML=`<strong>${f.name}</strong><small>${formatSize(f.size)}</small>`;
+  fileInfo.innerHTML=`<strong>${f.name}</strong><br><small>${formatSize(f.size)}</small>`;
   filePanel.classList.add("show");
 };
 
 function compressImage(){
   const f=imageInput.files[0];
-  if(!f)return alert("Pilih gambar dulu");
+  if(!f) return alert("Pilih gambar dulu");
   btn.disabled=true;
-  loading.innerHTML=`<div class="bar"><span></span></div><p>AI mengoptimalkan gambar…</p>`;
   loading.style.display="block";
+  result.style.display="none";
 
   const r=new FileReader();
-  r.readAsDataURL(f);
   r.onload=e=>{
     const img=new Image();
     img.src=e.target.result;
     img.onload=()=>{
       const c=document.createElement("canvas");
-      const ctx=c.getContext("2d");
       const s=Math.min(1,1920/img.width);
       c.width=img.width*s;
       c.height=img.height*s;
-      ctx.drawImage(img,0,0,c.width,c.height);
+      c.getContext("2d").drawImage(img,0,0,c.width,c.height);
       c.toBlob(b=>{
-        const u=URL.createObjectURL(b);
-        preview.src=u;
-        downloadLink.href=u;
+        const url=URL.createObjectURL(b);
+        preview.src=url;
+        downloadLink.href=url;
         downloadLink.download="ansyah-"+f.name;
         stats.textContent=`${formatSize(f.size)} → ${formatSize(b.size)}`;
         loading.style.display="none";
         result.style.display="block";
         btn.disabled=false;
       },"image/jpeg",0.8);
-    }
-  }
+    };
+  };
+  r.readAsDataURL(f);
 }
 
 function resetTool(){
@@ -356,6 +299,11 @@ function resetTool(){
   result.style.display="none";
   btn.disabled=false;
 }
+
+function toggleTheme(){
+  document.documentElement.classList.toggle("dark");
+}
 </script>
+
 </body>
 </html>
