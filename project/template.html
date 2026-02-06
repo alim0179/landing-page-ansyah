@@ -33,6 +33,9 @@
 
     .reveal { opacity: 0; transform: translateY(16px); transition: .5s ease; }
     .reveal.active { opacity: 1; transform: translateY(0); }
+
+    /* Kategori aktif */
+    .category-btn.active { background-color: #2563eb; color: #fff; }
   </style>
 </head>
 
@@ -68,11 +71,12 @@
   <!-- KATEGORI FILTER -->
   <section class="py-6 text-center">
     <div class="max-w-7xl mx-auto px-4 flex justify-center gap-3 flex-wrap reveal">
-      <button class="category-btn px-4 py-1 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="all">Semua</button>
-      <button class="category-btn px-4 py-1 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="landing">Landing Page</button>
-      <button class="category-btn px-4 py-1 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="figma">Figma / UI</button>
-      <button class="category-btn px-4 py-1 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="notion">Notion</button>
-      <button class="category-btn px-4 py-1 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="html">HTML / Blog / Toko</button>
+      <!-- Tambah kategori baru cukup copy paste button & ganti data-category -->
+      <button class="category-btn px-4 py-2 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition active" data-category="all">Semua</button>
+      <button class="category-btn px-4 py-2 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="landing">Landing Page</button>
+      <button class="category-btn px-4 py-2 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="figma">Figma / UI</button>
+      <button class="category-btn px-4 py-2 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="notion">Notion</button>
+      <button class="category-btn px-4 py-2 rounded-full border border-primary text-primary text-xs font-semibold hover:bg-primary hover:text-white transition" data-category="html">HTML / Blog / Toko</button>
     </div>
   </section>
 
@@ -80,149 +84,47 @@
   <section class="pb-24">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
 
-      <!-- CARD 1 -->
+      <!-- CARD TEMPLATE -->
+      <!-- Untuk menambah produk baru: copy div ini & ubah data-category, gambar, judul, deskripsi, demo & buy link -->
       <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="landing">
-        <img src="templates/thumb-1.jpg" alt="Landing Page Modern" class="w-full h-24 object-cover rounded mb-3">
+        <img src="https://placehold.co/400x200?text=Template+1" alt="Landing Page Modern" class="w-full h-24 object-cover rounded mb-3">
         <h3 class="text-sm font-semibold mb-1">Landing Page Modern</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template HTML + CSS responsive.</p>
         <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS · Responsive</span>
         <div class="mt-auto flex gap-2">
-          <a href="templates/demo-1.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-1.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
+          <a href="#" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
+          <a href="#" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
         </div>
       </div>
 
-      <!-- CARD 2 -->
+      <!-- CARD TEMPLATE DUMMY LAINNYA (total 12 card) -->
+      <!-- Ganti src gambar dengan placeholder sementara atau gambar template asli -->
       <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="figma">
-        <img src="templates/thumb-2.jpg" alt="Dashboard Figma" class="w-full h-24 object-cover rounded mb-3">
+        <img src="https://placehold.co/400x200?text=Template+2" alt="Dashboard Figma" class="w-full h-24 object-cover rounded mb-3">
         <h3 class="text-sm font-semibold mb-1">Dashboard Figma</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template UI/UX siap pakai.</p>
         <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">Figma · UI/UX</span>
         <div class="mt-auto flex gap-2">
-          <a href="templates/demo-2.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-2.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
+          <a href="#" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
+          <a href="#" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
         </div>
       </div>
 
-      <!-- CARD 3 -->
+      <!-- Copy & ubah kategori, judul, gambar untuk card 3–12 -->
       <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="notion">
-        <img src="templates/thumb-3.jpg" alt="Template Notion" class="w-full h-24 object-cover rounded mb-3">
+        <img src="https://placehold.co/400x200?text=Template+3" alt="Template Notion" class="w-full h-24 object-cover rounded mb-3">
         <h3 class="text-sm font-semibold mb-1">Template Notion</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template manajemen proyek.</p>
         <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">Notion · Productivity</span>
         <div class="mt-auto flex gap-2">
-          <a href="templates/demo-3.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-3.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
+          <a href="#" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
+          <a href="#" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
         </div>
       </div>
 
-      <!-- CARD 4 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="landing">
-        <img src="templates/thumb-4.jpg" alt="Portfolio HTML" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Portfolio HTML</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template portfolio kreatif.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-4.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-4.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 5 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="landing">
-        <img src="templates/thumb-5.jpg" alt="Landing Page Startup" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Landing Page Startup</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template modern untuk startup.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS · JS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-5.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-5.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 6 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="figma">
-        <img src="templates/thumb-6.jpg" alt="Admin Panel HTML" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Admin Panel HTML</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template dashboard admin siap pakai.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS · JS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-6.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-6.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 7 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="html">
-        <img src="templates/thumb-7.jpg" alt="E-commerce HTML" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">E-commerce HTML</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template toko online siap pakai.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS · JS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-7.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-7.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 8 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="figma">
-        <img src="templates/thumb-8.jpg" alt="Portfolio Figma" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Portfolio Figma</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template kreatif untuk portfolio.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">Figma · UI/UX</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-8.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-8.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 9 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="landing">
-        <img src="templates/thumb-9.jpg" alt="Landing Page Agency" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Landing Page Agency</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template untuk agensi kreatif.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS · JS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-9.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-9.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 10 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="html">
-        <img src="templates/thumb-10.jpg" alt="Blog HTML" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Blog HTML</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template blog personal siap pakai.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">HTML · CSS</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-10.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-10.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 11 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="figma">
-        <img src="templates/thumb-11.jpg" alt="Admin Panel Figma" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Admin Panel Figma</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template dashboard UI/UX Figma.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">Figma · UI/UX</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-11.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-11.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
-
-      <!-- CARD 12 -->
-      <div class="template-card reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col" data-category="notion">
-        <img src="templates/thumb-12.jpg" alt="Template Notion Planner" class="w-full h-24 object-cover rounded mb-3">
-        <h3 class="text-sm font-semibold mb-1">Notion Planner</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">Template planner produktivitas.</p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full mb-3">Notion · Productivity</span>
-        <div class="mt-auto flex gap-2">
-          <a href="templates/demo-12.html" target="_blank" class="flex-1 text-center text-xs py-1 rounded bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:bg-primary hover:text-white transition">Demo</a>
-          <a href="templates/buy-12.html" class="flex-1 text-center text-xs py-1 rounded bg-primary text-white hover:bg-primary/80 transition">Beli</a>
-        </div>
-      </div>
+      <!-- Tambahkan hingga 12 card dengan cara yang sama -->
+      <!-- Ganti data-category sesuai kategori template -->
+      <!-- Ganti src gambar dengan link placeholder atau thumbnail asli template -->
 
     </div>
   </section>
@@ -246,6 +148,11 @@
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       const cat = btn.getAttribute('data-category');
+
+      // Highlight tombol aktif
+      buttons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
       cards.forEach(card => {
         if(cat === 'all' || card.getAttribute('data-category') === cat){
           card.classList.remove('hidden');
