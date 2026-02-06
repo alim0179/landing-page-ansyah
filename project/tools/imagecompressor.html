@@ -67,13 +67,20 @@ h1{
 }
 
 .center{text-align:center}
-
 input[type=file]{display:none}
 
-/* ===== UPLOAD AREA ===== */
+/* ===== UPLOAD ===== */
 .upload-wrapper{
   margin-top:16px;
-  transition:all .4s ease;
+  transition:all .45s cubic-bezier(.4,0,.2,1);
+}
+
+.upload-wrapper.hide{
+  opacity:0;
+  transform:scale(.96);
+  height:0;
+  margin:0;
+  overflow:hidden;
 }
 
 .upload{
@@ -90,13 +97,6 @@ input[type=file]{display:none}
   background:#020617aa;
 }
 
-.upload-wrapper.hide{
-  opacity:0;
-  height:0;
-  overflow:hidden;
-  margin-top:0;
-}
-
 /* ===== FILE PANEL ===== */
 .file-panel{
   display:none;
@@ -105,10 +105,14 @@ input[type=file]{display:none}
   border-radius:14px;
   border:1px solid var(--line);
   background:#020617;
-  animation:fadeSlide .4s ease;
+  animation:fadeSlide .4s cubic-bezier(.2,.8,.2,1);
 }
 
-.file-panel.show{display:flex;align-items:center;gap:12px}
+.file-panel.show{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
 
 .file-icon{
   width:36px;
@@ -133,8 +137,10 @@ input[type=file]{display:none}
   margin-top:2px;
 }
 
-@keyframes fadeSlide{
-  from{opacity:0;transform:translateY(-6px)}
+.change{
+  font-size:12px;
+  color:var(--accent);
+  cursor:pointer;
 }
 
 /* ===== BUTTON ===== */
@@ -150,12 +156,18 @@ button{
   font-weight:800;
   cursor:pointer;
   box-shadow:0 0 25px #38bdf850;
+  transition:.15s ease;
 }
 
-button:disabled{opacity:.6}
+button:disabled{opacity:.6;cursor:not-allowed}
+button:active{transform:scale(.97)}
 
 /* ===== LOADING ===== */
-.loading{display:none;margin-top:16px}
+.loading{
+  display:none;
+  margin-top:16px;
+  animation:fadeSlide .3s ease;
+}
 
 .bar{
   height:8px;
@@ -173,7 +185,13 @@ button:disabled{opacity:.6}
   animation:load 1.4s ease forwards;
 }
 
-@keyframes load{to{width:100%}}
+.bar span::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(120deg,transparent,#ffffff55,transparent);
+  animation:shimmer 1s infinite;
+}
 
 .loading p{
   text-align:center;
@@ -183,13 +201,19 @@ button:disabled{opacity:.6}
 }
 
 /* ===== RESULT ===== */
-.result{display:none;margin-top:24px;text-align:center}
+.result{
+  display:none;
+  margin-top:24px;
+  text-align:center;
+  animation:fadeSlide .45s cubic-bezier(.2,.8,.2,1);
+}
 
 .preview{
   margin-top:12px;
   max-width:100%;
   border-radius:14px;
   border:1px solid var(--line);
+  animation:float 6s ease-in-out infinite;
 }
 
 .stats{
@@ -218,6 +242,12 @@ a.download,button.reset{
 a.download{color:var(--accent)}
 button.reset{color:#e5e7eb}
 
+/* ===== ANIMATION ===== */
+@keyframes load{to{width:100%}}
+@keyframes shimmer{from{transform:translateX(-100%)}to{transform:translateX(100%)}}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(-6px)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+
 footer{
   margin-top:22px;
   text-align:center;
@@ -241,7 +271,7 @@ footer{
   <!-- UPLOAD -->
   <div class="upload-wrapper" id="uploadWrapper">
     <div class="upload" onclick="imageInput.click()">
-      <strong>Pilih atau drop gambar</strong>
+      <strong>Pilih atau drop gambar</strong><br>
       <span style="font-size:12px;color:var(--muted)">JPG, PNG, WebP • max 10MB</span>
     </div>
   </div>
@@ -250,14 +280,12 @@ footer{
   <div class="file-panel" id="filePanel">
     <div class="file-icon">🖼️</div>
     <div class="file-info" id="fileInfo"></div>
+    <div class="change" onclick="resetTool()">Ganti</div>
   </div>
 
   <button id="btn" onclick="compressImage()">⚡ Kompres Sekarang</button>
 
-  <div class="loading" id="loading">
-    <div class="bar"><span></span></div>
-    <p>AI sedang mengoptimalkan gambar…</p>
-  </div>
+  <div class="loading" id="loading"></div>
 
   <div class="result" id="result">
     <img id="preview" class="preview">
@@ -293,53 +321,61 @@ imageInput.onchange=()=>{
   if(!file) return;
 
   uploadWrapper.classList.add("hide");
-
   fileInfo.innerHTML=`<strong>${file.name}</strong><small>${formatSize(file.size)}</small>`;
   filePanel.classList.add("show");
 };
+
+function resetLoading(){
+  loading.innerHTML=`
+    <div class="bar"><span></span></div>
+    <p>AI sedang mengoptimalkan gambar…</p>
+  `;
+}
 
 function compressImage(){
   const file=imageInput.files[0];
   if(!file){alert("Pilih gambar terlebih dahulu");return;}
 
   btn.disabled=true;
-  loading.style.display="block";
   result.style.display="none";
 
-  setTimeout(()=>{
-    const reader=new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload=e=>{
-      const img=new Image();
-      img.src=e.target.result;
-      img.onload=()=>{
-        const canvas=document.createElement("canvas");
-        const ctx=canvas.getContext("2d");
-        const scale=Math.min(1,1920/img.width);
-        canvas.width=img.width*scale;
-        canvas.height=img.height*scale;
-        ctx.drawImage(img,0,0,canvas.width,canvas.height);
+  resetLoading();
+  loading.style.display="block";
 
-        canvas.toBlob(blob=>{
-          const url=URL.createObjectURL(blob);
-          preview.src=url;
-          downloadLink.href=url;
-          downloadLink.download="ansyah-"+file.name;
-          stats.textContent=`${formatSize(file.size)} → ${formatSize(blob.size)}`;
-          loading.style.display="none";
-          result.style.display="block";
-          btn.disabled=false;
-        },"image/jpeg",0.8);
-      };
+  const reader=new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload=e=>{
+    const img=new Image();
+    img.src=e.target.result;
+    img.onload=()=>{
+      const canvas=document.createElement("canvas");
+      const ctx=canvas.getContext("2d");
+      const scale=Math.min(1,1920/img.width);
+      canvas.width=img.width*scale;
+      canvas.height=img.height*scale;
+      ctx.drawImage(img,0,0,canvas.width,canvas.height);
+
+      canvas.toBlob(blob=>{
+        const url=URL.createObjectURL(blob);
+        preview.src=url;
+        downloadLink.href=url;
+        downloadLink.download="ansyah-"+file.name;
+        stats.textContent=`${formatSize(file.size)} → ${formatSize(blob.size)}`;
+        loading.style.display="none";
+        result.style.display="block";
+        btn.disabled=false;
+      },"image/jpeg",0.8);
     };
-  },1000);
+  };
 }
 
 function resetTool(){
   imageInput.value="";
   uploadWrapper.classList.remove("hide");
   filePanel.classList.remove("show");
+  loading.style.display="none";
   result.style.display="none";
+  btn.disabled=false;
 }
 </script>
 </body>
