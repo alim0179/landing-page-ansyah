@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Ansyah | Tools & Digital Store</title>
+  <meta name="description" content="Ansyah — tools digital praktis dan digital store berisi produk siap pakai. Dibangun perlahan, dipakai sehari-hari." />
+
+  <link rel="icon" href="logo.jpg" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+    body {
+      transition: background-color .3s ease, color .3s ease;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: .6s ease;
+    }
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .logo-float {
+      animation: float 6s ease-in-out infinite;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+<!-- NAVBAR -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="flex items-center gap-3 font-bold text-lg">
+      <img src="logo.jpg" class="w-8 h-8 object-contain" />
+      <span class="text-primary">Ansyah</span>
+    </div>
+
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      <a href="#home" class="hover:text-primary">Home</a>
+      <a href="#about" class="hover:text-primary">Tentang</a>
+      <a href="#projects" class="hover:text-primary">Tools & Store</a>
+      <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white">Kontak</a>
+    </nav>
+
+    <button onclick="toggleTheme()" class="p-2 rounded-lg border dark:border-slate-700">
+      <i data-lucide="sun" class="w-5 h-5"></i>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-grow">
+
+<!-- HERO -->
+<section id="home" class="pt-32 pb-24 min-h-screen flex items-center">
+  <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-16 items-center">
+
+    <div class="reveal">
+      <span class="inline-block mb-4 px-4 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">
+        Tools & Digital Store
+      </span>
+      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight mb-6">
+        Tools Sederhana,<br />
+        <span class="text-primary">Produk yang Kepakai</span>
+      </h1>
+      <p class="text-lg text-slate-600 dark:text-slate-400 mb-8">
+        Saya Ansyah — membangun tools digital dan produk online yang benar-benar dipakai sehari-hari.
+        Tidak ribet, tidak berlebihan.
+      </p>
+      <div class="flex gap-4">
+        <a href="#projects" class="px-6 py-3 rounded-lg bg-primary text-white font-semibold">Lihat Isi</a>
+        <a href="#contact" class="px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700">Diskusi</a>
+      </div>
+    </div>
+
+    <div class="reveal hidden md:flex justify-center items-center">
+      <div class="relative">
+        <div class="absolute inset-0 rounded-full bg-blue-500 blur-3xl opacity-30"></div>
+        <img 
+          src="logo.jpg" 
+          alt="Ansyah Logo"
+          class="relative w-64 h-64 object-contain drop-shadow-xl logo-float"
+        >
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ABOUT / STATS -->
+<section id="about" class="border-y border-slate-200 dark:border-slate-800 py-12">
+  <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+    <div class="reveal">
+      <div class="text-3xl font-bold">2</div>
+      <div class="text-xs uppercase text-slate-500">Fokus Utama</div>
+    </div>
+    <div class="reveal">
+      <div class="text-3xl font-bold">Tools</div>
+      <div class="text-xs uppercase text-slate-500">Gratis & Praktis</div>
+    </div>
+    <div class="reveal">
+      <div class="text-3xl font-bold">Store</div>
+      <div class="text-xs uppercase text-slate-500">Produk Digital</div>
+    </div>
+    <div class="reveal">
+      <div class="text-3xl font-bold">Grow</div>
+      <div class="text-xs uppercase text-slate-500">Pelan Tapi Jalan</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="py-24">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="mb-16 reveal">
+      <h2 class="text-4xl font-bold mb-3">Apa yang Ada di Ansyah</h2>
+      <p class="text-slate-600 dark:text-slate-400">
+        Semua yang saya bangun dirangkum dalam dua hal inti.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8">
+
+      <!-- TOOLS -->
+      <div class="reveal p-8 rounded-2xl border dark:border-slate-800 hover:border-primary transition">
+        <i data-lucide="wrench" class="w-8 h-8 text-primary mb-6"></i>
+        <h3 class="text-xl font-semibold mb-2">Tools</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+          Web tools ringan untuk kebutuhan digital harian.
+          Beberapa memanfaatkan AI, sisanya fokus ke kecepatan dan kesederhanaan.
+        </p>
+        <a href="project/tools" class="text-primary font-semibold text-sm">Buka Tools →</a>
+      </div>
+
+      <!-- STORE -->
+      <div class="reveal p-8 rounded-2xl border dark:border-slate-800 hover:border-primary transition">
+        <i data-lucide="shopping-bag" class="w-8 h-8 text-primary mb-6"></i>
+        <h3 class="text-xl font-semibold mb-2">Digital Store</h3>
+        <p class="text-sm text-slate-600 dark:text-slate-400 mb-6">
+          Template, asset, dan produk digital siap pakai.
+          Dibuat dari kebutuhan nyata, bukan sekadar katalog.
+        </p>
+        <span class="inline-block px-3 py-1 text-xs rounded-full bg-slate-200 dark:bg-slate-800">
+          Coming Soon
+        </span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+  <div class="max-w-7xl mx-auto px-4 text-center">
+    <p class="text-sm text-slate-500">
+      © 2026 Ansyah — Dibangun perlahan, dipakai sungguhan.
+    </p>
+  </div>
+</footer>
+
+<script>
+  lucide.createIcons();
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: .1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark');
+  }
+</script>
+
+</body>
+</html>
