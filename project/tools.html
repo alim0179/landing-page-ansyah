@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
@@ -44,6 +43,11 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    .grid a:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
   </style>
 </head>
 
@@ -79,13 +83,26 @@
     </div>
   </section>
 
+  <!-- SEARCH BAR -->
+  <section class="py-6 bg-slate-100 dark:bg-slate-900 reveal">
+    <div class="max-w-7xl mx-auto px-4">
+      <input 
+        type="text" 
+        id="toolSearch" 
+        placeholder="Cari tools..." 
+        class="w-full p-3 rounded-lg border dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary"
+        oninput="filterTools()" 
+      />
+    </div>
+  </section>
+
   <!-- TOOLS GRID -->
-  <section class="pb-24">
+  <section class="pb-8">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
 
       <!-- IMAGE COMPRESSOR -->
       <a href="tools/imagecompressor"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
+        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
         <i data-lucide="image" class="w-6 h-6 text-primary mb-3"></i>
         <h3 class="text-sm font-semibold mb-1">Image Compressor</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
@@ -98,20 +115,20 @@
 
       <!-- IMAGE RESIZE -->
       <a href="tools/imageresize"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
+        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
         <i data-lucide="move" class="w-6 h-6 text-primary mb-3"></i>
         <h3 class="text-sm font-semibold mb-1">Image Resize</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
           Ubah dimensi gambar presisi.
         </p>
         <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          
+          JPG · PNG
         </span>
       </a>
 
       <!-- IMAGE CONVERTER -->
       <a href="tools/imageconverter"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition">
+        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
         <i data-lucide="repeat" class="w-6 h-6 text-primary mb-3"></i>
         <h3 class="text-sm font-semibold mb-1">Image Converter</h3>
         <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
@@ -129,6 +146,19 @@
         <span class="text-xs">Coming soon</span>
       </div>
 
+    </div>
+  </section>
+
+  <!-- SUGGESTION BOX -->
+  <section class="py-12 bg-slate-50 dark:bg-slate-900 reveal">
+    <div class="max-w-3xl mx-auto px-4 text-center">
+      <h3 class="text-lg font-semibold mb-4 text-primary">Saran / Masukan</h3>
+      <textarea id="suggestion" placeholder="Kirim saranmu di sini..." rows="4"
+        class="w-full p-3 rounded-lg border dark:border-slate-700 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
+      <button onclick="sendSuggestion()" 
+        class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+        Kirim
+      </button>
     </div>
   </section>
 
@@ -153,7 +183,37 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   function toggleTheme() {
-    document.documentElement.classList.toggle('dark');
+    const html = document.documentElement;
+    html.classList.toggle('dark');
+
+    const icon = document.querySelector('header button i');
+    if (html.classList.contains('dark')) {
+      icon.setAttribute('data-lucide', 'moon');
+    } else {
+      icon.setAttribute('data-lucide', 'sun');
+    }
+    lucide.createIcons();
+  }
+
+  // SEARCH FUNCTION
+  function filterTools() {
+    const query = document.getElementById('toolSearch').value.toLowerCase();
+    document.querySelectorAll('.grid a').forEach(tool => {
+      const text = tool.innerText.toLowerCase();
+      tool.style.display = text.includes(query) ? 'flex' : 'none';
+    });
+  }
+
+  // SUGGESTION FUNCTION
+  function sendSuggestion() {
+    const text = document.getElementById('suggestion').value.trim();
+    if(!text) {
+      alert("Mohon isi saran terlebih dahulu!");
+      return;
+    }
+    // Untuk demo, hanya alert. Nanti bisa dihubungkan ke email / server.
+    alert("Terima kasih atas sarannya: " + text);
+    document.getElementById('suggestion').value = "";
   }
 </script>
 
