@@ -44,9 +44,9 @@
       transform: translateY(0);
     }
 
-    .grid a:hover {
+    .tool-card:hover {
       transform: scale(1.05);
-      transition: transform 0.3s ease;
+      transition: transform .3s ease;
     }
   </style>
 </head>
@@ -54,10 +54,10 @@
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
 
 <!-- NAVBAR -->
-<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+<header class="fixed top-0 w-full z-40 bg-white/80 dark:bg-slate-950/80 backdrop-blur border-b border-slate-200 dark:border-slate-800">
   <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
     <div class="flex items-center gap-3 font-bold text-lg">
-      <img src="../logo.jpg" class="w-8 h-8 object-contain"
+      <img src="../logo.jpg" class="w-8 h-8"
         onerror="this.src='https://placehold.co/32x32/2563eb/ffffff?text=A'" />
       <span class="text-primary">Ansyah</span>
     </div>
@@ -83,82 +83,46 @@
     </div>
   </section>
 
-  <!-- SEARCH BAR -->
-  <section class="py-6 bg-slate-100 dark:bg-slate-900 reveal">
-    <div class="max-w-7xl mx-auto px-4">
-      <input 
-        type="text" 
-        id="toolSearch" 
-        placeholder="Cari tools..." 
-        class="w-full p-3 rounded-lg border dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-primary"
-        oninput="filterTools()" 
-      />
+  <!-- SEARCH -->
+  <section class="pb-6 reveal">
+    <div class="max-w-4xl mx-auto px-4">
+      <input id="toolSearch" oninput="filterTools()"
+        type="text"
+        placeholder="Cari tools..."
+        class="w-full p-3 rounded-lg border dark:border-slate-700 focus:ring-2 focus:ring-primary focus:outline-none">
     </div>
   </section>
 
-  <!-- TOOLS GRID -->
-  <section class="pb-8">
+  <!-- TOOLS -->
+  <section class="pb-24">
     <div class="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-6">
 
-      <!-- IMAGE COMPRESSOR -->
-      <a href="tools/imagecompressor"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
+      <a href="tools/imagecompressor" class="tool-card reveal p-5 rounded-xl border dark:border-slate-800 flex flex-col">
         <i data-lucide="image" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Compressor</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Perkecil ukuran gambar otomatis.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          JPG · PNG · WebP
-        </span>
+        <h3 class="text-sm font-semibold">Image Compressor</h3>
+        <p class="text-xs text-slate-500 mb-3">Perkecil ukuran gambar otomatis.</p>
+        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">JPG · PNG · WebP</span>
       </a>
 
-      <!-- IMAGE RESIZE -->
-      <a href="tools/imageresize"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
+      <a href="tools/imageresize" class="tool-card reveal p-5 rounded-xl border dark:border-slate-800 flex flex-col">
         <i data-lucide="move" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Resize</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Ubah dimensi gambar presisi.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          JPG · PNG
-        </span>
+        <h3 class="text-sm font-semibold">Image Resize</h3>
+        <p class="text-xs text-slate-500 mb-3">Ubah dimensi gambar.</p>
+        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">JPG · PNG</span>
       </a>
 
-      <!-- IMAGE CONVERTER -->
-      <a href="tools/imageconverter"
-        class="reveal p-5 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col">
+      <a href="tools/imageconverter" class="tool-card reveal p-5 rounded-xl border dark:border-slate-800 flex flex-col">
         <i data-lucide="repeat" class="w-6 h-6 text-primary mb-3"></i>
-        <h3 class="text-sm font-semibold mb-1">Image Converter</h3>
-        <p class="text-xs text-slate-600 dark:text-slate-400 mb-3">
-          Konversi format gambar.
-        </p>
-        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">
-          JPG · PNG · ICO
-        </span>
+        <h3 class="text-sm font-semibold">Image Converter</h3>
+        <p class="text-xs text-slate-500 mb-3">Konversi format gambar.</p>
+        <span class="text-[10px] bg-primary/10 text-primary px-2 py-0.5 rounded-full">JPG · PNG · ICO</span>
       </a>
 
-      <!-- PLACEHOLDER TOOL -->
-      <div
-        class="reveal p-5 rounded-xl border border-dashed dark:border-slate-800 text-slate-400 flex flex-col justify-center items-center text-center">
+      <div class="reveal p-5 rounded-xl border border-dashed dark:border-slate-800 text-center text-slate-400 flex flex-col items-center justify-center">
         <i data-lucide="plus" class="w-6 h-6 mb-2"></i>
         <span class="text-xs">Coming soon</span>
       </div>
 
-    </div>
-  </section>
-
-  <!-- SUGGESTION BOX -->
-  <section class="py-12 bg-slate-50 dark:bg-slate-900 reveal">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <h3 class="text-lg font-semibold mb-4 text-primary">Saran / Masukan</h3>
-      <textarea id="suggestion" placeholder="Kirim saranmu di sini..." rows="4"
-        class="w-full p-3 rounded-lg border dark:border-slate-700 mb-4 resize-none focus:outline-none focus:ring-2 focus:ring-primary"></textarea>
-      <button onclick="sendSuggestion()" 
-        class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
-        Kirim
-      </button>
     </div>
   </section>
 
@@ -167,53 +131,72 @@
 <!-- FOOTER -->
 <footer class="border-t border-slate-200 dark:border-slate-800 py-10">
   <p class="text-center text-xs text-slate-500">
-    © 2026 Ansyah.tools. All rights reserved.
+    © 2026 Ansyah.tools
   </p>
 </footer>
+
+<!-- FLOAT SUGGESTION BUTTON -->
+<button onclick="toggleSuggestion()"
+  class="fixed bottom-5 right-5 z-50 bg-primary text-white p-4 rounded-full shadow-lg hover:bg-blue-600">
+  <i data-lucide="message-square"></i>
+</button>
+
+<!-- SUGGESTION MODAL -->
+<div id="suggestionModal"
+  class="fixed inset-0 hidden items-center justify-center bg-black/40 backdrop-blur z-50">
+
+  <div class="bg-white dark:bg-slate-900 w-full max-w-md rounded-xl p-6">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="font-semibold text-primary">Kotak Saran</h3>
+      <button onclick="toggleSuggestion()">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+
+    <textarea id="suggestion"
+      rows="4"
+      placeholder="Tulis saran atau ide tools..."
+      class="w-full p-3 rounded-lg border dark:border-slate-700 mb-4 focus:ring-2 focus:ring-primary"></textarea>
+
+    <button onclick="sendSuggestion()"
+      class="w-full bg-primary text-white py-2 rounded-lg hover:bg-blue-600">
+      Kirim Saran
+    </button>
+  </div>
+</div>
 
 <script>
   lucide.createIcons();
 
   const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) e.target.classList.add('active');
-    });
-  }, { threshold: 0.1 });
+    entries.forEach(e => e.isIntersecting && e.target.classList.add('active'));
+  }, { threshold: .1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
   function toggleTheme() {
-    const html = document.documentElement;
-    html.classList.toggle('dark');
-
-    const icon = document.querySelector('header button i');
-    if (html.classList.contains('dark')) {
-      icon.setAttribute('data-lucide', 'moon');
-    } else {
-      icon.setAttribute('data-lucide', 'sun');
-    }
-    lucide.createIcons();
+    document.documentElement.classList.toggle('dark');
   }
 
-  // SEARCH FUNCTION
   function filterTools() {
-    const query = document.getElementById('toolSearch').value.toLowerCase();
-    document.querySelectorAll('.grid a').forEach(tool => {
-      const text = tool.innerText.toLowerCase();
-      tool.style.display = text.includes(query) ? 'flex' : 'none';
+    const q = toolSearch.value.toLowerCase();
+    document.querySelectorAll('.tool-card').forEach(card => {
+      card.style.display = card.innerText.toLowerCase().includes(q) ? 'flex' : 'none';
     });
   }
 
-  // SUGGESTION FUNCTION
+  function toggleSuggestion() {
+    const modal = document.getElementById('suggestionModal');
+    modal.classList.toggle('hidden');
+    modal.classList.toggle('flex');
+  }
+
   function sendSuggestion() {
-    const text = document.getElementById('suggestion').value.trim();
-    if(!text) {
-      alert("Mohon isi saran terlebih dahulu!");
-      return;
-    }
-    // Untuk demo, hanya alert. Nanti bisa dihubungkan ke email / server.
-    alert("Terima kasih atas sarannya: " + text);
-    document.getElementById('suggestion').value = "";
+    const text = suggestion.value.trim();
+    if (!text) return alert('Sarannya jangan kosong 🙂');
+    alert('Terima kasih atas sarannya 🙌');
+    suggestion.value = '';
+    toggleSuggestion();
   }
 </script>
 
