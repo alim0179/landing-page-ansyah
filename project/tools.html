@@ -191,14 +191,40 @@
     modal.classList.toggle('flex');
   }
 
+
   function sendSuggestion() {
     const text = suggestion.value.trim();
-    if (!text) return alert('Sarannya jangan kosong 🙂');
-    alert('Terima kasih atas sarannya 🙌');
-    suggestion.value = '';
-    toggleSuggestion();
+    if (!text) {
+      alert('Sarannya jangan kosong 🙂');
+      return;
+    }
+
+    fetch('api/save_saran.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        pesan: text,
+        halaman: window.location.pathname
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.status === 'ok') {
+        alert('Terima kasih atas sarannya 🙌');
+        suggestion.value = '';
+        toggleSuggestion();
+      } else {
+        alert('Gagal mengirim saran 😢');
+      }
+    })
+    .catch(() => {
+      alert('Server tidak bisa dihubungi ⚠️');
+    });
   }
 </script>
+
 
 </body>
 </html>
