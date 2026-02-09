@@ -1,91 +1,65 @@
-<?php
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $data = json_decode(file_get_contents('data.json'), true);
-
-  $data[] = [
-    'tools'    => $_POST['tools'] ?? '',
-    'fungsi'   => $_POST['fungsi'] ?? '',
-    'butuh'    => $_POST['butuh'] ?? '',
-    'kategori' => $_POST['kategori'] ?? '',
-    'minat'    => $_POST['minat'] ?? '',
-    'time'     => time()
-  ];
-
-  file_put_contents('data.json', json_encode($data, JSON_PRETTY_PRINT));
-  header('Location: hasil.php');
-  exit;
-}
-?>
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Masukan Tools Online</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <style>
-    body { font-family: Arial; background:#f1f3f4; padding:24px }
-    .box { max-width:680px; margin:auto; background:#fff; padding:24px; border-radius:8px; border-top:8px solid #673ab7 }
-    h1 { font-size:22px }
-    p { color:#5f6368; font-size:14px }
-    .q { margin-top:24px }
-    label { font-size:15px }
-    input, textarea, select {
-      width:100%; padding:10px 6px; margin-top:6px;
-      border:none; border-bottom:2px solid #dadce0; font-size:15px
-    }
-    button { margin-top:28px; background:#673ab7; color:#fff; border:none; padding:10px 28px; border-radius:4px }
-    small { color:#80868b }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Survei Tools Online</title>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-<div class="box">
-  <h1>Bantu Kami Nentuin Tools 🙌</h1>
-  <p>Form ini anonim. Tidak menyimpan data pribadi.</p>
+  <form id="form" class="bg-white p-6 rounded-xl shadow-md w-full max-w-md space-y-4">
+    <h1 class="text-xl font-semibold text-gray-800">
+      Tools online apa yang sering kamu pakai?
+    </h1>
+    <p class="text-sm text-gray-500">
+      Jawaban anonim • 10 detik saja
+    </p>
 
-  <form method="post">
-    <div class="q">
-      <label>Biasanya kamu pakai tools online apa?</label>
-      <input name="tools" required>
-    </div>
+    <input
+      type="text"
+      name="tool"
+      required
+      placeholder="Contoh: Canva, ChatGPT, Google Docs"
+      class="w-full border rounded-lg px-4 py-2 focus:ring focus:outline-none"
+    />
 
-    <div class="q">
-      <label>Biasanya dipakai buat apa?</label>
-      <textarea name="fungsi"></textarea>
-    </div>
+    <select name="kategori" class="w-full border rounded-lg px-4 py-2">
+      <option value="">Kategori (opsional)</option>
+      <option>AI</option>
+      <option>Desain</option>
+      <option>Produktivitas</option>
+      <option>Utility / Converter</option>
+    </select>
 
-    <div class="q">
-      <label>Ada tools yang susah ditemukan?</label>
-      <input name="butuh">
-    </div>
+    <button class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">
+      Kirim
+    </button>
 
-    <div class="q">
-      <label>Lebih sering butuh tools jenis apa?</label>
-      <select name="kategori">
-        <option value="">— Pilih —</option>
-        <option>Text / Caption</option>
-        <option>Gambar / PDF</option>
-        <option>QR / Utility</option>
-        <option>AI sederhana</option>
-      </select>
-    </div>
-
-    <div class="q">
-      <label>Kalau ada tools gratis & simpel?</label>
-      <select name="minat">
-        <option value="">— Pilih —</option>
-        <option>Sangat mungkin</option>
-        <option>Mungkin</option>
-        <option>Biasa saja</option>
-      </select>
-    </div>
-
-    <button>Kirim Masukan</button>
-    <p><small>Jangan tulis info pribadi ya 🙏</small></p>
+    <p id="status" class="text-center text-sm"></p>
   </form>
-</div>
+
+<script>
+document.getElementById("form").addEventListener("submit", async (e) => {
+  e.preventDefault()
+
+  const data = {
+    tool: e.target.tool.value,
+    kategori: e.target.kategori.value
+  }
+
+  const res = await fetch("./api", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data)
+  })
+
+  document.getElementById("status").innerText =
+    res.ok ? "Terima kasih 🙌" : "Gagal mengirim"
+
+  e.target.reset()
+})
+</script>
 
 </body>
 </html>
