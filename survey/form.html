@@ -1,65 +1,56 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Survei Tools Online</title>
+
+  <title>Pendapat Kamu tentang Web Tools | Ansyah</title>
+  <meta name="description" content="Survei pendapat pengguna tentang web tools sederhana yang benar-benar dibutuhkan." />
+
+  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen flex items-center justify-center">
 
-  <form id="form" class="bg-white p-6 rounded-xl shadow-md w-full max-w-md space-y-4">
-    <h1 class="text-xl font-semibold text-gray-800">
-      Tools online apa yang sering kamu pakai?
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Header -->
+  <header class="py-10 text-center">
+    <h1 class="text-2xl md:text-3xl font-bold">
+      Pendapat Kamu tentang Web Tools
     </h1>
-    <p class="text-sm text-gray-500">
-      Jawaban anonim • 10 detik saja
+    <p class="mt-3 text-sm md:text-base text-gray-600 max-w-xl mx-auto px-4">
+      Survei singkat ini bertujuan untuk memahami kebutuhan nyata kamu terhadap web tools,
+      supaya tools yang dibuat nanti benar-benar bermanfaat dan mudah digunakan.
     </p>
+  </header>
 
-    <input
-      type="text"
-      name="tool"
-      required
-      placeholder="Contoh: Canva, ChatGPT, Google Docs"
-      class="w-full border rounded-lg px-4 py-2 focus:ring focus:outline-none"
-    />
+  <!-- Penjelasan -->
+  <section class="max-w-3xl mx-auto px-4 mb-8">
+    <div class="bg-white rounded-xl p-5 border">
+      <h2 class="font-semibold mb-2">Apa itu Web Tools?</h2>
+      <p class="text-sm text-gray-600">
+        Web tools adalah alat bantu kecil di website untuk menyelesaikan tugas tertentu dengan cepat.
+        Contohnya seperti hitung kata, kompres gambar, ubah teks, atau generate QR.
+      </p>
+    </div>
+  </section>
 
-    <select name="kategori" class="w-full border rounded-lg px-4 py-2">
-      <option value="">Kategori (opsional)</option>
-      <option>AI</option>
-      <option>Desain</option>
-      <option>Produktivitas</option>
-      <option>Utility / Converter</option>
-    </select>
+  <!-- Google Form -->
+  <section class="max-w-3xl mx-auto px-4 pb-16">
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLScSMpfKxGcJoebgcnsQFsaElt3qkcqNCXLZBz3TjV0_EhF8rw/viewform?embedded=true"
+      class="w-full h-[1200px] rounded-xl border shadow bg-white"
+      frameborder="0"
+      loading="lazy"
+    >
+      Loading…
+    </iframe>
+  </section>
 
-    <button class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">
-      Kirim
-    </button>
-
-    <p id="status" class="text-center text-sm"></p>
-  </form>
-
-<script>
-document.getElementById("form").addEventListener("submit", async (e) => {
-  e.preventDefault()
-
-  const data = {
-    tool: e.target.tool.value,
-    kategori: e.target.kategori.value
-  }
-
-  const res = await fetch("./api", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data)
-  })
-
-  document.getElementById("status").innerText =
-    res.ok ? "Terima kasih 🙌" : "Gagal mengirim"
-
-  e.target.reset()
-})
-</script>
+  <!-- Footer -->
+  <footer class="text-center text-xs text-gray-500 pb-6">
+    © 2026 Ansyah — Terima kasih sudah berbagi pendapat
+  </footer>
 
 </body>
 </html>
