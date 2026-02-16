@@ -1,0 +1,323 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Branding & SEO -->
+  <title>Ansyah | Web Tools Gratis</title>
+  <meta name="description" content="Katalog Web Tools Gratis Ansyah. Temukan berbagai tools online praktis dan cepat untuk kebutuhan digitalmu." />
+  <meta name="author" content="Ansyah" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Ansyah | Web Tools Gratis" />
+  <meta property="og:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ansyah.web.id/tools.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ansyah | Web Tools Gratis" />
+  <meta name="twitter:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+  <link rel="icon" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools.html" />
+  <link rel="preload" href="logo.jpg" as="image">
+
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ansyah",
+    "url": "https://ansyah.web.id/tools.html"
+  }
+  </script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+  <main class="flex-grow relative pt-20">
+
+    <!-- TOOLS GRID SECTION -->
+    <section id="tools-grid" class="py-20">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="mb-8 text-center reveal">
+          <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200">Kumpulan Tools Gratis</h2>
+          <p class="text-slate-600 dark:text-slate-400 mt-2">Pilih tools yang sesuai kebutuhan digitalmu</p>
+        </div>
+
+        <!-- Filter Kategori -->
+        <div class="category-filter mb-6 reveal" id="category-filter"></div>
+
+        <!-- Tools Grid -->
+        <div id="tools-container" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4"></div>
+
+        <!-- Pagination -->
+        <div id="pagination" class="pagination reveal"></div>
+      </div>
+    </section>
+
+    <!-- SEO CONTENT SECTION -->
+    <section class="py-20 bg-slate-100 dark:bg-slate-900">
+      <div class="max-w-5xl mx-auto px-4 reveal">
+        <h2 class="text-3xl font-bold mb-6">Kenapa Memilih Tools Ansyah?</h2>
+        <p class="mb-4 text-slate-600 dark:text-slate-400">
+          Semua tools gratis, cepat, dan bisa digunakan langsung tanpa login. Praktis untuk pelajar, UMKM, content creator, dan pebisnis online.
+        </p>
+        <ul class="space-y-3 text-slate-600 dark:text-slate-400">
+          <li>✔ Gratis tanpa registrasi</li>
+          <li>✔ Akses langsung dari browser</li>
+          <li>✔ Tampilan modern dan ringan</li>
+          <li>✔ Tools bervariasi dan selalu diperbarui</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="logo.jpg" alt="Ansyah Web Tools" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+
+    // Reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Preloader
+    window.addEventListener('load', () => {
+      const preloader = document.getElementById('preloader');
+      preloader.style.transition = 'opacity 0.5s ease';
+      preloader.style.opacity = '0';
+      setTimeout(() => preloader.style.display = 'none', 500);
+    });
+
+    // Dark/Light toggle
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const lightIcon = themeToggleBtn.querySelector('.light-icon');
+    const darkIcon = themeToggleBtn.querySelector('.dark-icon');
+    function updateIcons() {
+      if(document.documentElement.classList.contains('dark')){
+        lightIcon.style.opacity = 1; lightIcon.style.transform = 'translateY(0)';
+        darkIcon.style.opacity = 0; darkIcon.style.transform = 'translateY(-4px)';
+      } else {
+        lightIcon.style.opacity = 0; lightIcon.style.transform = 'translateY(4px)';
+        darkIcon.style.opacity = 1; darkIcon.style.transform = 'translateY(0)';
+      }
+    }
+    updateIcons();
+    themeToggleBtn.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      updateIcons();
+    });
+    window.addEventListener('load', () => {
+      if(localStorage.getItem('theme') === 'dark') document.documentElement.classList.add('dark');
+      updateIcons();
+    });
+
+    // Mobile menu
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    function toggleMobileMenu() {
+      const isHidden = mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      mobileOverlay.classList.toggle('hidden', !isHidden);
+    }
+    mobileBtn.addEventListener('click', toggleMobileMenu);
+    mobileOverlay.addEventListener('click', toggleMobileMenu);
+    window.addEventListener('keydown', (e) => { if(e.key==='Escape'){ mobileMenu.classList.add('hidden'); mobileOverlay.classList.add('hidden'); } });
+
+    // Tools Data
+    const tools = [
+      { title: 'QR Code Generator', desc: 'Buat QR Code cepat untuk URL, teks, dan kontak secara online.', icon: 'qr-code', link: 'tools/qrcode.html', category: 'QR' },
+      { title: 'Text to PDF', desc: 'Konversi teks menjadi file PDF dengan cepat dan mudah.', icon: 'file-text', link: 'tools/text-to-pdf.html', category: 'File' },
+      { title: 'Image Converter', desc: 'Konversi gambar ke format lain seperti PNG, JPG, dan WebP.', icon: 'image', link: 'tools/image-converter.html', category: 'Image' },
+      { title: 'PDF to Word', desc: 'Ubah PDF menjadi dokumen Word tanpa install software.', icon: 'file-text', link: 'tools/pdf-to-word.html', category: 'File' },
+      { title: 'Barcode Generator', desc: 'Buat barcode untuk produk atau inventori dengan cepat.', icon: 'barcode', link: 'tools/barcode.html', category: 'QR' },
+      { title: 'Image Resizer', desc: 'Ubah ukuran gambar sesuai kebutuhan online atau cetak.', icon: 'image', link: 'tools/image-resizer.html', category: 'Image' },
+      { title: 'JSON Formatter', desc: 'Rapi dan format JSON agar mudah dibaca.', icon: 'code', link: 'tools/json-formatter.html', category: 'Code' },
+      { title: 'Base64 Encoder', desc: 'Encode dan decode data menjadi Base64 online.', icon: 'key', link: 'tools/base64.html', category: 'Code' },
+      { title: 'Password Generator', desc: 'Buat password acak yang aman untuk akunmu.', icon: 'lock', link: 'tools/password-generator.html', category: 'Security' },
+      { title: 'Color Picker', desc: 'Pilih warna dan dapatkan kode hex, rgb, dan hsl.', icon: 'droplet', link: 'tools/color-picker.html', category: 'Design' },
+      { title: 'Minify CSS', desc: 'Perkecil ukuran file CSS agar loading lebih cepat.', icon: 'file-text', link: 'tools/minify-css.html', category: 'Code' },
+      { title: 'Minify JS', desc: 'Perkecil file JavaScript untuk optimasi website.', icon: 'file-text', link: 'tools/minify-js.html', category: 'Code' },
+      { title: 'PDF Merger', desc: 'Gabungkan beberapa file PDF menjadi satu dokumen.', icon: 'file-text', link: 'tools/pdf-merger.html', category: 'File' },
+      { title: 'Image to PDF', desc: 'Konversi gambar menjadi file PDF dengan cepat.', icon: 'image', link: 'tools/image-to-pdf.html', category: 'Image' },
+    ];
+
+    let currentCategory = 'All';
+    let currentPage = 1;
+    const itemsPerPage = 10;
+
+    // Generate category buttons
+    function renderCategories() {
+      const container = document.getElementById('category-filter');
+      const categories = ['All', ...new Set(tools.map(t=>t.category))];
+      container.innerHTML = '';
+      categories.forEach(cat=>{
+        const btn = document.createElement('button');
+        btn.textContent = cat;
+        btn.className = 'px-3 py-1 rounded-full border dark:border-slate-700 text-sm font-medium hover:bg-primary hover:text-white focus:outline-none focus:ring-2 focus:ring-primary';
+        if(cat === currentCategory) btn.classList.add('bg-primary','text-white');
+        btn.addEventListener('click', ()=>{
+          currentCategory = cat;
+          currentPage = 1;
+          renderCategories();
+          renderTools();
+        });
+        container.appendChild(btn);
+      });
+    }
+
+    // Render tools
+    function renderTools() {
+      const container = document.getElementById('tools-container');
+      const paginationContainer = document.getElementById('pagination');
+      const filtered = currentCategory === 'All' ? tools : tools.filter(t=>t.category===currentCategory);
+      const totalPages = Math.ceil(filtered.length / itemsPerPage);
+      const start = (currentPage-1)*itemsPerPage;
+      const end = start+itemsPerPage;
+      const pageItems = filtered.slice(start,end);
+
+      container.innerHTML = '';
+      pageItems.forEach(t=>{
+        const div = document.createElement('div');
+        div.className = 'reveal p-3 rounded-xl border dark:border-slate-800 hover:border-primary transition card-hover flex flex-col focus:outline-none focus:ring-2 focus:ring-primary';
+        div.innerHTML = `
+          <i data-lucide="${t.icon}" class="w-7 h-7 text-primary mb-2"></i>
+          <h3 class="text-sm sm:text-base font-semibold mb-1">${t.title}</h3>
+          <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-2 flex-grow">${t.desc}</p>
+          <a href="${t.link}" class="mt-auto px-2 py-1 bg-primary text-white rounded-lg text-center font-semibold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-primary text-xs sm:text-sm">Gunakan →</a>
+        `;
+        container.appendChild(div);
+      });
+      lucide.createIcons();
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Pagination
+      paginationContainer.innerHTML = '';
+      for(let i=1;i<=totalPages;i++){
+        const btn = document.createElement('button');
+        btn.textContent = i;
+        btn.className = `px-3 py-1 rounded-full border dark:border-slate-700 text-sm font-medium ${i===currentPage ? 'bg-primary text-white':'hover:bg-primary hover:text-white'}`;
+        btn.addEventListener('click', ()=>{
+          currentPage = i;
+          renderTools();
+        });
+        paginationContainer.appendChild(btn);
+      }
+    }
+
+    renderCategories();
+    renderTools();
+  </script>
+</body>
+</html>
