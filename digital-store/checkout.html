@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Ansyah Store</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: { primary: '#2563eb' }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      transition: background-color .3s ease, color .3s ease;
+    }
+  </style>
+    
+    <script 
+  src="https://app.sandbox.midtrans.com/snap/snap.js"
+  data-client-key="Mid-client-0rxk4NYmmZpsfrJV">
+</script>
+
+    
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+<!-- NAVBAR -->
+<header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+    <div class="font-bold text-lg text-primary">Ansyah Store</div>
+
+    <button id="theme-toggle"
+      class="relative w-9 h-9 flex items-center justify-center rounded-lg border dark:border-slate-700">
+      <i data-lucide="sun" id="sunIcon" class="w-5 h-5 absolute"></i>
+      <i data-lucide="moon" id="moonIcon" class="w-5 h-5 absolute"></i>
+    </button>
+  </div>
+</header>
+
+<!-- MAIN -->
+<main class="flex-grow pt-24">
+  <div class="max-w-5xl mx-auto px-4 py-12 grid md:grid-cols-2 gap-10">
+
+    <!-- PRODUCT INFO -->
+    <div id="productInfo"
+      class="bg-white dark:bg-slate-900 rounded-xl shadow p-6 border dark:border-slate-800">
+      <h2 class="text-xl font-semibold mb-4">Ringkasan Produk</h2>
+      <p>Memuat produk...</p>
+    </div>
+
+    <!-- FORM -->
+    <div class="bg-white dark:bg-slate-900 rounded-xl shadow p-6 border dark:border-slate-800">
+      <h2 class="text-xl font-semibold mb-6">Data Pembeli</h2>
+
+      <form id="checkoutForm" class="space-y-4">
+        <input type="text" name="name" placeholder="Nama lengkap"
+          class="w-full border rounded-lg px-4 py-2 dark:bg-slate-800 dark:border-slate-700" required>
+
+        <input type="email" name="email" placeholder="Email"
+          class="w-full border rounded-lg px-4 py-2 dark:bg-slate-800 dark:border-slate-700" required>
+
+        <input type="tel" name="phone" placeholder="No HP"
+          class="w-full border rounded-lg px-4 py-2 dark:bg-slate-800 dark:border-slate-700" required>
+
+        <button type="submit"
+          class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition">
+          Bayar Sekarang →
+        </button>
+      </form>
+    </div>
+
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-sm text-slate-500 dark:text-slate-400">
+  © 2026 Ansyah Store — All rights reserved.
+</footer>
+
+<!-- SNAP JS -->
+<script src="https://app.sandbox.midtrans.com/snap/snap.js"
+data-client-key="Mid-client-0rxk4NYmmZpsfrJV"></script>
+
+<script>
+lucide.createIcons();
+
+/* =========================
+   DARK / LIGHT MODE
+========================= */
+const toggleBtn = document.getElementById('theme-toggle');
+const sunIcon = document.getElementById('sunIcon');
+const moonIcon = document.getElementById('moonIcon');
+
+function updateIcons() {
+  if(document.documentElement.classList.contains('dark')){
+    sunIcon.style.opacity = 1;
+    moonIcon.style.opacity = 0;
+  } else {
+    moonIcon.style.opacity = 1;
+    sunIcon.style.opacity = 0;
+  }
+}
+
+if(localStorage.getItem('theme') === 'dark'){
+  document.documentElement.classList.add('dark');
+}
+updateIcons();
+
+toggleBtn.addEventListener('click', () => {
+  document.documentElement.classList.toggle('dark');
+  localStorage.setItem('theme',
+    document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+  );
+  updateIcons();
+});
+
+/* =========================
+   FETCH PRODUCT
+========================= */
+const params = new URLSearchParams(window.location.search);
+const productId = params.get('product');
+const productInfo = document.getElementById('productInfo');
+
+let selectedProduct = null;
+
+fetch('data/products.json')
+  .then(res => res.json())
+  .then(data => {
+
+    const product = data.find(p => p.id == productId);
+    selectedProduct = product;
+
+    if(!product){
+      productInfo.innerHTML =
+        '<p class="text-red-500">Produk tidak ditemukan.</p>';
+      return;
+    }
+
+    productInfo.innerHTML = `
+      <div class="flex gap-4">
+        <img src="${product.image}"
+          class="w-24 h-24 object-cover rounded-lg">
+        <div>
+          <h3 class="font-semibold text-lg">${product.name}</h3>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            ${product.category}
+          </p>
+          <p class="mt-2 font-semibold">
+            Rp${Number(product.price).toLocaleString()}
+          </p>
+        </div>
+      </div>
+    `;
+  });
+
+
+    /* =========================
+   FORM SUBMIT + MIDTRANS
+========================= */
+
+document.getElementById('checkoutForm')
+  .addEventListener('submit', function(e){
+    e.preventDefault();
+
+    if(!selectedProduct){
+      alert("Produk tidak valid.");
+      return;
+    }
+
+    const formData = new FormData(this);
+
+    const orderId = "ORDER-" + Date.now();
+
+    fetch('create-transaction.php', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        order_id: orderId,
+        gross_amount: selectedProduct.price,
+        customer_details: {
+          first_name: formData.get('name'),
+          email: formData.get('email'),
+          phone: formData.get('phone')
+        }
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+
+      if(!data.token){
+        alert("Gagal mendapatkan token.");
+        console.log(data);
+        return;
+      }
+
+      snap.pay(data.token, {
+
+        onSuccess: function(result){
+          alert("Pembayaran berhasil!");
+          window.location.href =
+            "success.html?order_id=" + result.order_id;
+        },
+
+        onPending: function(result){
+          alert("Menunggu pembayaran...");
+          console.log(result);
+        },
+
+        onError: function(result){
+          alert("Pembayaran gagal!");
+          console.log(result);
+        }
+
+      });
+
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Terjadi kesalahan server.");
+    });
+
+});
+
+    
+    
+</script>
+
+</body>
+</html>
