@@ -1,5 +1,0 @@
-{
-  "functions":{
-    "api/create-transaction.js":{"runtime":"nodejs18.x"}
-  }
-}
