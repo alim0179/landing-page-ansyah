@@ -62,6 +62,12 @@ fetch('/data/products.json')
   const categoryContainer = document.getElementById('categories');
   const productContainer = document.getElementById('products');
 
+  // CEK STRUKTUR JSON
+  if(!data.categories || !data.products){
+    productContainer.innerHTML = "<p style='color:red'>Struktur JSON salah.</p>";
+    return;
+  }
+
   allProducts = data.products;
 
   function renderProducts(){
@@ -70,7 +76,7 @@ fetch('/data/products.json')
     const filtered = allProducts.filter(p => p.category === activeCategory);
 
     if(filtered.length === 0){
-      productContainer.innerHTML = "<p>Tidak ada produk.</p>";
+      productContainer.innerHTML = "<p style='color:red'>Produk tidak ditemukan untuk kategori ini.</p>";
       return;
     }
 
@@ -85,7 +91,6 @@ fetch('/data/products.json')
     });
   }
 
-  // Render kategori
   data.categories.forEach((cat, index) => {
     const btn = document.createElement('div');
     btn.className = "category-btn";
@@ -102,16 +107,18 @@ fetch('/data/products.json')
 
     categoryContainer.appendChild(btn);
 
-    // SET DEFAULT KATEGORI PERTAMA
     if(index === 0){
       btn.classList.add('active');
       activeCategory = cat.id;
     }
   });
 
-  // PANGGIL SEKALI DI AWAL
   renderProducts();
 
+})
+.catch(err => {
+  document.getElementById('products').innerHTML =
+    "<p style='color:red'>Gagal load JSON: " + err + "</p>";
 });
 
 function checkout(id){
