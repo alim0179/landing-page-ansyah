@@ -8,30 +8,33 @@ export default async function handler(req, res) {
     const serverKey = process.env.MIDTRANS_SERVER_KEY;
     const auth = Buffer.from(serverKey + ":").toString("base64");
 
-    const { payment_type } = req.body || { payment_type: "gopay" }; // default gopay
-
-    // Body Snap transaction
+    // Snap transaction request body
     const body = {
       transaction_details: {
-        order_id: `TEST-${Date.now()}`,
+        order_id: `ORDER-${Date.now()}`,
         gross_amount: 10000
       },
-      enabled_payments: [payment_type],
-      credit_card: { secure: true }
+      credit_card: { secure: true } // untuk kartu kredit
+      // Snap popup otomatis menampilkan semua payment methods
     };
 
-    // Request Snap token
-    const response = await fetch("https://app.sandbox.midtrans.com/snap/v1/transactions", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Basic ${auth}`
-      },
-      body: JSON.stringify(body)
-    });
+    // Request token Snap
+    const response = await fetch(
+      "https://app.sandbox.midtrans.com/snap/v1/transactions",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Basic ${auth}`
+        },
+        body: JSON.stringify(body)
+      }
+    );
 
     const data = await response.json();
-    res.status(200).json(data); // akan ada `token` di response
+
+    // Kirim token ke frontend
+    res.status(200).json(data);
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: err.message });
