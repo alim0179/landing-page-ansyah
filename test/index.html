@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ansyah Digital Store</title>
+
+<style>
+body{
+  font-family: Arial;
+  margin: 0;
+  padding: 20px;
+}
+
+#categories{
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin-bottom: 20px;
+}
+
+.category-btn{
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.category-btn.active{
+  background: #000;
+  color: #fff;
+}
+
+.product{
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+</style>
+
+</head>
+<body>
+
+<h2>Ansyah Digital Store</h2>
+
+<!-- KATEGORI HORIZONTAL -->
+<div id="categories"></div>
+
+<!-- PRODUK -->
+<div id="products"></div>
+
+<script>
+let allProducts = [];
+let activeCategory = null;
+
+fetch('/data/products.json')
+.then(res => res.json())
+.then(data => {
+
+  const categoryContainer = document.getElementById('categories');
+  const productContainer = document.getElementById('products');
+
+  allProducts = data.products;
+
+  // Render kategori
+  data.categories.forEach(cat => {
+    const btn = document.createElement('div');
+    btn.className = "category-btn";
+    btn.innerText = cat.name;
+
+    btn.onclick = () => {
+      document.querySelectorAll('.category-btn')
+        .forEach(b => b.classList.remove('active'));
+
+      btn.classList.add('active');
+      activeCategory = cat.id;
+      renderProducts();
+    };
+
+    categoryContainer.appendChild(btn);
+  });
+
+  function renderProducts(){
+    productContainer.innerHTML = "";
+    const filtered = allProducts.filter(p => p.category === activeCategory);
+
+    filtered.forEach(p => {
+      productContainer.innerHTML += `
+        <div class="product">
+          <h3>${p.name}</h3>
+          <p>Rp ${p.price}</p>
+          <button onclick="checkout('${p.id}')">Beli</button>
+        </div>
+      `;
+    });
+  }
+
+});
+  
+function checkout(id){
+  window.location.href = '/checkout.html?id=' + id;
+}
+</script>
+
+</body>
+</html>
