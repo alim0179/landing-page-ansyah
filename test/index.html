@@ -64,8 +64,29 @@ fetch('/data/products.json')
 
   allProducts = data.products;
 
+  function renderProducts(){
+    productContainer.innerHTML = "";
+
+    const filtered = allProducts.filter(p => p.category === activeCategory);
+
+    if(filtered.length === 0){
+      productContainer.innerHTML = "<p>Tidak ada produk.</p>";
+      return;
+    }
+
+    filtered.forEach(p => {
+      productContainer.innerHTML += `
+        <div class="product">
+          <h3>${p.name}</h3>
+          <p>Rp ${p.price}</p>
+          <button onclick="checkout('${p.id}')">Beli</button>
+        </div>
+      `;
+    });
+  }
+
   // Render kategori
-  data.categories.forEach(cat => {
+  data.categories.forEach((cat, index) => {
     const btn = document.createElement('div');
     btn.className = "category-btn";
     btn.innerText = cat.name;
@@ -80,25 +101,19 @@ fetch('/data/products.json')
     };
 
     categoryContainer.appendChild(btn);
+
+    // SET DEFAULT KATEGORI PERTAMA
+    if(index === 0){
+      btn.classList.add('active');
+      activeCategory = cat.id;
+    }
   });
 
-  function renderProducts(){
-    productContainer.innerHTML = "";
-    const filtered = allProducts.filter(p => p.category === activeCategory);
-
-    filtered.forEach(p => {
-      productContainer.innerHTML += `
-        <div class="product">
-          <h3>${p.name}</h3>
-          <p>Rp ${p.price}</p>
-          <button onclick="checkout('${p.id}')">Beli</button>
-        </div>
-      `;
-    });
-  }
+  // PANGGIL SEKALI DI AWAL
+  renderProducts();
 
 });
-  
+
 function checkout(id){
   window.location.href = '/checkout.html?id=' + id;
 }
