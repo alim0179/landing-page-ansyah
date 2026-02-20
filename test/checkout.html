@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Checkout</title>
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-XXXX"></script>
+</head>
+<body>
+
+<h2>Checkout</h2>
+<div id="detail"></div>
+
+<div id="customer-form">
+  <label>Nama:</label><br>
+  <input type="text" id="custName" placeholder="Nama lengkap" required><br><br>
+
+  <label>Email:</label><br>
+  <input type="email" id="custEmail" placeholder="Email" required><br><br>
+
+  <label>Nomor HP:</label><br>
+  <input type="text" id="custPhone" placeholder="0812xxxxxx" required><br><br>
+</div>
+
+<button id="payBtn">Bayar Sekarang</button>
+
+<script>
+const params=new URLSearchParams(window.location.search);
+const id=params.get('id');
+let selectedProduct;
+
+fetch('/test/data/products.json')
+.then(res=>res.json())
+.then(data=>{
+  selectedProduct=data.products.find(p=>p.id===id);
+  if(!selectedProduct){
+    document.getElementById('detail').innerHTML="<p style='color:red'>Produk tidak ditemukan.</p>";
+    return;
+  }
+  document.getElementById('detail').innerHTML=`
+    <img src="${selectedProduct.img}" alt="${selectedProduct.name}" style="max-width:100%;border-radius:8px;">
+    <h3>${selectedProduct.name}</h3>
+    <p>Rp ${selectedProduct.price}</p>
+    <p>${selectedProduct.desc_long}</p>
+  `;
+});
+
+document.getElementById('payBtn').addEventListener('click', async ()=>{
+  const name = document.getElementById('custName').value;
+  const email = document.getElementById('custEmail').value;
+  const phone = document.getElementById('custPhone').value;
+
+  if(!name || !email || !phone){
+    alert("Lengkapi semua data");
+    return;
+  }
+
+  const payload = {product: selectedProduct, customer: {name,email,phone}};
+  const res = await fetch('/api/create-transaction.js', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+  const data = await res.json();
+  if(data.transaction_token){
+    snap.pay(data.transaction_token, {
+      onSuccess: function(result){
+        window.location.href = selectedProduct.file; // redirect otomatis ke file
+      },
+      onPending: function(result){
+        alert("Pembayaran tertunda");
+      },
+      onError: function(result){
+        alert("Pembayaran gagal");
+      }
+    });
+  } else {
+    alert("Gagal membuat transaksi");
+  }
+});
+</script>
+
+</body>
+</html>
