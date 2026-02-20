@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Payment Midtrans</title>
+<!-- Ganti dengan Client Key Sandbox kamu -->
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-XXXX"></script>
+</head>
+<body>
+
+<h2>Test Payment Midtrans</h2>
+
+<div>
+  <p>Produk Test: Template Canva Premium</p>
+  <p>Harga: Rp 25.000</p>
+</div>
+
+<div>
+  <label>Nama:</label><br>
+  <input type="text" id="custName" placeholder="Nama lengkap"><br><br>
+
+  <label>Email:</label><br>
+  <input type="email" id="custEmail" placeholder="Email"><br><br>
+
+  <label>Nomor HP:</label><br>
+  <input type="text" id="custPhone" placeholder="0812xxxxxx"><br><br>
+</div>
+
+<button id="payBtn">Bayar Sekarang</button>
+
+<script>
+document.getElementById('payBtn').addEventListener('click', async ()=>{
+  const name=document.getElementById('custName').value;
+  const email=document.getElementById('custEmail').value;
+  const phone=document.getElementById('custPhone').value;
+
+  if(!name || !email || !phone){
+    alert("Lengkapi semua data");
+    return;
+  }
+
+  const payload={
+    product:{id:"template01", name:"Template Canva Premium", price:25000},
+    customer:{name,email,phone}
+  };
+
+  const res = await fetch('/api/create-transaction.js',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json();
+
+  if(data.transaction_token){
+    snap.pay(data.transaction_token,{
+      onSuccess:function(result){
+        alert("Pembayaran sukses!");
+      },
+      onPending:function(result){
+        alert("Pembayaran tertunda!");
+      },
+      onError:function(result){
+        alert("Pembayaran gagal!");
+      }
+    });
+  } else {
+    alert("Gagal membuat transaksi");
+  }
+});
+</script>
+
+</body>
+</html>
