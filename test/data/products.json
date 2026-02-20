@@ -1,0 +1,30 @@
+{
+  "categories": [
+    { "id": "template", "name": "Template Design" },
+    { "id": "preset", "name": "Preset Editing" },
+    { "id": "ebook", "name": "E-Book" }
+  ],
+  "products": [
+    {
+      "id": "template01",
+      "category": "template",
+      "name": "Template Canva Premium",
+      "price": 25000,
+      "file": "https://domainkamu.com/files/template01.zip"
+    },
+    {
+      "id": "preset01",
+      "category": "preset",
+      "name": "Preset Lightroom Mobile",
+      "price": 15000,
+      "file": "https://domainkamu.com/files/preset01.zip"
+    },
+    {
+      "id": "ebook01",
+      "category": "ebook",
+      "name": "Ebook Jualan Digital",
+      "price": 49000,
+      "file": "https://domainkamu.com/files/ebook01.pdf"
+    }
+  ]
+}
