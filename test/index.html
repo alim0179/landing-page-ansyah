@@ -4,125 +4,70 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ansyah Digital Store</title>
-
 <style>
-body{
-  font-family: Arial;
-  margin: 0;
-  padding: 20px;
-}
-
-#categories{
-  display: flex;
-  gap: 10px;
-  overflow-x: auto;
-  margin-bottom: 20px;
-}
-
-.category-btn{
-  padding: 8px 15px;
-  border-radius: 20px;
-  border: 1px solid #333;
-  cursor: pointer;
-  white-space: nowrap;
-}
-
-.category-btn.active{
-  background: #000;
-  color: #fff;
-}
-
-.product{
-  border: 1px solid #ddd;
-  padding: 10px;
-  margin-bottom: 10px;
-  border-radius: 8px;
-}
+body{font-family:Arial;margin:20px;}
+#categories{display:flex;gap:10px;overflow-x:auto;margin-bottom:20px;}
+.category-btn{padding:8px 15px;border-radius:20px;border:1px solid #333;cursor:pointer;white-space:nowrap;}
+.category-btn.active{background:#000;color:#fff;}
+.product{border:1px solid #ddd;padding:10px;margin-bottom:10px;border-radius:8px;}
+.product img{max-width:100%;border-radius:8px;}
 </style>
-
 </head>
 <body>
 
 <h2>Ansyah Digital Store</h2>
 
-<!-- KATEGORI HORIZONTAL -->
 <div id="categories"></div>
-
-<!-- PRODUK -->
 <div id="products"></div>
 
 <script>
 let allProducts = [];
 let activeCategory = null;
 
-fetch('https://ansyah.web.id/test/data/products.json')
-.then(res => res.json())
-.then(data => {
+fetch('/test/data/products.json')
+.then(res=>res.json())
+.then(data=>{
+  allProducts = data.products;
 
   const categoryContainer = document.getElementById('categories');
   const productContainer = document.getElementById('products');
 
-  // CEK STRUKTUR JSON
-  if(!data.categories || !data.products){
-    productContainer.innerHTML = "<p style='color:red'>Struktur JSON salah.</p>";
-    return;
-  }
-
-  allProducts = data.products;
-
   function renderProducts(){
     productContainer.innerHTML = "";
-
-    const filtered = allProducts.filter(p => p.category === activeCategory);
-
-    if(filtered.length === 0){
-      productContainer.innerHTML = "<p style='color:red'>Produk tidak ditemukan untuk kategori ini.</p>";
-      return;
-    }
-
-    filtered.forEach(p => {
-      productContainer.innerHTML += `
+    const filtered = allProducts.filter(p=>p.category===activeCategory);
+    if(filtered.length===0){productContainer.innerHTML="<p>Tidak ada produk.</p>";return;}
+    filtered.forEach(p=>{
+      productContainer.innerHTML+=`
         <div class="product">
+          <img src="${p.img}" alt="${p.name}">
           <h3>${p.name}</h3>
+          <p>${p.desc_short}</p>
           <p>Rp ${p.price}</p>
-          <button onclick="checkout('${p.id}')">Beli</button>
+          <button onclick="openDetail('${p.id}')">Detail</button>
         </div>
       `;
     });
   }
 
-  data.categories.forEach((cat, index) => {
+  data.categories.forEach((cat,index)=>{
     const btn = document.createElement('div');
-    btn.className = "category-btn";
-    btn.innerText = cat.name;
-
-    btn.onclick = () => {
-      document.querySelectorAll('.category-btn')
-        .forEach(b => b.classList.remove('active'));
-
+    btn.className="category-btn";
+    btn.innerText=cat.name;
+    btn.onclick=()=>{
+      document.querySelectorAll('.category-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
-      activeCategory = cat.id;
+      activeCategory=cat.id;
       renderProducts();
     };
-
     categoryContainer.appendChild(btn);
-
-    if(index === 0){
-      btn.classList.add('active');
-      activeCategory = cat.id;
-    }
+    if(index===0){btn.classList.add('active');activeCategory=cat.id;}
   });
 
   renderProducts();
-
-})
-.catch(err => {
-  document.getElementById('products').innerHTML =
-    "<p style='color:red'>Gagal load JSON: " + err + "</p>";
 });
 
-function checkout(id){
-  window.location.href = '/checkout.html?id=' + id;
+function openDetail(id){
+  window.location.href='/test/detail.html?id='+id;
 }
 </script>
 
