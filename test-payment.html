@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Midtrans All Payment Test</title>
-  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="YOUR_CLIENT_KEY_HERE"></script>
+  <title>Midtrans Snap Popup Test</title>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0rxk4NYmmZpsfrJV"></script>
 </head>
 <body>
-  <h2>Test Midtrans All Payment</h2>
+  <h2>Midtrans Snap Test All Payment</h2>
 
   <select id="payment-select">
-    <option value="bank_transfer">Bank Transfer</option>
     <option value="gopay">GoPay</option>
     <option value="qris">QRIS</option>
     <option value="credit_card">Credit Card</option>
+    <option value="bank_transfer">Bank Transfer</option>
   </select>
 
   <button id="pay-btn">Pay Now</button>
@@ -24,17 +24,16 @@
     payBtn.addEventListener("click", async () => {
       const paymentType = paymentSelect.value;
 
-      // 1️⃣ Create transaction di serverless
-      const res = await fetch("/api/create-transaction", {
+      // 1️⃣ Ambil Snap token dari serverless
+      const res = await fetch("/api/create-snap", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ payment_type: paymentType })
       });
-
       const data = await res.json();
 
-      // 2️⃣ Tampilkan Snap popup jika ada token (gopay, qris, credit_card)
       if (data.token) {
+        // 2️⃣ Panggil Snap popup
         snap.pay(data.token, {
           onSuccess: result => console.log("Success:", result),
           onPending: result => console.log("Pending:", result),
@@ -42,7 +41,7 @@
           onClose: () => console.log("Popup closed")
         });
       } else {
-        alert("Transaction created:\n" + JSON.stringify(data, null, 2));
+        alert("Error creating transaction:\n" + JSON.stringify(data, null, 2));
       }
     });
   </script>
