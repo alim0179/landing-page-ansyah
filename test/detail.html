@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Detail Produk</title>
+</head>
+<body>
+
+<h2>Detail Produk</h2>
+<div id="detail"></div>
+<button id="buyBtn">Beli Sekarang</button>
+
+<script>
+const params=new URLSearchParams(window.location.search);
+const id=params.get('id');
+
+let selectedProduct;
+
+fetch('/test/data/products.json')
+.then(res=>res.json())
+.then(data=>{
+  selectedProduct=data.products.find(p=>p.id===id);
+  if(!selectedProduct){
+    document.getElementById('detail').innerHTML="<p style='color:red'>Produk tidak ditemukan.</p>";
+    return;
+  }
+  document.getElementById('detail').innerHTML=`
+    <img src="${selectedProduct.img}" alt="${selectedProduct.name}" style="max-width:100%;border-radius:8px;">
+    <h3>${selectedProduct.name}</h3>
+    <p>Rp ${selectedProduct.price}</p>
+    <p>${selectedProduct.desc_long}</p>
+  `;
+});
+
+document.getElementById('buyBtn').addEventListener('click',()=>{
+  window.location.href='/test/checkout.html?id='+id;
+});
+</script>
+
+</body>
+</html>
