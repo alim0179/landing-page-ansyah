@@ -1,0 +1,32 @@
+[
+  {
+    "id": "template01",
+    "name": "Template Canva Profesional",
+    "category": "Template",
+    "price": 25000,
+    "short_desc": "Template siap pakai untuk promosi dan sosial media.",
+    "long_desc": "Template Canva ini cocok untuk bisnis, media sosial, promosi, dan bisa di-edit dengan mudah.",
+    "image": "img/template01.jpg",
+    "tags": ["canva","template","digital","marketing"]
+  },
+  {
+    "id": "ebook01",
+    "name": "Ebook Panduan Digital Marketing",
+    "category": "Ebook",
+    "price": 30000,
+    "short_desc": "Panduan lengkap digital marketing untuk pemula.",
+    "long_desc": "Ebook ini membahas strategi digital marketing dari dasar sampai advanced. Cocok untuk pemula dan pebisnis online.",
+    "image": "img/ebook01.jpg",
+    "tags": ["ebook","digital","marketing","guide"]
+  },
+  {
+    "id": "sticker01",
+    "name": "Sticker Pack Lucu",
+    "category": "Sticker",
+    "price": 15000,
+    "short_desc": "Sticker lucu untuk chat dan sosial media.",
+    "long_desc": "Koleksi sticker lucu yang bisa digunakan di WhatsApp, Telegram, dan media sosial lainnya.",
+    "image": "img/sticker01.jpg",
+    "tags": ["sticker","chat","digital","fun"]
+  }
+]
