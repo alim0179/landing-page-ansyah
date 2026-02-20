@@ -1,99 +1,23 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coming Soon | Ansyah Digital Store</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Poppins', sans-serif;
-    }
+<h2>Digital Store</h2>
+<div id="products"></div>
 
-    body {
-      height: 100vh;
-      background: #0f0f14;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      color: white;
-      padding: 20px;
-    }
+<script>
+async function loadProducts() {
+  const res = await fetch("/data/products.json");
+  const products = await res.json();
+  const container = document.getElementById("products");
 
-    .container {
-      max-width: 500px;
-    }
-
-    .logo {
-      font-size: 22px;
-      font-weight: 600;
-      color: #a855f7;
-      margin-bottom: 20px;
-    }
-
-    h1 {
-      font-size: 42px;
-      font-weight: 800;
-      margin-bottom: 15px;
-      line-height: 1.2;
-    }
-
-    h1 span {
-      color: #a855f7;
-      text-shadow: 0 0 15px rgba(168,85,247,0.7);
-    }
-
-    p {
-      opacity: 0.7;
-      margin-bottom: 35px;
-    }
-
-    .btn {
-      display: inline-block;
-      padding: 14px 30px;
-      background: #a855f7;
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      border-radius: 50px;
-      transition: 0.3s;
-      box-shadow: 0 0 20px rgba(168,85,247,0.6);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 30px rgba(168,85,247,0.9);
-    }
-
-    footer {
-      margin-top: 40px;
-      font-size: 12px;
-      opacity: 0.5;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="container">
-    
-
-    <h1>Website <span>Segera Hadir</span></h1>
-
-    <p>
-      Kami sedang menyiapkan digital store terbaik untuk kamu.  
-      Nantikan produk premium, instan & terpercaya.
-    </p>
-
-
-
-    <footer>
-      © 2026 Ansyah Digital Store
-    </footer>
-  </div>
-
-</body>
-</html>
+  products.forEach(p => {
+    container.innerHTML += `
+      <div>
+        <img src="${p.image}" width="150">
+        <h3>${p.name}</h3>
+        <p>Rp ${p.price}</p>
+        <a href="detail.html?id=${p.id}">Lihat Detail</a>
+      </div>
+      <hr>
+    `;
+  });
+}
+loadProducts();
+</script>
