@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Midtrans Snap</title>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="YOUR_CLIENT_KEY_HERE"></script>
+</head>
+<body>
+  <button id="pay-btn">Pay Now</button>
+
+  <script>
+    const payBtn = document.getElementById("pay-btn");
+
+    payBtn.addEventListener("click", async () => {
+      // 1. Panggil serverless function untuk create transaction
+      const res = await fetch("/api/create-transaction", { method: "POST" });
+      const data = await res.json();
+
+      // 2. Snap token diambil dari response (bank transfer charge token)
+      // Untuk Bank Transfer sebenarnya Snap popup tidak muncul, tapi untuk GoPay / QRIS bisa
+      // Jika pakai Snap popup, endpoint server bisa dikembalikan "token" dari Snap API
+      // Contoh simulasi:
+      if (data.token) {
+        snap.pay(data.token, {
+          onSuccess: function(result){ console.log(result); },
+          onPending: function(result){ console.log(result); },
+          onError: function(result){ console.log(result); },
+          onClose: function(){ console.log("popup closed"); }
+        });
+      } else {
+        alert("Transaction created: " + JSON.stringify(data));
+      }
+    });
+  </script>
+</body>
+</html>
