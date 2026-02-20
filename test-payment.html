@@ -2,34 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Midtrans Snap Popup Test</title>
+  <title>Midtran Test</title>
   <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0rxk4NYmmZpsfrJV"></script>
 </head>
 <body>
-  <h2>Midtrans Snap Tet</h2>
-
-  <select id="payment-select">
-    <option value="gopay">GoPay</option>
-    <option value="qris">QRIS</option>
-    <option value="credit_card">Credit Card</option>
-    <option value="bank_transfer">Bank Transfer</option>
-  </select>
-
+  <h2>Midtrans Snap Popup Test</h2>
   <button id="pay-btn">Pay Now</button>
 
   <script>
     const payBtn = document.getElementById("pay-btn");
-    const paymentSelect = document.getElementById("payment-select");
 
     payBtn.addEventListener("click", async () => {
-      const paymentType = paymentSelect.value;
-
-      // 1️⃣ Ambil Snap token dari serverless
-      const res = await fetch("/api/create-snap", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ payment_type: paymentType })
-      });
+      // 1️⃣ Request Snap token dari serverless
+      const res = await fetch("/api/create-snap", { method: "POST" });
       const data = await res.json();
 
       if (data.token) {
