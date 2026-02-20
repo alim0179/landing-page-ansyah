@@ -2,33 +2,47 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Test Midtrans Snap</title>
-  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="Mid-client-0rxk4NYmmZpsfrJV"></script>
+  <title>Midtrans All Payment Test</title>
+  <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="YOUR_CLIENT_KEY_HERE"></script>
 </head>
 <body>
+  <h2>Test Midtrans All Payment</h2>
+
+  <select id="payment-select">
+    <option value="bank_transfer">Bank Transfer</option>
+    <option value="gopay">GoPay</option>
+    <option value="qris">QRIS</option>
+    <option value="credit_card">Credit Card</option>
+  </select>
+
   <button id="pay-btn">Pay Now</button>
 
   <script>
     const payBtn = document.getElementById("pay-btn");
+    const paymentSelect = document.getElementById("payment-select");
 
     payBtn.addEventListener("click", async () => {
-      // 1. Panggil serverless function untuk create transaction
-      const res = await fetch("/api/create-transaction", { method: "POST" });
+      const paymentType = paymentSelect.value;
+
+      // 1️⃣ Create transaction di serverless
+      const res = await fetch("/api/create-transaction", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ payment_type: paymentType })
+      });
+
       const data = await res.json();
 
-      // 2. Snap token diambil dari response (bank transfer charge token)
-      // Untuk Bank Transfer sebenarnya Snap popup tidak muncul, tapi untuk GoPay / QRIS bisa
-      // Jika pakai Snap popup, endpoint server bisa dikembalikan "token" dari Snap API
-      // Contoh simulasi:
+      // 2️⃣ Tampilkan Snap popup jika ada token (gopay, qris, credit_card)
       if (data.token) {
         snap.pay(data.token, {
-          onSuccess: function(result){ console.log(result); },
-          onPending: function(result){ console.log(result); },
-          onError: function(result){ console.log(result); },
-          onClose: function(){ console.log("popup closed"); }
+          onSuccess: result => console.log("Success:", result),
+          onPending: result => console.log("Pending:", result),
+          onError: result => console.log("Error:", result),
+          onClose: () => console.log("Popup closed")
         });
       } else {
-        alert("Transaction created: " + JSON.stringify(data));
+        alert("Transaction created:\n" + JSON.stringify(data, null, 2));
       }
     });
   </script>
