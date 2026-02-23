@@ -147,7 +147,7 @@
     </div>
   </footer>
 
- <script>
+<script>
   lucide.createIcons();
 
   /* =========================
@@ -175,7 +175,6 @@
 
   /* =========================
      THEME ICON SYNC (GLOBAL)
-     Ikut theme.js
   ========================== */
   document.addEventListener("DOMContentLoaded", () => {
     const themeToggleBtn = document.getElementById("theme-toggle");
@@ -186,6 +185,8 @@
 
     function updateIcons() {
       const isDark = document.documentElement.classList.contains("dark");
+
+      if (!lightIcon || !darkIcon) return;
 
       if (isDark) {
         lightIcon.style.opacity = 1;
@@ -202,7 +203,6 @@
 
     updateIcons();
 
-    // Pantau perubahan class html dari theme.js
     const observerTheme = new MutationObserver(updateIcons);
     observerTheme.observe(document.documentElement, {
       attributes: true,
@@ -234,104 +234,7 @@
       mobileOverlay?.classList.add('hidden');
     }
   });
-
-  /* =========================
-     TOOLS SYSTEM
-  ========================== */
-  const tools = [
-    { title: 'QR Code Generator', desc: 'Buat QR Code cepat untuk URL, teks, dan kontak secara online.', icon: 'qr-code', link: 'tools/qrcode.html', category: 'QR' },
-    { title: 'Text to PDF', desc: 'Konversi teks menjadi file PDF dengan cepat dan mudah.', icon: 'file-text', link: 'tools/text-to-pdf.html', category: 'File' },
-    { title: 'Image Converter', desc: 'Konversi gambar ke format lain seperti PNG, JPG, dan WebP.', icon: 'image', link: 'tools/image-converter.html', category: 'Image' },
-    { title: 'PDF to Word', desc: 'Ubah PDF menjadi dokumen Word tanpa install software.', icon: 'file-text', link: 'tools/pdf-to-word.html', category: 'File' },
-    { title: 'Barcode Generator', desc: 'Buat barcode untuk produk atau inventori dengan cepat.', icon: 'barcode', link: 'tools/barcode.html', category: 'QR' },
-    { title: 'Image Resizer', desc: 'Ubah ukuran gambar sesuai kebutuhan online atau cetak.', icon: 'image', link: 'tools/image-resizer.html', category: 'Image' },
-    { title: 'JSON Formatter', desc: 'Rapi dan format JSON agar mudah dibaca.', icon: 'code', link: 'tools/json-formatter.html', category: 'Code' },
-    { title: 'Base64 Encoder', desc: 'Encode dan decode data menjadi Base64 online.', icon: 'key', link: 'tools/base64.html', category: 'Code' },
-    { title: 'Password Generator', desc: 'Buat password acak yang aman untuk akunmu.', icon: 'lock', link: 'tools/password-generator.html', category: 'Security' },
-    { title: 'Color Picker', desc: 'Pilih warna dan dapatkan kode hex, rgb, dan hsl.', icon: 'droplet', link: 'tools/color-picker.html', category: 'Design' },
-    { title: 'Minify CSS', desc: 'Perkecil ukuran file CSS agar loading lebih cepat.', icon: 'file-text', link: 'tools/minify-css.html', category: 'Code' },
-    { title: 'Minify JS', desc: 'Perkecil file JavaScript untuk optimasi website.', icon: 'file-text', link: 'tools/minify-js.html', category: 'Code' },
-    { title: 'PDF Merger', desc: 'Gabungkan beberapa file PDF menjadi satu dokumen.', icon: 'file-text', link: 'tools/pdf-merger.html', category: 'File' },
-    { title: 'Image to PDF', desc: 'Konversi gambar menjadi file PDF dengan cepat.', icon: 'image', link: 'tools/image-to-pdf.html', category: 'Image' },
-  ];
-
-  let currentCategory = 'All';
-  let currentPage = 1;
-  const itemsPerPage = 10;
-
-  function renderCategories() {
-    const container = document.getElementById('category-filter');
-    if (!container) return;
-
-    const categories = ['All', ...new Set(tools.map(t => t.category))];
-    container.innerHTML = '';
-
-    categories.forEach(cat => {
-      const btn = document.createElement('button');
-      btn.textContent = cat;
-      btn.className = 'px-3 py-1 rounded-full border dark:border-slate-700 text-sm font-medium hover:bg-primary hover:text-white';
-      if (cat === currentCategory) btn.classList.add('bg-primary', 'text-white');
-
-      btn.addEventListener('click', () => {
-        currentCategory = cat;
-        currentPage = 1;
-        renderCategories();
-        renderTools();
-      });
-
-      container.appendChild(btn);
-    });
-  }
-
-  function renderTools() {
-    const container = document.getElementById('tools-container');
-    const paginationContainer = document.getElementById('pagination');
-    if (!container || !paginationContainer) return;
-
-    const filtered = currentCategory === 'All'
-      ? tools
-      : tools.filter(t => t.category === currentCategory);
-
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-    const start = (currentPage - 1) * itemsPerPage;
-    const pageItems = filtered.slice(start, start + itemsPerPage);
-
-    container.innerHTML = '';
-
-    pageItems.forEach(t => {
-      const div = document.createElement('div');
-      div.className = 'reveal p-3 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col';
-
-      div.innerHTML = `
-        <i data-lucide="${t.icon}" class="w-7 h-7 text-primary mb-2"></i>
-        <h3 class="text-sm sm:text-base font-semibold mb-1">${t.title}</h3>
-        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-2 flex-grow">${t.desc}</p>
-        <a href="${t.link}" class="mt-auto px-2 py-1 bg-primary text-white rounded-lg text-center font-semibold hover:bg-blue-600 text-xs sm:text-sm">Gunakan →</a>
-      `;
-
-      container.appendChild(div);
-    });
-
-    lucide.createIcons();
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-    paginationContainer.innerHTML = '';
-    for (let i = 1; i <= totalPages; i++) {
-      const btn = document.createElement('button');
-      btn.textContent = i;
-      btn.className = `px-3 py-1 rounded-full border dark:border-slate-700 text-sm ${i === currentPage ? 'bg-primary text-white' : 'hover:bg-primary hover:text-white'}`;
-
-      btn.addEventListener('click', () => {
-        currentPage = i;
-        renderTools();
-      });
-
-      paginationContainer.appendChild(btn);
-    }
-  }
-
-  renderCategories();
-  renderTools();
 </script>
+ 
 </body>
 </html>
