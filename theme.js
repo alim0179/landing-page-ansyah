@@ -1,18 +1,23 @@
-// Global Theme System - Ansyah
+// Ansyah Global Theme System - Auto Device + Manual Override
 
 (function () {
   const html = document.documentElement;
+  const storageKey = "theme";
+  const systemDark = window.matchMedia("(prefers-color-scheme: dark)");
 
-  // Apply theme secepat mungkin (anti flicker)
-  const savedTheme = localStorage.getItem("theme");
-
-  if (savedTheme) {
-    html.classList.add(savedTheme);
-  } else {
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      html.classList.add("dark");
-    }
+  function applyTheme(theme) {
+    html.classList.remove("light", "dark");
+    html.classList.add(theme);
   }
+
+  function getPreferredTheme() {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) return saved;
+    return systemDark.matches ? "dark" : "light";
+  }
+
+  // Apply theme saat pertama load (anti flicker)
+  applyTheme(getPreferredTheme());
 
   document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById("theme-toggle");
@@ -22,31 +27,40 @@
     const darkIcon = toggleBtn.querySelector(".dark-icon");
 
     function updateIcons() {
-      if (html.classList.contains("dark")) {
-        lightIcon.style.opacity = 1;
-        lightIcon.style.transform = "translateY(0)";
-        darkIcon.style.opacity = 0;
-        darkIcon.style.transform = "translateY(-4px)";
-      } else {
-        lightIcon.style.opacity = 0;
-        lightIcon.style.transform = "translateY(4px)";
-        darkIcon.style.opacity = 1;
-        darkIcon.style.transform = "translateY(0)";
+      const isDark = html.classList.contains("dark");
+
+      if (lightIcon && darkIcon) {
+        if (isDark) {
+          lightIcon.style.opacity = 1;
+          lightIcon.style.transform = "translateY(0)";
+          darkIcon.style.opacity = 0;
+          darkIcon.style.transform = "translateY(-4px)";
+        } else {
+          lightIcon.style.opacity = 0;
+          lightIcon.style.transform = "translateY(4px)";
+          darkIcon.style.opacity = 1;
+          darkIcon.style.transform = "translateY(0)";
+        }
       }
     }
 
     updateIcons();
 
     toggleBtn.addEventListener("click", function () {
-      html.classList.toggle("dark");
+      const isDark = html.classList.contains("dark");
+      const newTheme = isDark ? "light" : "dark";
 
-      if (html.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-      } else {
-        localStorage.setItem("theme", "light");
-      }
-
+      applyTheme(newTheme);
+      localStorage.setItem(storageKey, newTheme);
       updateIcons();
+    });
+
+    // 🔄 Auto update kalau device berubah
+    systemDark.addEventListener("change", (e) => {
+      if (!localStorage.getItem(storageKey)) {
+        applyTheme(e.matches ? "dark" : "light");
+        updateIcons();
+      }
     });
   });
 })();
