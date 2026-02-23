@@ -1,27 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>Ansyah | Tools</title>
-  <meta name="description" content="Halaman Tools Ansyah." />
+  <!-- Branding & SEO -->
+  <title>Ansyah | Web Tools Gratis</title>
+  <meta name="description" content="Katalog Web Tools Gratis Ansyah. Temukan berbagai tools online praktis dan cepat untuk kebutuhan digitalmu." />
   <meta name="author" content="Ansyah" />
 
-  <meta property="og:title" content="Ansyah | Tools" />
-  <meta property="og:description" content="Halaman Tools Ansyah." />
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Ansyah | Web Tools Gratis" />
+  <meta property="og:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
   <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ansyah.web.id/tools.html" />
 
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ansyah | Tools" />
-  <meta name="twitter:description" content="Halaman Tools Ansyah." />
+  <meta name="twitter:title" content="Ansyah | Web Tools Gratis" />
+  <meta name="twitter:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
   <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
 
   <link rel="icon" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools.html" />
   <link rel="preload" href="logo.jpg" as="image">
-
-  <script src="/theme.js"></script>
+<script src="/theme.js"></script>
+  <!-- Tailwind & Lucide -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -46,52 +53,79 @@
     body { transition: background-color .3s ease, color .3s ease; }
     .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
     .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ansyah",
+    "url": "https://ansyah.web.id/tools.html"
+  }
+  </script>
 </head>
 
 <body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
 
-  <!-- PRELOADER -->
-  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex items-center justify-center z-[9999]">
-    <img src="logo.jpg" alt="Ansyah" class="w-20 h-20 animate-pulse">
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
   </div>
 
   <!-- NAVBAR -->
   <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
     <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
       <div class="flex items-center gap-3 font-bold text-lg">
-        <img src="logo.jpg" alt="Ansyah" class="w-8 h-8 object-contain" />
+        <img src="logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
         <span class="text-primary">Ansyah</span>
       </div>
-
       <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-        <a href="index.html" class="hover:text-primary">Home</a>
-        <a href="tools.html" class="hover:text-primary">Tools</a>
-        <a href="store.html" class="hover:text-primary">Digital Store</a>
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
       </nav>
-
       <div class="md:hidden flex items-center gap-2">
-        <button id="theme-toggle" class="p-2 rounded-lg border dark:border-slate-700">
-          <i data-lucide="sun" class="w-5 h-5"></i>
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
         </button>
-        <button id="mobile-menu-btn" class="p-2 rounded-lg border dark:border-slate-700">
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
           <i data-lucide="menu" class="w-5 h-5"></i>
         </button>
       </div>
     </div>
-
     <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
-      <a href="index.html" class="px-4 py-3">Home</a>
-      <a href="tools.html" class="px-4 py-3">Tools</a>
-      <a href="store.html" class="px-4 py-3">Digital Store</a>
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
     </nav>
   </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
-  <main class="flex-grow pt-20 px-4 py-20 text-center">
-    <h1 class="text-3xl font-bold reveal">Template Tools</h1>
+  <main>
+    <h1>template tools</h1>
   </main>
 
-    <!-- FOOTER -->
+  <!-- FOOTER -->
   <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
     <div class="max-w-7xl mx-auto px-4">
       <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
@@ -113,10 +147,12 @@
     </div>
   </footer>
 
-<script>
+ <script>
   lucide.createIcons();
 
-  // Reveal animation
+  /* =========================
+     REVEAL ANIMATION
+  ========================== */
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (e.isIntersecting) e.target.classList.add('active');
@@ -125,19 +161,177 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Preloader
+  /* =========================
+     PRELOADER
+  ========================== */
   window.addEventListener('load', () => {
     const preloader = document.getElementById('preloader');
     if (!preloader) return;
+
+    preloader.style.transition = 'opacity 0.5s ease';
     preloader.style.opacity = '0';
     setTimeout(() => preloader.style.display = 'none', 500);
   });
 
-  // Mobile menu
-  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
-    document.getElementById('mobile-menu')?.classList.toggle('hidden');
-  });
-</script>
+  /* =========================
+     THEME ICON SYNC (GLOBAL)
+     Ikut theme.js
+  ========================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
 
+    const lightIcon = themeToggleBtn.querySelector(".light-icon");
+    const darkIcon = themeToggleBtn.querySelector(".dark-icon");
+
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+
+      if (isDark) {
+        lightIcon.style.opacity = 1;
+        lightIcon.style.transform = "translateY(0)";
+        darkIcon.style.opacity = 0;
+        darkIcon.style.transform = "translateY(-4px)";
+      } else {
+        lightIcon.style.opacity = 0;
+        lightIcon.style.transform = "translateY(4px)";
+        darkIcon.style.opacity = 1;
+        darkIcon.style.transform = "translateY(0)";
+      }
+    }
+
+    updateIcons();
+
+    // Pantau perubahan class html dari theme.js
+    const observerTheme = new MutationObserver(updateIcons);
+    observerTheme.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu?.classList.add('hidden');
+      mobileOverlay?.classList.add('hidden');
+    }
+  });
+
+  /* =========================
+     TOOLS SYSTEM
+  ========================== */
+  const tools = [
+    { title: 'QR Code Generator', desc: 'Buat QR Code cepat untuk URL, teks, dan kontak secara online.', icon: 'qr-code', link: 'tools/qrcode.html', category: 'QR' },
+    { title: 'Text to PDF', desc: 'Konversi teks menjadi file PDF dengan cepat dan mudah.', icon: 'file-text', link: 'tools/text-to-pdf.html', category: 'File' },
+    { title: 'Image Converter', desc: 'Konversi gambar ke format lain seperti PNG, JPG, dan WebP.', icon: 'image', link: 'tools/image-converter.html', category: 'Image' },
+    { title: 'PDF to Word', desc: 'Ubah PDF menjadi dokumen Word tanpa install software.', icon: 'file-text', link: 'tools/pdf-to-word.html', category: 'File' },
+    { title: 'Barcode Generator', desc: 'Buat barcode untuk produk atau inventori dengan cepat.', icon: 'barcode', link: 'tools/barcode.html', category: 'QR' },
+    { title: 'Image Resizer', desc: 'Ubah ukuran gambar sesuai kebutuhan online atau cetak.', icon: 'image', link: 'tools/image-resizer.html', category: 'Image' },
+    { title: 'JSON Formatter', desc: 'Rapi dan format JSON agar mudah dibaca.', icon: 'code', link: 'tools/json-formatter.html', category: 'Code' },
+    { title: 'Base64 Encoder', desc: 'Encode dan decode data menjadi Base64 online.', icon: 'key', link: 'tools/base64.html', category: 'Code' },
+    { title: 'Password Generator', desc: 'Buat password acak yang aman untuk akunmu.', icon: 'lock', link: 'tools/password-generator.html', category: 'Security' },
+    { title: 'Color Picker', desc: 'Pilih warna dan dapatkan kode hex, rgb, dan hsl.', icon: 'droplet', link: 'tools/color-picker.html', category: 'Design' },
+    { title: 'Minify CSS', desc: 'Perkecil ukuran file CSS agar loading lebih cepat.', icon: 'file-text', link: 'tools/minify-css.html', category: 'Code' },
+    { title: 'Minify JS', desc: 'Perkecil file JavaScript untuk optimasi website.', icon: 'file-text', link: 'tools/minify-js.html', category: 'Code' },
+    { title: 'PDF Merger', desc: 'Gabungkan beberapa file PDF menjadi satu dokumen.', icon: 'file-text', link: 'tools/pdf-merger.html', category: 'File' },
+    { title: 'Image to PDF', desc: 'Konversi gambar menjadi file PDF dengan cepat.', icon: 'image', link: 'tools/image-to-pdf.html', category: 'Image' },
+  ];
+
+  let currentCategory = 'All';
+  let currentPage = 1;
+  const itemsPerPage = 10;
+
+  function renderCategories() {
+    const container = document.getElementById('category-filter');
+    if (!container) return;
+
+    const categories = ['All', ...new Set(tools.map(t => t.category))];
+    container.innerHTML = '';
+
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.textContent = cat;
+      btn.className = 'px-3 py-1 rounded-full border dark:border-slate-700 text-sm font-medium hover:bg-primary hover:text-white';
+      if (cat === currentCategory) btn.classList.add('bg-primary', 'text-white');
+
+      btn.addEventListener('click', () => {
+        currentCategory = cat;
+        currentPage = 1;
+        renderCategories();
+        renderTools();
+      });
+
+      container.appendChild(btn);
+    });
+  }
+
+  function renderTools() {
+    const container = document.getElementById('tools-container');
+    const paginationContainer = document.getElementById('pagination');
+    if (!container || !paginationContainer) return;
+
+    const filtered = currentCategory === 'All'
+      ? tools
+      : tools.filter(t => t.category === currentCategory);
+
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const start = (currentPage - 1) * itemsPerPage;
+    const pageItems = filtered.slice(start, start + itemsPerPage);
+
+    container.innerHTML = '';
+
+    pageItems.forEach(t => {
+      const div = document.createElement('div');
+      div.className = 'reveal p-3 rounded-xl border dark:border-slate-800 hover:border-primary transition flex flex-col';
+
+      div.innerHTML = `
+        <i data-lucide="${t.icon}" class="w-7 h-7 text-primary mb-2"></i>
+        <h3 class="text-sm sm:text-base font-semibold mb-1">${t.title}</h3>
+        <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-400 mb-2 flex-grow">${t.desc}</p>
+        <a href="${t.link}" class="mt-auto px-2 py-1 bg-primary text-white rounded-lg text-center font-semibold hover:bg-blue-600 text-xs sm:text-sm">Gunakan →</a>
+      `;
+
+      container.appendChild(div);
+    });
+
+    lucide.createIcons();
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    paginationContainer.innerHTML = '';
+    for (let i = 1; i <= totalPages; i++) {
+      const btn = document.createElement('button');
+      btn.textContent = i;
+      btn.className = `px-3 py-1 rounded-full border dark:border-slate-700 text-sm ${i === currentPage ? 'bg-primary text-white' : 'hover:bg-primary hover:text-white'}`;
+
+      btn.addEventListener('click', () => {
+        currentPage = i;
+        renderTools();
+      });
+
+      paginationContainer.appendChild(btn);
+    }
+  }
+
+  renderCategories();
+  renderTools();
+</script>
 </body>
 </html>
