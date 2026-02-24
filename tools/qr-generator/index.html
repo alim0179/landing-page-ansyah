@@ -366,7 +366,26 @@ function generateQR() {
   qrDiv.appendChild(img);
 }
 
-function downloadQR(){if(!lastImgSrc)return alert('Generate QR dulu!'); const a=document.createElement('a'); a.href=lastImgSrc; a.download='qr-code.png'; a.click();}
+async function downloadQR() {
+  if (!lastImgSrc) return alert('Generate QR dulu!');
+
+  try {
+    const response = await fetch(lastImgSrc);
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'qr-code.png';
+    document.body.appendChild(a);
+    a.click();
+
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    alert('Gagal download. Coba lagi.');
+  }
+}
 </script>
 
 </body>
