@@ -9,7 +9,7 @@
 <meta name="author" content="Ansyah" />
 
 <!-- Open Graph -->
-<<meta property="og:title" content="QR Code Generator Online Gratis | Ansyah" />
+<meta property="og:title" content="QR Code Generator Online Gratis | Ansyah" />
 <meta property="og:description" content="Buat QR Code untuk teks, URL, WiFi, vCard, email, SMS, telepon, dan lokasi dengan cepat dan gratis." />
 <meta property="og:image" content="https://ansyah.web.id/tools/qr-generator/preview.jpg" />
 <meta property="og:url" content="https://ansyah.web.id/tools/qr-generator" />
@@ -334,9 +334,8 @@ updateForm();
 function generateQR() {
   let color = document.getElementById('color').value.replace('#', '');
   
-  // Sesuaikan mode dark/light
-  const isDarkMode = document.documentElement.classList.contains('dark');
-  const bgColor = isDarkMode ? '1a1a1a' : 'ffffff';
+  
+  const bgColor = 'ffffff';
   
   let data = '';
   if (currentType === 'text') data = document.getElementById('textInput').value;
