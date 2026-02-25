@@ -1,0 +1,457 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  
+
+  <!-- Branding & SEO -->
+<title>Password Generator Online Gratis & Aman</title>
+
+<meta name="robots" content="index, follow">
+
+<meta name="description" content="Password generator online gratis untuk membuat password kuat dan aman. Tanpa login, mendukung huruf, angka, simbol, dan panjang sesuai kebutuhan." />
+  <meta name="author" content="Ansyah" />
+
+  <!-- Open Graph / Social Sharing -->
+ <meta property="og:title" content="Password Generator Online Gratis & Aman">
+<meta property="og:description" content="Password generator online gratis untuk membuat password kuat dan aman tanpa login.">
+
+  <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+  <meta property="og:type" content="website" />
+<meta property="og:url" content="https://ansyah.web.id/tools/password-generator" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+ 
+  <meta name="twitter:title" content="Password Generator Online Gratis & Aman">
+<meta name="twitter:description" content="Password generator online gratis untuk membuat password kuat dan aman tanpa login.">
+  <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+  <link rel="icon" href="../../logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools/password-generator" />
+  <link rel="preload" href="../../logo.jpg" as="image">
+<script src="../../theme.js"></script>
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+  </style>
+
+  
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+<main class="pt-28 pb-20">
+  <section class="max-w-3xl mx-auto px-4">
+
+    <div class="reveal bg-white dark:bg-slate-900 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-800 p-6 md:p-8 overflow-hidden">
+
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+          <i data-lucide="key-round" class="w-6 h-6 text-primary"></i>
+        </div>
+        <div>
+          <h1>Password Generator Online Gratis & Aman</h1>
+          <p class="text-sm text-slate-500 dark:text-slate-400">
+            Buat password kuat, acak, dan aman secara instan tanpa login.</p>
+        </div>
+      </div>
+
+      <!-- OUTPUT -->
+      <div class="flex w-full mb-4">
+        <input id="result" type="text" readonly
+          class="flex-1 min-w-0 p-3 rounded-l-xl border border-slate-300 dark:border-slate-700 bg-slate-100 dark:bg-slate-800 truncate focus:outline-none">
+
+        <button onclick="copyPassword()"
+          class="px-4 bg-primary hover:bg-blue-700 text-white rounded-r-xl whitespace-nowrap transition">
+          Copy
+        </button>
+      </div>
+
+      <!-- STRENGTH -->
+      <div class="mb-6">
+        <div id="strengthText" class="text-sm font-semibold mb-2 text-slate-600 dark:text-slate-400">
+          Strength: -
+        </div>
+        <div class="w-full h-2 bg-slate-200 dark:bg-slate-800 rounded">
+          <div id="strengthBar" class="h-2 rounded transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- LENGTH -->
+      <div class="mb-6">
+        <label class="text-sm font-medium mb-2 block">
+          Panjang Password
+        </label>
+        <div class="flex items-center gap-3">
+          <input type="range" id="length" min="6" max="32" value="12"
+            class="flex-1 accent-primary">
+          <span id="lengthValue"
+            class="w-10 text-center font-bold">
+            12
+          </span>
+        </div>
+      </div>
+
+      <!-- OPTIONS -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm mb-6">
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="uppercase" checked>
+          Huruf Besar (A-Z)
+        </label>
+
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="lowercase" checked>
+          Huruf Kecil (a-z)
+        </label>
+
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="numbers" checked>
+          Angka (0-9)
+        </label>
+
+        <label class="flex items-center gap-2">
+          <input type="checkbox" id="symbols">
+          Simbol (!@#$)
+        </label>
+      </div>
+
+      <!-- BUTTON -->
+      <button onclick="generatePassword()"
+        class="w-full bg-primary hover:bg-blue-700 text-white py-3 rounded-xl font-semibold btn-shimmer">
+        Generate Password
+      </button>
+
+    </div>
+    <section class="mt-12 text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+  <h2 class="text-lg font-semibold mb-3">Apa Itu Password Generator?</h2>
+  <p class="mb-3">
+    Password generator online adalah alat untuk membuat password acak dan kuat guna meningkatkan keamanan akun digital seperti email, media sosial, marketplace, dan aplikasi perbankan.
+  </p>
+  <p>
+    Dengan kombinasi huruf besar, huruf kecil, angka, dan simbol, password menjadi lebih sulit ditebak dan lebih aman dari serangan peretasan.
+  </p>
+  <p class="mt-3">
+  Menggunakan password yang unik untuk setiap akun sangat penting untuk mencegah kebocoran data. Hindari penggunaan tanggal lahir atau kata yang mudah ditebak. Dengan password generator ini, Anda dapat membuat kombinasi password yang aman dalam hitungan detik.
+</p>
+</section>
+  </section>
+</main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  lucide.createIcons();
+
+  /* =========================
+     REVEAL ANIMATION
+  ========================== */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* =========================
+     PRELOADER
+  ========================== */
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => preloader.style.display = 'none', 500);
+  });
+
+  /* =========================
+     THEME ICON SYNC (GLOBAL)
+  ========================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
+
+    const lightIcon = themeToggleBtn.querySelector(".light-icon");
+    const darkIcon = themeToggleBtn.querySelector(".dark-icon");
+
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+
+      if (!lightIcon || !darkIcon) return;
+
+      if (isDark) {
+        lightIcon.style.opacity = 1;
+        lightIcon.style.transform = "translateY(0)";
+        darkIcon.style.opacity = 0;
+        darkIcon.style.transform = "translateY(-4px)";
+      } else {
+        lightIcon.style.opacity = 0;
+        lightIcon.style.transform = "translateY(4px)";
+        darkIcon.style.opacity = 1;
+        darkIcon.style.transform = "translateY(0)";
+      }
+    }
+
+    updateIcons();
+
+    const observerTheme = new MutationObserver(updateIcons);
+    observerTheme.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu?.classList.add('hidden');
+      mobileOverlay?.classList.add('hidden');
+    }
+  });
+  
+  
+  
+  
+const result = document.getElementById("result");
+const lengthSlider = document.getElementById("length");
+const lengthValue = document.getElementById("lengthValue");
+const strengthBar = document.getElementById("strengthBar");
+const strengthText = document.getElementById("strengthText");
+
+if (lengthSlider) {
+  lengthSlider.addEventListener("input", () => {
+    lengthValue.textContent = lengthSlider.value;
+    generatePassword();
+  });
+}
+
+function generatePassword() {
+  const length = lengthSlider.value;
+  const uppercase = document.getElementById("uppercase").checked;
+  const lowercase = document.getElementById("lowercase").checked;
+  const numbers = document.getElementById("numbers").checked;
+  const symbols = document.getElementById("symbols").checked;
+
+  const upperChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const lowerChars = "abcdefghijklmnopqrstuvwxyz";
+  const numberChars = "0123456789";
+  const symbolChars = "!@#$%^&*()_+";
+
+  let allChars = "";
+  if (uppercase) allChars += upperChars;
+  if (lowercase) allChars += lowerChars;
+  if (numbers) allChars += numberChars;
+  if (symbols) allChars += symbolChars;
+
+  if (!allChars) {
+    alert("Pilih minimal satu opsi karakter!");
+    return;
+  }
+
+  let password = "";
+  for (let i = 0; i < length; i++) {
+    password += allChars[Math.floor(Math.random() * allChars.length)];
+  }
+
+  result.value = password;
+  checkStrength(password);
+}
+
+function checkStrength(password) {
+  let strength = 0;
+
+  if (password.length >= 12) strength++;
+  if (/[A-Z]/.test(password)) strength++;
+  if (/[0-9]/.test(password)) strength++;
+  if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+  if (strength <= 1) {
+    strengthBar.style.width = "33%";
+    strengthBar.className = "h-2 rounded bg-red-500";
+    strengthText.textContent = "Strength: Weak";
+  } else if (strength <= 3) {
+    strengthBar.style.width = "66%";
+    strengthBar.className = "h-2 rounded bg-yellow-500";
+    strengthText.textContent = "Strength: Medium";
+  } else {
+    strengthBar.style.width = "100%";
+    strengthBar.className = "h-2 rounded bg-green-500";
+    strengthText.textContent = "Strength: Strong";
+  }
+}
+
+function copyPassword() {
+  if (!result.value) return;
+  navigator.clipboard.writeText(result.value);
+
+  strengthText.textContent = "Password berhasil disalin!";
+  setTimeout(() => {
+    checkStrength(result.value);
+  }, 1500);
+}
+
+document.addEventListener("DOMContentLoaded", generatePassword);
+
+  
+</script>
+ 
+ <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Apakah password generator ini gratis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ya, 100% gratis dan tanpa login."
+      }
+    }, {
+      "@type": "Question",
+      "name": "Apakah password disimpan?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tidak. Semua proses dilakukan di browser pengguna."
+      }
+    }]
+  }
+</script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Password Generator Online Gratis",
+    "url": "https://ansyah.web.id/tools/password-generator",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "All",
+    "browserRequirements": "Requires JavaScript",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    }
+  }
+</script>
+ 
+</body>
+</html>
