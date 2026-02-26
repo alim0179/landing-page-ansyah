@@ -34,19 +34,9 @@
   <link rel="canonical" href="https://ansyah.web.id/" />
 <script src="theme.js"></script>
 
-<script>
-  (function () {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } 
-    else if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      document.documentElement.classList.add('dark');
-    }
-  })();
-</script>
 
-<script src="https://cdn.tailwindcss.com"></script>
+
+
 
   <!-- Tailwind & Lucide -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -327,41 +317,12 @@
 });
 
 
-  // Dark/Light mode toggle
-  const themeToggleBtn = document.getElementById('theme-toggle');
-  const lightIcon = themeToggleBtn.querySelector('.light-icon');
-  const darkIcon = themeToggleBtn.querySelector('.dark-icon');
 
-  function updateIcons() {
-    if(document.documentElement.classList.contains('dark')){
-      // Dark mode → tampil sun
-      lightIcon.style.opacity = 1;
-      lightIcon.style.transform = 'translateY(0)';
-      darkIcon.style.opacity = 0;
-      darkIcon.style.transform = 'translateY(-4px)';
-    } else {
-      // Light mode → tampil moon
-      lightIcon.style.opacity = 0;
-      lightIcon.style.transform = 'translateY(4px)';
-      darkIcon.style.opacity = 1;
-      darkIcon.style.transform = 'translateY(0)';
-    }
-  }
-  updateIcons();
-  themeToggleBtn.addEventListener('click', () => {
-  document.documentElement.classList.toggle('dark');
-  const isDark = document.documentElement.classList.contains('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-  updateIcons();
-});
   
   // Simpan tema terakhir di localStorage & load saat page reload
 
 
-themeToggleBtn.addEventListener('click', () => {
-  const isDark = document.documentElement.classList.contains('dark');
-  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-});
+
 
 
   // Mobile menu toggle
