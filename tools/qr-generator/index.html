@@ -4,8 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>QR Code Generator Online Gratis | Ansyah</title>
-<meta name="description" content="Buat QR Code online gratis dengan cepat! Dukungan teks, URL, WiFi, vCard, email, SMS, telepon, dan lokasi. Praktis dan mudah digunakan di Ansyah Web Tools." />
+<title>QR Code Generator Gratis - Teks, URL, WiFi, vCard | Ansyah</title>
+<meta name="description" content="Buat QR Code gratis online untuk teks, URL, WiFi, vCard, email, SMS, telepon, dan lokasi. Praktis & mudah digunakan. Mulai sekarang, gratis di Ansyah Web Tools!" />
 <meta name="author" content="Ansyah" />
 
 <!-- Open Graph -->
@@ -46,6 +46,34 @@ tailwind.config = {
 
 <style>
 /* Tambahkan ke <style> */
+
+/* Semua form di dark mode */
+.dark #dynamicForm input,
+.dark #dynamicForm textarea,
+.dark #dynamicForm select {
+  background-color: #1f2937;   /* abu gelap */
+  color: #e5e7eb;              /* teks terang */
+  border: 1px solid #374151;   /* border gelap */
+}
+
+/* Placeholder supaya tetap terlihat di dark mode */
+.dark #dynamicForm input::placeholder,
+.dark #dynamicForm textarea::placeholder,
+.dark #dynamicForm select::placeholder {
+  color: #9ca3af; /* abu-abu terang */
+}
+
+/* Optional: tampilkan panah select di dark mode */
+.dark #dynamicForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white'><polygon points='0,0 16,0 8,8'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  background-size: 1rem;
+}
+
 .card {
   @apply p-5 rounded-xl shadow-md mb-6 transition-colors duration-300;
   background-color: #fff; /* default light */
@@ -53,8 +81,8 @@ tailwind.config = {
 }
 
 .dark .card {
-  background-color: #1e1e1e; /* dark background */
-  border: 1px solid #333;     /* dark border */
+  background-color: #111827; /* dark background */
+  border: 1px solid #222;     /* dark border */
 }
 
 
@@ -123,19 +151,6 @@ body { transition: background-color .3s ease, color .3s ease; font-family: 'Inte
   opacity: 0.8;
 }
 
-#dynamicForm select {
-  width: 100%;
-  padding: 0.5rem;
-  border-radius: 0.375rem; /* sama dengan input */
-  border: 1px solid #d1d5db; /* border abu-abu */
-  background-color: #ffffff;  /* putih */
-  color: #000000;                     /* teks hitam */
-  appearance: none;           /* hilangkan default arrow style */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  cursor: pointer;
-  transition: all 0.3s;
-}
 
 .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; margin-bottom:1rem; }
 </style>
@@ -148,6 +163,12 @@ body { transition: background-color .3s ease, color .3s ease; font-family: 'Inte
   "url": "https://ansyah.web.id/tools/qr-generator",
   "applicationCategory": "Utilities",
   "operatingSystem": "Web",
+  "description": "Buat QR Code gratis online untuk teks, URL, WiFi, vCard, email, SMS, telepon, dan lokasi.",
+  "creator": {
+    "@type": "Organization",
+    "name": "Ansyah Web Tools",
+    "url": "https://ansyah.web.id"
+  },
   "offers": {
     "@type": "Offer",
     "price": "0",
@@ -196,15 +217,21 @@ body { transition: background-color .3s ease, color .3s ease; font-family: 'Inte
 <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
 
 <main class="pt-24 max-w-5xl mx-auto px-4">
-<h1 class="text-3xl font-bold mb-6">QR Code Generator Online Gratis</h1>
+
 
 <!-- Tools Grid -->
 <div id="tools-grid">
 
   <!-- QR Generator -->
   <div class="card">
-    <h2 class="text-xl font-bold mb-4">QR Code Generator</h2>
-    <div class="categories">
+    <div>
+    <h1>
+   QR Code Generator Online Gratis
+      </h1>
+<p class="text-sm text-slate-500 dark:text-slate-400" style="padding: 10px 0; margin-bottom: 15px; line-height: 1.5; ">
+  Buat QR Code untuk teks, URL, WiFi, vCard, email, SMS, telepon, dan lokasi dengan cepat & mudah.</p>
+  </div>
+  <div class="categories">
       <button data-type="text" class="active">Text / URL</button>
       <button data-type="wifi">WiFi</button>
       <button data-type="vcard">vCard</button>
@@ -228,7 +255,50 @@ body { transition: background-color .3s ease, color .3s ease; font-family: 'Inte
     <div id="qr"></div>
   </div>
 
+
+
 </div>
+
+<!-- FAQ QR Code Generator -->
+
+  
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Apa itu QR Code?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    QR Code adalah kode dua dimensi yang dapat menyimpan informasi seperti teks, URL, kontak, lokasi, email, atau pesan. QR Code bisa dipindai dengan kamera smartphone untuk membaca informasi secara cepat dan praktis.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Apakah QR Code Generator ini gratis?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Ya, semua fitur QR Code di Ansyah Web Tools bisa digunakan secara gratis tanpa registrasi atau login. Kamu bisa membuat berbagai jenis QR Code seperti teks, URL, WiFi, vCard, telepon, email, SMS, dan lokasi hanya dengan beberapa klik.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Bagaimana cara membuat QR Code untuk WiFi?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Pilih kategori <strong>WiFi</strong>, lalu masukkan SSID, password, dan jenis enkripsi. Setelah itu klik <strong>Generate QR</strong> untuk mendapatkan QR Code yang bisa langsung dipindai.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Bisakah saya mengubah warna QR Code?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Ya, kamu bisa memilih warna QR Code sesuai keinginan menggunakan input <strong>Warna QR</strong>. Lalu klik <strong>Generate QR</strong> untuk melihat QR dengan warna baru.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Apakah bisa mendownload QR Code?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Tentu, setelah QR Code muncul, tombol <strong>Download QR</strong> akan terlihat. Klik tombol tersebut untuk menyimpan QR Code sebagai file PNG.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Apakah data saya tersimpan?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Tidak, QR Code yang kamu buat diproses secara langsung di browser atau server penyedia QR (QuickChart), dan tidak ada data yang disimpan di Ansyah Web Tools.
+  </p>
+  
+  <h3 class="font-semibold mt-4 text-slate-800 dark:text-slate-300">Apakah ada batasan penggunaan?</h3>
+  <p class="text-slate-700 dark:text-slate-400 mt-2">
+    Tidak ada batasan. Kamu bisa membuat QR Code sebanyak yang kamu mau untuk kebutuhan pribadi maupun komersial.
+  </p>
+
+
 </main>
 
 <!-- Footer -->
