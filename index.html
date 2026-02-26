@@ -32,8 +32,21 @@
 
   
   <link rel="canonical" href="https://ansyah.web.id/" />
-
 <script src="theme.js"></script>
+
+<script>
+  (function () {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } 
+    else if (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+  })();
+</script>
+
+<script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Tailwind & Lucide -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -336,16 +349,14 @@
   }
   updateIcons();
   themeToggleBtn.addEventListener('click', () => {
-    document.documentElement.classList.toggle('dark');
-    updateIcons();
-  });
-  
-  // Simpan tema terakhir di localStorage & load saat page reload
-window.addEventListener('DOMContentLoaded', () => {
-  const savedTheme = localStorage.getItem('theme');
-  if(savedTheme === 'dark') document.documentElement.classList.add('dark');
+  document.documentElement.classList.toggle('dark');
+  const isDark = document.documentElement.classList.contains('dark');
+  localStorage.setItem('theme', isDark ? 'dark' : 'light');
   updateIcons();
 });
+  
+  // Simpan tema terakhir di localStorage & load saat page reload
+
 
 themeToggleBtn.addEventListener('click', () => {
   const isDark = document.documentElement.classList.contains('dark');
