@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Branding & SEO -->
+  <title>Ansyah | Web Tools Gratis</title>
+  <meta name="description" content="Katalog Web Tools Gratis Ansyah. Temukan berbagai tools online praktis dan cepat untuk kebutuhan digitalmu." />
+  <meta name="author" content="Ansyah" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Ansyah | Web Tools Gratis" />
+  <meta property="og:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ansyah.web.id/tools.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ansyah | Web Tools Gratis" />
+  <meta name="twitter:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+  <link rel="icon" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools.html" />
+  <link rel="preload" href="logo.jpg" as="image">
+<script src="/theme.js"></script>
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    
+    
+.converter { max-width:420px; margin:auto; padding:15px; border-radius:10px; background:#fff; box-shadow:0 4px 12px rgba(0,0,0,0.1); transition:0.3s;}
+html.dark .converter { background:#1f1f1f; color:#f0f0f0; }
+
+.categories { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:10px; }
+.categories button { flex:0 0 auto; padding:8px 12px; border:none; border-radius:5px; cursor:pointer; background:#007bff; color:#fff; font-size:0.85em; white-space:nowrap; }
+.categories button.active { background:#0056b3; font-weight:bold; transform:scale(1.05); }
+
+label { display:block; margin-top:8px; font-weight:bold; }
+select,input { width:100%; padding:8px; margin-top:5px; border-radius:5px; border:1px solid #ccc; font-size:0.95em;}
+html.dark select, html.dark input { background:#2c2c2c; color:#f0f0f0; border:1px solid #555; }
+
+.result { font-size:1.3em; margin-top:10px; font-weight:bold; color:#28a745; text-align:center; transition:0.3s; opacity:1; }
+.result.fade { opacity:0; }
+
+.toggle-btn, .swap-btn, .copy-btn, .share-btn { padding:8px 12px; font-size:0.85em; border:none; border-radius:5px; cursor:pointer; display:inline-flex; align-items:center; }
+.toggle-btn { background:#ff9800; color:#fff; margin-bottom:10px; width:100%; justify-content:center; }
+.swap-btn { background:#17a2b8; color:#fff; margin-top:5px; width:100%; justify-content:center; }
+.copy-btn { background:#28a745; color:#fff; flex:1; justify-content:center; }
+.share-btn { background:#6c757d; color:#fff; flex:0 0 auto; justify-content:center; }
+.share-btn svg { width:16px; height:16px; fill:white; margin-left:3px; }
+
+button:hover { opacity:0.85; }
+
+    
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ansyah",
+    "url": "https://ansyah.web.id/tools.html"
+  }
+  </script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+<main class="mt-20 mb-20 px-4 flex justify-center">
+<div class="converter w-full sm:w-[420px] reveal">
+  <h2 style="font-size:1.3em;">Satuan Converter Mobile Final</h2>
+  <div class="categories" id="categoryTabs"></div>
+  
+  <label class="text-sm font-medium">Dari:</label>
+<select id="unitFrom" class="w-full p-2 text-sm rounded border border-gray-300 dark:border-gray-600"></select>
+
+<label class="text-sm font-medium mt-2">Ke:</label>
+<select id="unitTo" class="w-full p-2 text-sm rounded border border-gray-300 dark:border-gray-600"></select>
+
+<button class="swap-btn w-full p-2 text-sm rounded bg-primary text-white mt-2" onclick="swapUnits()">↔ Tukar Satuan</button>
+
+<label class="text-sm font-medium mt-2">Nilai:</label>
+<input type="number" id="valueInput" placeholder="Masukkan nilai" 
+       class="w-full p-2 text-sm rounded border border-gray-300 dark:border-gray-600">
+
+<div class="result fade text-sm mt-2" id="result">0</div>
+  
+  <!-- Copy + Share -->
+  <div style="display:flex; gap:5px; margin-top:10px;">
+    <button class="copy-btn" onclick="copyResult('hasil')">Copy</button>
+<button class="share-btn" onclick="shareResult('hasil')" title="Share Hasil">
+  <i data-lucide="share-2"></i>
+</button>
+  </div>
+  
+  <div style="display:flex; gap:5px; margin-top:5px;">
+    <button class="copy-btn" onclick="copyResult('perhitungan')">Copy + Rumus</button>
+    <button class="share-btn" onclick="shareResult('perhitungan')" title="Share Hasil + Rumus">
+  <i data-lucide="share-2"></i>
+</button>
+  </div>
+</div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="logo.jpg" alt="Ansyah Web Tools" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  lucide.createIcons();
+
+  /* =========================
+     REVEAL ANIMATION
+  ========================== */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* =========================
+     PRELOADER
+  ========================== */
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => preloader.style.display = 'none', 500);
+  });
+
+  /* =========================
+     THEME ICON SYNC (GLOBAL)
+  ========================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
+
+    const lightIcon = themeToggleBtn.querySelector(".light-icon");
+    const darkIcon = themeToggleBtn.querySelector(".dark-icon");
+
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+
+      if (!lightIcon || !darkIcon) return;
+
+      if (isDark) {
+        lightIcon.style.opacity = 1;
+        lightIcon.style.transform = "translateY(0)";
+        darkIcon.style.opacity = 0;
+        darkIcon.style.transform = "translateY(-4px)";
+      } else {
+        lightIcon.style.opacity = 0;
+        lightIcon.style.transform = "translateY(4px)";
+        darkIcon.style.opacity = 1;
+        darkIcon.style.transform = "translateY(0)";
+      }
+    }
+
+    updateIcons();
+
+    const observerTheme = new MutationObserver(updateIcons);
+    observerTheme.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu?.classList.add('hidden');
+      mobileOverlay?.classList.add('hidden');
+    }
+  });
+  
+  const units = {
+length: {"Meter (m)":"1 m","Kilometer (km)":"1000 m","Centimeter (cm)":"0.01 m","Milimeter (mm)":"0.001 m","Mil (mile)":"1609.34 m","Yard (yd)":"0.9144 m","Kaki (ft)":"0.3048 m","Inci (inch)":"0.0254 m","Nautical mile (NM)":"1852 m"},
+mass: {"Kilogram (kg)":"1 kg","Gram (g)":"0.001 kg","Miligram (mg)":"0.000001 kg","Ton (t)":"1000 kg","Pound (lb)":"0.453592 kg","Ons (oz)":"0.0283495 kg","Stone (st)":"6.35029 kg"},
+volume: {"Liter (L)":"1 L","Mililiter (mL)":"0.001 L","Gal (US)":"3.78541 L","Gal (UK)":"4.54609 L","Kubik meter (m³)":"1000 L","Cup":"0.24 L","Pint":"0.473176 L","Quart":"0.946353 L"},
+area: {"Meter² (m²)":"1 m²","Kilometer² (km²)":"1000000 m²","Centimeter² (cm²)":"0.0001 m²","Milimeter² (mm²)":"0.000001 m²","Acre":"4046.86 m²","Hektar":"10000 m²"},
+temperature: ["°C","°F","K"],
+time: {"Detik (s)":"1 s","Menit (min)":"60 s","Jam (h)":"3600 s","Hari":"86400 s"},
+speed: {"m/s":"1 m/s","km/h":"0.277778 m/s","mph":"0.44704 m/s","knot":"0.514444 m/s"},
+energy: {"Joule (J)":"1 J","Kalori (cal)":"4.184 J","KiloJoule (kJ)":"1000 J","kWh":"3600000 J"},
+pressure: {"Pascal (Pa)":"1 Pa","Bar":"100000 Pa","Psi":"6894.76 Pa","atm":"101325 Pa"},
+angle: {"Derajat (°)":"1°","Radian (rad)":"0.0174533°","Gon":"0.9°"}
+};
+
+const categoryTabs = document.getElementById("categoryTabs");
+const unitFrom = document.getElementById("unitFrom");
+const unitTo = document.getElementById("unitTo");
+const resultDiv = document.getElementById("result");
+const valueInput = document.getElementById("valueInput");
+let currentCategory = "length";
+
+function initCategories(){
+  categoryTabs.innerHTML = "";
+  for(let cat in units){
+    const btn = document.createElement("button");
+    btn.innerText = cat.charAt(0).toUpperCase() + cat.slice(1);
+    btn.onclick = ()=>{setCategory(cat)};
+    btn.id="btn_"+cat;
+    if(cat===currentCategory) btn.classList.add("active");
+    categoryTabs.appendChild(btn);
+  }
+}
+
+function setCategory(cat){
+  currentCategory=cat;
+  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
+  document.getElementById("btn_"+cat).classList.add("active");
+  updateUnits();
+  valueInput.value=""; showResult("0");
+}
+
+function updateUnits(){
+  unitFrom.innerHTML=""; unitTo.innerHTML="";
+  if(currentCategory==="temperature"){
+    units.temperature.forEach(u=>{unitFrom.innerHTML+=`<option>${u}</option>`;unitTo.innerHTML+=`<option>${u}</option>`;});
+  }else{
+    for(let u in units[currentCategory]){
+      unitFrom.innerHTML+=`<option title='${units[currentCategory][u]}'>${u}</option>`;
+      unitTo.innerHTML+=`<option title='${units[currentCategory][u]}'>${u}</option>`;
+    }
+  }
+}
+
+function convert(){
+  let from = unitFrom.value;
+  let to = unitTo.value;
+  let value = parseFloat(valueInput.value);
+  if(isNaN(value)){showResult("0"); return;}
+  let result;
+  if(currentCategory==="temperature"){
+    if(from==="°C" && to==="°F") result=(value*9/5)+32;
+    else if(from==="°F" && to==="°C") result=(value-32)*5/9;
+    else if(from==="°C" && to==="K") result=value+273.15;
+    else if(from==="K" && to==="°C") result=value-273.15;
+    else if(from==="°F" && to==="K") result=(value-32)*5/9+273.15;
+    else if(from==="K" && to==="°F") result=(value-273.15)*9/5+32;
+    else result=value;
+    showResult(`${result} ${to}`);
+    return;
+  }
+  let base = parseFloat(units[currentCategory][from].split(" ")[0]);
+  let target = parseFloat(units[currentCategory][to].split(" ")[0]);
+  showResult(`${(value*base/target)} ${to}`);
+}
+
+function swapUnits(){
+  let temp = unitFrom.value;
+  unitFrom.value = unitTo.value;
+  unitTo.value = temp;
+  convert();
+}
+
+function showResult(text){
+  resultDiv.classList.add("fade");
+  setTimeout(()=>{ resultDiv.innerText=text; resultDiv.classList.remove("fade"); }, 150);
+}
+
+function copyResult(type){
+  let value = parseFloat(valueInput.value);
+  let from = unitFrom.value;
+  let to = unitTo.value;
+  let result = resultDiv.innerText;
+
+  if(type === 'hasil'){
+    navigator.clipboard.writeText(result).then(()=>{ alert("Hasil disalin ke clipboard!"); });
+  } else if(type === 'perhitungan'){
+    let text;
+    if(currentCategory==="temperature"){
+      text = `${value} ${from} → ${result}`;
+    } else {
+      let base = parseFloat(units[currentCategory][from].split(" ")[0]);
+      let target = parseFloat(units[currentCategory][to].split(" ")[0]);
+      let calculated = (value*base/target);
+      text = `${value} ${from} → ${calculated} ${to}`;
+    }
+    navigator.clipboard.writeText(text).then(()=>{ alert("Perhitungan disalin ke clipboard!"); });
+  }
+}
+
+function shareResult(type){
+  let text;
+  if(type === 'hasil'){
+    text = encodeURIComponent("Hasil konversi: " + resultDiv.innerText);
+  } else if(type === 'perhitungan'){
+    let value = parseFloat(valueInput.value);
+    let from = unitFrom.value;
+    let to = unitTo.value;
+    if(currentCategory==="temperature"){
+      text = encodeURIComponent(`${value} ${from} → ${resultDiv.innerText}`);
+    } else {
+      let base = parseFloat(units[currentCategory][from].split(" ")[0]);
+      let target = parseFloat(units[currentCategory][to].split(" ")[0]);
+      let calculated = (value*base/target);
+      text = encodeURIComponent(`${value} ${from} → ${calculated} ${to}`);
+    }
+  }
+
+  if(navigator.share){
+    navigator.share({text});
+  } else {
+    window.open("https://api.whatsapp.com/send?text="+text, "_blank");
+  }
+}
+
+valueInput.addEventListener("input", convert);
+unitFrom.addEventListener("change", convert);
+unitTo.addEventListener("change", convert);
+
+initCategories(); 
+updateUnits();
+  
+</script>
+ 
+</body>
+</html>
