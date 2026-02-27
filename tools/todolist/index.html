@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Branding & SEO -->
+<title>To-Do List Online Gratis Tanpa Login | Catatan Tugas Harian – Ansyah</title>
+  <meta name="description" content="To-Do List online gratis tanpa login untuk mengatur tugas harian, deadline, prioritas, kategori, dan progress otomatis. Bisa backup & restore JSON. 100% gratis dan ringan." />
+  <meta name="author" content="Ansyah" />
+<meta name="robots" content="index, follow, max-image-preview:large">
+  <!-- Open Graph / Social Sharing -->
+<meta property="og:title" content="To-Do List Online Gratis Tanpa Login | Ansyah" />
+  <meta property="og:description" content="Kelola tugas harian dengan To-Do List online gratis dari Ansyah." />
+  <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ansyah.web.id/tools/todolist" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="To-Do List Online Gratis Tanpa Login | Ansyah" />
+  <meta name="twitter:description" content="Kelola tugas harian dengan To-Do List online gratis dari Ansyah." />
+  <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+  <link rel="icon" href="../../logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools/todolist" />
+  <link rel="preload" href="../../logo.jpg" as="image">
+
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <script src="../../theme.js"></script>
+
+  <style>
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+
+    /* To-Do List Styles */
+    .fade-in { animation: fade 0.25s ease; }
+    @keyframes fade { from {opacity:0; transform:translateY(8px);} to {opacity:1; transform:translateY(0);} }
+  </style>
+  
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "To-Do List Online Gratis",
+    "operatingSystem": "All",
+    "applicationCategory": "ProductivityApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    },
+    "description": "To-Do List online gratis tanpa login untuk mengatur tugas harian dengan fitur prioritas, deadline, kategori, progress otomatis, serta backup & restore JSON.",
+    "url": "https://ansyah.web.id/tools/todolist"
+  }
+</script>
+  
+  
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+  <main class="flex-grow flex flex-col items-center p-4 pt-20">
+    <!-- To-Do List -->
+    <div class="w-full max-w-lg bg-white dark:bg-gray-800 dark:text-white rounded-2xl shadow-lg p-6 transition-colors duration-300">
+     
+      <div class="mb-6 text-center">
+        <h1 class="text-2xl font-bold">To-Do List Online Gratis Tanpa Login</h1>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Kelola tugas harian dengan lebih produktif</p>
+      </div>
+      <div class="space-y-3 mb-4">
+        <div>
+          <label class="text-sm font-medium">Nama Tugas</label>
+          <input id="taskInput" type="text" placeholder="Contoh: Kerjakan laporan bulanan"
+            class="w-full mt-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+        </div>
+        <div>
+          <label class="text-sm font-medium">Kategori</label>
+          <input id="categoryInput" type="text" placeholder="Contoh: Kerja, Pribadi"
+            class="w-full mt-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition">
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+          <div>
+            <label class="text-sm font-medium">Prioritas</label>
+            <select id="prioritySelect"
+              class="w-full mt-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none transition">
+              <option value="high">High 🔴</option>
+              <option value="medium">Medium 🟡</option>
+              <option value="low">Low 🟢</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-sm font-medium">Deadline</label>
+            <input type="datetime-local" id="dueDate"
+              class="w-full mt-1 p-3 rounded-lg bg-gray-100 dark:bg-gray-700 focus:outline-none transition">
+          </div>
+        </div>
+        <div class="flex gap-2">
+  <button id="addBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg font-semibold transition">
+    + Tambah Tugas
+  </button>
+  <button id="exportBtn" class="w-full bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg font-semibold transition">
+    💾 Ekspor JSON
+  </button>
+  <button id="importBtn" class="w-full bg-yellow-600 hover:bg-yellow-700 text-white p-3 rounded-lg font-semibold transition">
+    📂 Restore JSON
+  </button>
+<input type="file" id="fileInput" accept="*/*" class="hidden">
+</div>
+      </div>
+      <div id="statusFilters" class="flex justify-center gap-2 mb-4 text-sm"></div>
+      <div class="mb-4">
+        <input id="searchInput" type="text" placeholder="Cari tugas..."
+          class="w-full p-2 rounded-lg bg-gray-100 dark:bg-gray-700 dark:text-white focus:outline-none transition">
+      </div>
+      <ul id="taskList" class="space-y-3"></ul>
+      <div id="emptyState" class="text-center text-gray-400 text-sm mt-4 hidden">
+        Belum ada tugas 🚀
+      </div>
+      <div class="mt-6">
+        <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+          <div id="progressBar" class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width:0%"></div>
+        </div>
+        <p id="stats" class="text-xs text-center mt-2 text-gray-500 dark:text-gray-400"></p>
+      </div>
+      <button onclick="clearCompleted()" class="w-full mt-4 text-sm text-red-500 hover:underline">
+        Hapus Semua yang Selesai
+      </button>
+      </div>
+      
+      <section class="max-w-3xl mx-auto mt-16 px-4 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+  <h2 class="text-xl font-bold mb-4 text-slate-800 dark:text-white">
+    To-Do List Online Gratis Tanpa Login
+  </h2>
+  
+  <p class="mb-4">
+    To-Do List Online Gratis dari Ansyah adalah aplikasi pencatat tugas harian berbasis web yang bisa digunakan sebagai task manager sederhana tanpa login. Anda dapat membuat daftar tugas, menentukan prioritas, menambahkan deadline, serta mengelompokkan tugas berdasarkan kategori dengan mudah.
+  </p>
+  
+  <p class="mb-4">
+    Aplikasi ini dirancang ringan dan cepat sehingga dapat digunakan di HP maupun desktop tanpa instalasi. Semua data disimpan secara lokal di perangkat Anda sehingga lebih aman dan privat.
+  </p>
+  
+  <p class="mb-4">
+    Fitur utama yang tersedia meliputi:
+  </p>
+  
+  <ul class="list-disc pl-6 mb-4 space-y-2">
+    <li>Tambah dan hapus tugas dengan cepat</li>
+    <li>Prioritas High, Medium, Low</li>
+    <li>Deadline dengan hitung mundur otomatis</li>
+    <li>Filter berdasarkan status dan kategori</li>
+    <li>Progress bar otomatis</li>
+    <li>Backup dan restore file JSON</li>
+  </ul>
+  
+  <p>
+    To-Do List ini cocok digunakan untuk pelajar, pekerja, freelancer, maupun siapa saja yang ingin meningkatkan produktivitas harian dengan sistem pencatatan tugas yang sederhana dan efisien.
+  </p>
+</section>
+    
+    
+    
+    
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="../../logo.jpg" alt="Ansyah Web Tools" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  lucide.createIcons();
+
+  // Preloader
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => preloader.style.display = 'none', 500);
+  });
+
+  // Navbar mobile toggle
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+  window.addEventListener('keydown', (e) => { if(e.key==='Escape'){ mobileMenu?.classList.add('hidden'); mobileOverlay?.classList.add('hidden'); } });
+
+
+
+  // --- To-Do List Data ---
+  let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+  let filterStatus = "all";      // all / active / done
+  let filterCategory = "all";    // all / kategori tertentu
+  
+  // Tombol Restore
+document.getElementById("importBtn").addEventListener("click", () => {
+  document.getElementById("fileInput").click();
+});
+
+document.getElementById("fileInput").addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+
+  const reader = new FileReader();
+  reader.onload = (evt) => {
+    try {
+      const importedTasks = JSON.parse(evt.target.result);
+
+      // Validasi sederhana
+      if (Array.isArray(importedTasks) && importedTasks.every(t => t.name && t.priority && 'done' in t)) {
+        if (confirm("Restore akan mengganti semua tugas saat ini. Lanjutkan?")) {
+          tasks = importedTasks;
+          saveTasks();
+          renderTasks();
+          alert("Restore berhasil!");
+        }
+      } else {
+        alert("File tidak valid atau format salah!");
+      }
+    } catch (err) {
+      alert("Terjadi kesalahan saat membaca file!");
+      console.error(err);
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = "";
+});
+  
+  
+  function renderStatusButtons() {
+  const container = document.getElementById("statusFilters");
+  container.innerHTML = "";
+
+  const statuses = [
+    { label: "All", value: "all" },
+    { label: "Aktif", value: "active" },
+    { label: "Selesai", value: "done" }
+  ];
+
+  statuses.forEach(s => {
+    const btn = document.createElement("button");
+    btn.textContent = s.label;
+    btn.className = `px-3 py-1 rounded transition ${filterStatus===s.value ? "bg-primary text-white" : "bg-gray-200 dark:bg-gray-700"}`;
+    btn.onclick = ()=> { setFilterStatus(s.value); renderStatusButtons(); };
+    container.appendChild(btn);
+  });
+}
+
+  const taskList = document.getElementById("taskList");
+  const emptyState = document.getElementById("emptyState");
+  const progressBar = document.getElementById("progressBar");
+  const stats = document.getElementById("stats");
+
+  function saveTasks(){ localStorage.setItem("tasks", JSON.stringify(tasks)); }
+
+  // Render tasks
+  function renderTasks() {
+  taskList.innerHTML = "";
+  const now = new Date();
+  const searchValue = document.getElementById("searchInput").value.toLowerCase();
+
+  let filtered = tasks.filter(task => {
+    if (filterStatus === "active") return !task.done;
+    if (filterStatus === "done") return task.done;
+    return true;
+  }).filter(task => {
+    if (filterCategory !== "all") return task.category && task.category.toLowerCase() === filterCategory.toLowerCase();
+    return true;
+  }).filter(task => task.name.toLowerCase().includes(searchValue));
+
+  emptyState.classList.toggle("hidden", filtered.length > 0);
+
+  filtered.forEach((task, index) => {
+    const li = document.createElement("li");
+
+    // Background berdasarkan prioritas
+    let bgClass = "bg-gray-100 dark:bg-gray-700";
+    if (!task.done) {
+      if (task.priority === "high") bgClass = "bg-red-200 dark:bg-red-600";
+      else if (task.priority === "medium") bgClass = "bg-yellow-200 dark:bg-yellow-600";
+      else if (task.priority === "low") bgClass = "bg-green-200 dark:bg-green-600";
+    }
+    // Override jika overdue
+    if (task.date && new Date(task.date) < now && !task.done) bgClass = "bg-red-300 dark:bg-red-700";
+
+    li.className = `p-3 rounded-lg ${bgClass} flex justify-between items-center fade-in`;
+
+    // Format tanggal
+    const due = task.date ? new Date(task.date).toLocaleString('id-ID', {
+      year: 'numeric', month: 'short', day: 'numeric',
+      hour: '2-digit', minute: '2-digit'
+    }) : '-';
+
+    li.innerHTML = `
+  <div>
+    <p class="${task.done ? 'line-through opacity-60' : ''} font-medium">${task.name}</p>
+    <p class="text-xs text-gray-500 dark:text-gray-300">
+      [${task.category || '-'}] - ${task.priority.toUpperCase()} - ${due}
+    </p>
+    ${task.date ? '<p class="text-xs text-red-600 dark:text-red-200 mt-1">Waktu tersisa: <span class="countdown" data-due="'+task.date+'">00:00:00</span></p>' : ''}
+  </div>
+  <div class="flex gap-2">
+    <button onclick="toggleDone(${index})" class="text-green-500 text-sm">✔</button>
+    <button onclick="deleteTask(${index})" class="text-red-500 text-sm">✕</button>
+  </div>
+`;
+
+    taskList.appendChild(li);
+  });
+
+  updateProgress();
+  renderCategoryButtons();
+  renderStatusButtons();
+}
+
+function updateCountdowns() {
+  const countdowns = document.querySelectorAll(".countdown");
+  const now = new Date();
+
+  countdowns.forEach(span => {
+    const dueDate = new Date(span.dataset.due);
+    let diff = dueDate - now;
+
+    if (diff <= 0) {
+      span.textContent = "Waktu Habis!";
+      span.parentElement.classList.add("opacity-70"); // optional: tandai expired
+      return;
+    }
+
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff %= (1000 * 60 * 60);
+    const minutes = Math.floor(diff / (1000 * 60));
+    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+    span.textContent = `${hours.toString().padStart(2,'0')}:${minutes.toString().padStart(2,'0')}:${seconds.toString().padStart(2,'0')}`;
+  });
+}
+
+// update setiap detik
+setInterval(updateCountdowns, 1000);
+
+  function addTask(){
+    const name = document.getElementById("taskInput").value.trim();
+    const priority = document.getElementById("prioritySelect").value;
+    const date = document.getElementById("dueDate").value;
+    const category = document.getElementById("categoryInput").value.trim();
+    if(!name) return;
+    tasks.push({name,priority,date,category,done:false});
+    saveTasks();
+    renderTasks();
+    document.getElementById("taskInput").value="";
+    document.getElementById("categoryInput").value="";
+  }
+
+  function toggleDone(i){ tasks[i].done = !tasks[i].done; saveTasks(); renderTasks(); }
+  function deleteTask(i){ tasks.splice(i,1); saveTasks(); renderTasks(); }
+  function clearCompleted(){ tasks = tasks.filter(t => !t.done); saveTasks(); renderTasks(); }
+
+  function setFilterStatus(type){ filterStatus = type; renderTasks(); }
+  function setFilterCategory(category){ filterCategory = category; renderTasks(); }
+
+  function updateProgress(){
+    const total = tasks.length;
+    const done = tasks.filter(t=>t.done).length;
+    const percent = total ? (done/total)*100 : 0;
+    progressBar.style.width = percent + "%";
+    stats.textContent = `${done} dari ${total} selesai`;
+  }
+
+  function exportTasks(){
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(tasks));
+    const a = document.createElement('a'); a.href = dataStr; a.download="tasks.json"; a.click();
+  }
+
+  // --- Dynamic Category Buttons ---
+  function renderCategoryButtons(){
+  const containerId = "categoryFilters";
+  let container = document.getElementById(containerId);
+  if(!container){
+    container = document.createElement("div");
+    container.id = containerId;
+    container.className = "flex gap-2 mb-4 overflow-x-auto";
+    taskList.parentElement.insertBefore(container, taskList);
+  }
+  container.innerHTML = "";
+
+  const categories = [...new Set(tasks.map(t=>t.category).filter(c=>c))];
+
+  // Tombol "All"
+  const allBtn = document.createElement("button");
+  allBtn.textContent = "All";
+  allBtn.className = `px-3 py-1 rounded ${filterCategory==="all" ? "bg-primary text-white" : "bg-gray-200 dark:bg-gray-700"}`;
+  allBtn.onclick = ()=>{ setFilterCategory("all"); renderCategoryButtons(); };
+  container.appendChild(allBtn);
+
+  // Tombol kategori lain
+  categories.forEach(cat=>{
+    const btn = document.createElement("button");
+    btn.textContent = cat;
+    btn.className = `px-3 py-1 rounded ${filterCategory===cat ? "bg-primary text-white" : "bg-gray-200 dark:bg-gray-700"}`;
+    btn.onclick = ()=>{ setFilterCategory(cat); renderCategoryButtons(); };
+    container.appendChild(btn);
+  });
+}
+
+  // Event Listeners
+  document.getElementById("addBtn").addEventListener("click", addTask);
+  document.getElementById("searchInput").addEventListener("input", renderTasks);
+  document.getElementById("exportBtn").addEventListener("click", exportTasks);
+  document.querySelectorAll('[onclick^="setFilter("]').forEach(btn=>{
+    btn.addEventListener('click', e=>{
+      const type = e.target.textContent.toLowerCase();
+      setFilterStatus(type==="all"?"all":type==="aktif"?"active":"done");
+    });
+  });
+
+  renderTasks();
+</script>
+</body>
+</html>
