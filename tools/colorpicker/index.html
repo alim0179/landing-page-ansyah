@@ -1,0 +1,714 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Branding & SEO -->
+<title>Color Picker Online Gratis – HEX, RGB, CMYK | Ansyah</title>
+  <meta name="description" content="Color Picker online gratis untuk mengambil warna dari gambar atau screenshot. Dapatkan kode HEX, RGB, CMYK, HSL, dan HSV secara instan." />
+  <meta name="author" content="Ansyah" />
+
+  <!-- Open Graph / Social Sharing -->
+  
+<meta property="og:title" content="Color Picker Online Gratis – HEX, RGB, CMYK | Ansyah" />
+<meta property="og:description" content="Ambil warna dari gambar atau screenshot dan dapatkan kode HEX, RGB, CMYK, HSL, dan HSV secara instan." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://ansyah.web.id/tools/colorpicker" />
+<meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Color Picker Online Gratis – HEX, RGB, CMYK | Ansyah" />
+<meta name="twitter:description" content="Ambil warna dari gambar atau screenshot dan dapatkan kode HEX, RGB, CMYK, HSL, dan HSV secara instan." />
+<meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+<meta name="robots" content="index, follow" />
+
+<meta name="theme-color" content="#2563eb">
+
+  <link rel="icon" href="../../logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools/colorpicker" />
+  <link rel="preload" href="../../logo.jpg" as="image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
+  
+<script src="/theme.js"></script>
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+    
+    /* =========================
+   COLOR PICKER TOOL STYLE
+========================== */
+
+.tool-card {
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+}
+.dark .tool-card {
+  background: rgb(32,41,56);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.color-preview-cursor {
+  width: 36px;
+  height: 36px;
+  border-radius: 6px;
+  border: 1px solid #bbb;
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  display: none;
+}
+
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  gap: 6px;
+}
+
+.preview-container .color-preview {
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #bbb;
+}
+
+#zoomPreview {
+  position: fixed;
+  pointer-events: none;
+  background: #fff;
+  border: 1px solid #000;
+  display: none;
+  image-rendering: pixelated;
+  z-index: 1000;
+  width: 80px;
+  height: 80px;
+}
+
+#toast {
+  visibility: hidden;
+  min-width: 120px;
+  padding: 6px 10px;
+  font-size: 12px;
+  background-color: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  transition: all 0.3s;
+}
+#toast.show {
+  visibility: visible;
+  animation: fadein 0.3s, fadeout 0.3s 1.2s;
+}
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Color Picker Online",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "IDR"
+    },
+    "url": "https://ansyah.web.id/tools/colorpicker",
+    "description": "Tool online untuk mengambil warna dari gambar dengan format HEX, RGB, CMYK, HSL, dan HSV.",
+    "creator": {
+      "@type": "Organization",
+      "name": "Ansyah"
+    }
+  }
+</script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="../../logo.jpg" alt="Ansyah Color Picker Online Tool" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="../../logo.jpg" alt="Ansyah Color Picker Online Tool" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+  <main class="pt-28 pb-20 px-4">
+  <div class="max-w-xl mx-auto">
+
+      <div class="tool-card">
+      <h1 class="text-2xl font-extrabold text-center mb-6">
+      🎨 Color Picker Online Gratis (HEX, RGB, CMYK)
+      </h1>
+    <p class="text-center text-sm text-slate-500 dark:text-slate-400 mb-6">
+  Upload atau paste screenshot untuk mengambil warna secara presisi.
+</p>
+    <div class="bg-red-100 text-red-700 border border-red-300 rounded-lg p-3 text-sm mt-3">
+  ⚠ Rename file jika terjadi blank / error.
+    </div>
+
+      <input type="file" id="upload" accept="image/*" 
+        class="mb-4 block w-full text-sm border rounded-lg p-2 dark:bg-slate-800 dark:border-slate-700">
+
+      <div class="relative">
+        <canvas id="canvas" class="w-full rounded-lg border"></canvas>
+        <div class="color-preview-cursor" id="cursorPreview"></div>
+      </div>
+
+      <div class="preview-container">
+        <div class="color-preview" id="preview"></div>
+
+        <div class="text-sm text-center space-y-2 mt-2">
+
+          <div>
+            HEX: <span id="hexValue">-</span>
+            <button id="copyHex" class="ml-2 text-primary">
+              <i data-lucide="copy" class="w-4 h-4 inline"></i>
+            </button>
+          </div>
+
+          <div>
+            RGB: <span id="rgbValue">-</span>
+            <button id="copyRGB" class="ml-2 text-primary">
+              <i data-lucide="copy" class="w-4 h-4 inline"></i>
+            </button>
+          </div>
+
+          <div>
+            CMYK: <span id="cmykValue">-</span>
+            <button id="copyCMYK" class="ml-2 text-primary">
+              <i data-lucide="copy" class="w-4 h-4 inline"></i>
+            </button>
+          </div>
+
+          <div>
+            HSL: <span id="hslValue">-</span>
+            <button id="copyHSL" class="ml-2 text-primary">
+              <i data-lucide="copy" class="w-4 h-4 inline"></i>
+            </button>
+          </div>
+
+          <div>
+            HSV: <span id="hsvValue">-</span>
+            <button id="copyHSV" class="ml-2 text-primary">
+              <i data-lucide="copy" class="w-4 h-4 inline"></i>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  
+
+  <div id="toast"></div>
+  <div id="zoomPreview"></div>
+
+
+<section class="mt-16 text-sm leading-relaxed space-y-4 text-slate-600 dark:text-slate-400">
+  <h2 class="text-lg font-bold text-slate-800 dark:text-white">
+    Apa Itu Color Picker Online?
+  </h2>
+  <p>
+    Color Picker Online adalah alat untuk mengambil warna dari gambar atau screenshot secara presisi. 
+    Tool ini memungkinkan kamu mendapatkan kode warna dalam berbagai format seperti HEX, RGB, CMYK, HSL, dan HSV.
+  </p>
+
+  <h2 class="text-lg font-bold text-slate-800 dark:text-white">
+    Cara Menggunakan Tool Ini
+  </h2>
+  <p>
+    Upload gambar atau paste screenshot, lalu arahkan kursor ke area yang ingin diambil warnanya. 
+    Klik untuk mendapatkan kode warna dan salin format yang dibutuhkan.
+  </p>
+
+  <h2 class="text-lg font-bold text-slate-800 dark:text-white">
+    Kegunaan Color Picker
+  </h2>
+  <p>
+    Tool ini cocok untuk web developer, desainer grafis, UI/UX designer, hingga content creator 
+    yang membutuhkan kode warna akurat untuk desain website, branding, maupun media sosial.
+  </p>
+  <h2 class="text-lg font-bold text-slate-800 dark:text-white">
+  Format Warna yang Didukung
+</h2>
+<p>
+  Tool ini mendukung format HEX untuk kebutuhan web, RGB untuk tampilan digital,
+  CMYK untuk cetak, serta HSL dan HSV untuk manipulasi warna lanjutan.
+</p>
+</section>
+
+  </div>
+</main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="../../logo.jpg" alt="Ansyah Color Picker Online Tool" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  lucide.createIcons();
+
+  /* =========================
+     REVEAL ANIMATION
+  ========================== */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* =========================
+     PRELOADER
+  ========================== */
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => preloader.style.display = 'none', 500);
+  });
+
+  /* =========================
+     THEME ICON SYNC (GLOBAL)
+  ========================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
+
+    const lightIcon = themeToggleBtn.querySelector(".light-icon");
+    const darkIcon = themeToggleBtn.querySelector(".dark-icon");
+
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+
+      if (!lightIcon || !darkIcon) return;
+
+      if (isDark) {
+        lightIcon.style.opacity = 1;
+        lightIcon.style.transform = "translateY(0)";
+        darkIcon.style.opacity = 0;
+        darkIcon.style.transform = "translateY(-4px)";
+      } else {
+        lightIcon.style.opacity = 0;
+        lightIcon.style.transform = "translateY(4px)";
+        darkIcon.style.opacity = 1;
+        darkIcon.style.transform = "translateY(0)";
+      }
+    }
+
+    updateIcons();
+
+    const observerTheme = new MutationObserver(updateIcons);
+    observerTheme.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu?.classList.add('hidden');
+      mobileOverlay?.classList.add('hidden');
+    }
+  });
+</script>
+ 
+ 
+
+<script>
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+const cursorPreview = document.getElementById("cursorPreview");
+const preview = document.getElementById("preview");
+const zoomPreview = document.getElementById("zoomPreview");
+const hexValue = document.getElementById("hexValue");
+const rgbValue = document.getElementById("rgbValue");
+const hslValue = document.getElementById("hslValue");
+const hsvValue = document.getElementById("hsvValue");
+const cmykValue = document.getElementById("cmykValue");
+let finalHSL = "";
+
+const toast = document.getElementById("toast");
+
+let finalHex = "";
+let finalRGB = "";
+let finalHSV = "";
+let finalCMYK = "";
+let originalImage = null;
+
+// === Load image dari file upload ===
+document.getElementById("upload").addEventListener("change", e=>{
+  if(e.target.files[0]) loadImageFile(e.target.files[0]);
+});
+
+// === Fungsi load image ke canvas ===
+function loadImageFile(file) {
+  const reader = new FileReader();
+  
+  reader.onload = function(event) {
+    const img = new Image();
+    img.onload = function() {
+      originalImage = img;
+      const ratio = window.devicePixelRatio || 1;
+      canvas.width = img.width * ratio;
+      canvas.height = img.height * ratio;
+      canvas.style.width = "100%";
+      canvas.style.height = "auto";
+      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+      ctx.drawImage(img, 0, 0);
+      showToast("Gambar berhasil dimuat!");
+    };
+    img.onerror = function() {
+      showToast("Gagal load gambar, coba file lain.");
+    };
+    img.src = event.target.result; // <-- base64, aman semua file/screenshot
+  };
+  
+  reader.onerror = function() {
+    showToast("Gagal membaca file.");
+  };
+  
+  reader.readAsDataURL(file); // baca file jadi base64
+}
+
+// === Paste clipboard update ===
+document.addEventListener("paste", e => {
+  const items = e.clipboardData.items;
+  for (let i = 0; i < items.length; i++) {
+    const item = items[i];
+    if (item.kind === "file") { // <--- pakai kind=file, jangan hanya type
+      const blob = item.getAsFile();
+      loadImageFile(blob);
+      showToast("Screenshot ditempel!");
+      e.preventDefault();
+      break;
+    }
+  }
+});
+
+function updateColorRealTime(x, y, event){
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = rect.width / canvas.width;
+  const scaleY = rect.height / canvas.height;
+  x = Math.max(0, Math.min(canvas.width-1, x / scaleX));
+  y = Math.max(0, Math.min(canvas.height-1, y / scaleY));
+
+  const pixel = ctx.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+  const r = pixel[0], g = pixel[1], b = pixel[2];
+  cursorPreview.style.backgroundColor = `rgb(${r},${g},${b})`;
+  cursorPreview.style.display = "block";
+
+  const zoomSize = 4;
+  const zoomData = ctx.getImageData(Math.max(0,x-2), Math.max(0,y-2), zoomSize, zoomSize);
+  const zoomCanvas = document.createElement("canvas");
+  zoomCanvas.width = zoomSize;
+  zoomCanvas.height = zoomSize;
+  zoomCanvas.getContext("2d").putImageData(zoomData,0,0);
+  zoomPreview.style.backgroundImage = `url(${zoomCanvas.toDataURL()})`;
+  zoomPreview.style.backgroundSize = `${zoomSize*20}px ${zoomSize*20}px`;
+  zoomPreview.style.left = (event.clientX + 10) + "px";
+  zoomPreview.style.top = (event.clientY + 10) + "px";
+  zoomPreview.style.display = "block";
+
+  cursorPreview.style.left = (event.clientX + 10) + "px";
+  cursorPreview.style.top = (event.clientY + 10) + "px";
+}
+
+function updateColorFinal(x, y){
+  if (!originalImage) return;
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = rect.width / canvas.width;
+  const scaleY = rect.height / canvas.height;
+  x = Math.max(0, Math.min(canvas.width-1, x / scaleX));
+  y = Math.max(0, Math.min(canvas.height-1, y / scaleY));
+
+  const pixel = ctx.getImageData(Math.floor(x), Math.floor(y), 1, 1).data;
+  const r = pixel[0], g = pixel[1], b = pixel[2];
+  finalHex = rgbToHex(r,g,b);
+  finalRGB = `rgb(${r},${g},${b})`;
+  finalHSL = rgbToHsl(r,g,b);
+  finalHSV = rgbToHsv(r,g,b);
+finalCMYK = rgbToCmyk(r,g,b);
+  preview.style.backgroundColor = finalHex;
+  hexValue.innerText = finalHex;
+  rgbValue.innerText = finalRGB;
+  hslValue.innerText = finalHSL;
+  hsvValue.innerText = finalHSV;
+cmykValue.innerText = finalCMYK;
+}
+
+function rgbToCmyk(r, g, b) {
+  let c = 1 - (r / 255);
+  let m = 1 - (g / 255);
+  let y = 1 - (b / 255);
+
+  const k = Math.min(c, m, y);
+
+  if (k === 1) {
+    return "cmyk(0% 0% 0% 100%)";
+  }
+
+  c = (c - k) / (1 - k);
+  m = (m - k) / (1 - k);
+  y = (y - k) / (1 - k);
+
+  return `cmyk(${Math.round(c*100)}% ${Math.round(m*100)}% ${Math.round(y*100)}% ${Math.round(k*100)}%)`;
+}
+
+function rgbToHsv(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b),
+        min = Math.min(r, g, b);
+  const d = max - min;
+
+  let h, s, v = max;
+
+  s = max === 0 ? 0 : d / max;
+
+  if (max === min) {
+    h = 0;
+  } else {
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+    h /= 6;
+  }
+
+  return `hsv(${Math.round(h*360)}° ${Math.round(s*100)}% ${Math.round(v*100)}%)`;
+}
+
+function rgbToHsl(r, g, b) {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h, s;
+  const l = (max + min) / 2;
+
+  if (max === min) {
+    h = s = 0;
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+
+    switch (max) {
+      case r:
+        h = (g - b) / d + (g < b ? 6 : 0);
+        break;
+      case g:
+        h = (b - r) / d + 2;
+        break;
+      case b:
+        h = (r - g) / d + 4;
+        break;
+    }
+
+    h /= 6;
+  }
+
+  return `hsl(${Math.round(h * 360)}deg ${Math.round(s * 100)}% ${Math.round(l * 100)}%)`;
+}
+
+function handleMove(e){
+  e.preventDefault();
+  let x, y;
+  if(e.touches){
+    const touch = e.touches[0];
+    x = touch.clientX - canvas.getBoundingClientRect().left;
+    y = touch.clientY - canvas.getBoundingClientRect().top;
+    updateColorRealTime(x,y,touch);
+  }else{
+    x = e.clientX - canvas.getBoundingClientRect().left;
+    y = e.clientY - canvas.getBoundingClientRect().top;
+    updateColorRealTime(x,y,e);
+  }
+}
+canvas.addEventListener("mousemove", handleMove);
+canvas.addEventListener("touchmove", handleMove, {passive:false});
+canvas.addEventListener("mouseleave", ()=>{
+  zoomPreview.style.display="none";
+  cursorPreview.style.display="none";
+});
+canvas.addEventListener("mouseup", e => { 
+  const x = e.clientX - canvas.getBoundingClientRect().left;
+  const y = e.clientY - canvas.getBoundingClientRect().top;
+  updateColorFinal(x, y);
+});
+canvas.addEventListener("touchend", e => {
+  const touch = e.changedTouches[0];
+  const x = touch.clientX - canvas.getBoundingClientRect().left;
+  const y = touch.clientY - canvas.getBoundingClientRect().top;
+  updateColorFinal(x, y);
+  zoomPreview.style.display="none";
+  cursorPreview.style.display="none";
+});
+
+
+
+document.getElementById("copyHex").addEventListener("click", ()=>{
+  if(finalHex){ navigator.clipboard.writeText(finalHex); showToast("HEX disalin!"); }
+});
+document.getElementById("copyRGB").addEventListener("click", ()=>{
+  if(finalRGB){ navigator.clipboard.writeText(finalRGB); showToast("RGB disalin!"); }
+});
+document.getElementById("copyHSL").addEventListener("click", () => {
+  if (finalHSL) {
+    navigator.clipboard.writeText(finalHSL);
+    showToast("HSL disalin!");
+  }
+});
+document.getElementById("copyHSV").addEventListener("click", ()=>{
+  if(finalHSV){ navigator.clipboard.writeText(finalHSV); showToast("HSV disalin!"); }
+});
+
+document.getElementById("copyCMYK").addEventListener("click", ()=>{
+  if(finalCMYK){ navigator.clipboard.writeText(finalCMYK); showToast("CMYK disalin!"); }
+});
+  
+function rgbToHex(r,g,b){
+  return "#" + [r,g,b].map(x=>{
+    const hex = x.toString(16); return hex.length===1 ? "0"+hex : hex;
+  }).join("");
+}
+
+function showToast(msg){
+  toast.innerText = msg;
+  toast.className = "show";
+  setTimeout(()=>{ toast.className = toast.className.replace("show",""); },1500);
+}
+</script>
+ 
+</body>
+</html>
