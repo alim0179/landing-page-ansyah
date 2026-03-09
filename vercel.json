@@ -4,6 +4,6 @@
     { "source": "/project/tools/:slug", "destination": "/project/tools/:slug.html" },
     { "source": "/project/store/:slug", "destination": "/project/store/:slug.html" },
     { "source": "/project/template/:slug", "destination": "/project/template/:slug.html" },
-        { "source": "/survey/:slug", "destination": "/survey/:slug.html" }
+        { "source": "/:slug", "destination": "/:slug.html" }
   ]
 }
