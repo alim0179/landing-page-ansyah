@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Branding & SEO -->
+  <title>Ansyah | Web Tools Gratis</title>
+  <meta name="description" content="Katalog Web Tools Gratis Ansyah. Temukan berbagai tools online praktis dan cepat untuk kebutuhan digitalmu." />
+  <meta name="author" content="Ansyah" />
+
+  <!-- Open Graph / Social Sharing -->
+  <meta property="og:title" content="Ansyah | Web Tools Gratis" />
+  <meta property="og:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta property="og:image" content="https://ansyah.web.id/logo.jpg" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ansyah.web.id/tools.html" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ansyah | Web Tools Gratis" />
+  <meta name="twitter:description" content="Temukan berbagai web tools online gratis yang praktis dan cepat di Ansyah." />
+  <meta name="twitter:image" content="https://ansyah.web.id/logo.jpg" />
+
+  <link rel="icon" href="logo.jpg" />
+  <link rel="apple-touch-icon" href="https://ansyah.web.id/logo.jpg">
+  <link rel="canonical" href="https://ansyah.web.id/tools.html" />
+  <link rel="preload" href="logo.jpg" as="image">
+<script src="/theme.js"></script>
+  <!-- Tailwind & Lucide -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            primary: '#2563eb'
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { transition: background-color .3s ease, color .3s ease; }
+    .reveal { opacity: 0; transform: translateY(20px); transition: .6s ease; }
+    .reveal.active { opacity: 1; transform: translateY(0); }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+    .logo-float { animation: float 6s ease-in-out infinite; }
+    .card-hover { transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
+    .card-hover:hover { transform: translateY(-4px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
+    .btn-shimmer { position: relative; overflow: hidden; }
+    .btn-shimmer::after {
+      content: "";
+      position: absolute;
+      top: 0; left: -75%;
+      width: 50%; height: 100%;
+      background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+      transform: skewX(-20deg);
+      animation: shimmer 1.5s infinite ease-in-out;
+    }
+    @keyframes shimmer { 0% { left: -75%; } 100% { left: 125%; } }
+    .category-filter { overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; padding-bottom: 0.5rem; }
+    .category-filter button { display: inline-block; margin-right: 0.5rem; margin-bottom: 0.5rem; }
+    .pagination { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-top: 1rem; }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Ansyah",
+    "url": "https://ansyah.web.id/tools.html"
+  }
+  </script>
+</head>
+
+<body class="min-h-screen flex flex-col bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+
+  <!-- Preloader -->
+  <div id="preloader" class="fixed inset-0 bg-white dark:bg-slate-950 flex flex-col items-center justify-center z-[9999]">
+    <img src="logo.jpg" alt="Ansyah Web Tools" class="w-24 h-24 object-contain animate-pulse mb-3">
+    <span class="text-slate-500 dark:text-slate-400">Memuat Konten...</span>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="fixed top-0 w-full z-50 bg-white/90 dark:bg-slate-950/90 backdrop-blur border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-3 font-bold text-lg">
+        <img src="logo.jpg" alt="Ansyah Web Tools" class="w-8 h-8 object-contain" />
+        <span class="text-primary">Ansyah</span>
+      </div>
+      <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+        <a href="index.html" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Home</a>
+        <a href="#tools-grid" class="hover:text-primary focus:outline-none focus:ring-2 focus:ring-primary">Tools</a>
+        <a href="#contact" class="px-4 py-2 rounded-lg bg-primary text-white focus:outline-none focus:ring-2 focus:ring-primary">Kontak</a>
+      </nav>
+      <div class="md:hidden flex items-center gap-2">
+        <button id="theme-toggle" aria-label="Toggle Tema" class="p-2 rounded-lg border dark:border-slate-700 w-8 h-8 relative overflow-hidden flex items-center justify-center">
+          <i data-lucide="sun" class="absolute w-5 h-5 light-icon transition-all duration-500 ease-in-out translate-y-0 opacity-100"></i>
+          <i data-lucide="moon" class="absolute w-5 h-5 dark-icon transition-all duration-500 ease-in-out -translate-y-4 opacity-0"></i>
+        </button>
+        <button id="mobile-menu-btn" aria-label="Buka Menu Mobile" class="p-2 rounded-lg border dark:border-slate-700">
+          <i data-lucide="menu" class="w-5 h-5"></i>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="hidden md:hidden flex flex-col bg-white dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800">
+      <a href="index.html" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Home</a>
+      <a href="#tools-grid" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Tools</a>
+      <a href="#contact" class="px-4 py-3 hover:bg-slate-100 dark:hover:bg-slate-800">Kontak</a>
+    </nav>
+  </header>
+  <div id="mobile-overlay" class="fixed inset-0 bg-black/50 hidden z-40"></div>
+
+ <main class="pt-32 pb-20">
+  <section class="max-w-5xl mx-auto px-4">
+    
+    <div class="reveal mb-10">
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">Tentang Ansyah</h1>
+      <p class="text-slate-600 dark:text-slate-400">
+        <strong>Ansyah</strong> adalah platform digital yang menyediakan berbagai
+        <strong>web tools online gratis</strong> serta <strong>produk digital siap pakai</strong>
+        dalam satu tempat. Website ini dirancang untuk membantu pengguna menyelesaikan
+        berbagai kebutuhan digital secara <strong>praktis, cepat, dan modern</strong>.
+      </p>
+    </div>
+    
+    <div class="reveal mb-8">
+      <p class="text-slate-600 dark:text-slate-400 mb-4">
+        Di era digital saat ini, banyak pekerjaan membutuhkan tools online untuk
+        mengolah data, membuat generator, atau membantu produktivitas digital.
+        Ansyah hadir sebagai solusi yang dapat digunakan langsung dari browser
+        tanpa instalasi aplikasi dan tanpa proses login yang rumit.
+      </p>
+    </div>
+    
+    <div class="reveal mb-10">
+      <h2 class="text-2xl font-semibold mb-3">Apa yang Bisa Kamu Temukan di Ansyah?</h2>
+      
+      <h3 class="text-lg font-semibold mt-6 mb-2">Web Tools Gratis</h3>
+      <p class="text-slate-600 dark:text-slate-400 mb-4">
+        Ansyah menyediakan berbagai web tools yang dapat digunakan langsung
+        secara gratis. Tools ini dirancang untuk membantu berbagai kebutuhan
+        digital seperti pembuatan QR code, pengolahan teks, konversi data,
+        hingga berbagai alat produktivitas lainnya.
+      </p>
+      
+      <h3 class="text-lg font-semibold mt-6 mb-2">Digital Store</h3>
+      <p class="text-slate-600 dark:text-slate-400">
+        Selain tools gratis, Ansyah juga menyediakan <strong>Digital Store</strong>
+        yang berisi berbagai produk digital siap pakai seperti template, file desain,
+        script, dan berbagai resource digital lainnya untuk membantu mempercepat
+        pekerjaan pengguna.
+      </p>
+    </div>
+    
+    <div class="reveal mb-10">
+      <h2 class="text-2xl font-semibold mb-3">Visi</h2>
+      <p class="text-slate-600 dark:text-slate-400">
+        Menjadi platform web tools dan digital store terpercaya di Indonesia
+        yang membantu pengguna menyelesaikan kebutuhan digital secara praktis
+        dan efisien.
+      </p>
+    </div>
+    
+    <div class="reveal mb-10">
+      <h2 class="text-2xl font-semibold mb-3">Misi</h2>
+      <ul class="list-disc pl-5 space-y-2 text-slate-600 dark:text-slate-400">
+        <li>Menyediakan web tools online yang gratis dan mudah digunakan</li>
+        <li>Menyediakan produk digital siap pakai yang bermanfaat</li>
+        <li>Membantu meningkatkan produktivitas pengguna di era digital</li>
+        <li>Terus mengembangkan fitur dan tools baru yang relevan</li>
+      </ul>
+    </div>
+    
+    <div class="reveal">
+      <h2 class="text-2xl font-semibold mb-3">Komitmen Kami</h2>
+      <p class="text-slate-600 dark:text-slate-400">
+        Ansyah akan terus berkembang dengan menambahkan tools dan produk digital
+        terbaru secara berkala agar pengguna dapat menemukan solusi digital yang
+        mereka butuhkan dalam satu platform.
+      </p>
+    </div>
+    
+  </section>
+</main>
+
+  <!-- FOOTER -->
+  <footer id="contact" class="border-t border-slate-200 dark:border-slate-800 py-16">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="flex flex-col md:flex-row items-center md:justify-between gap-8 mb-10">
+        <div class="flex items-center gap-3 text-2xl font-bold">
+          <img src="logo.jpg" alt="Ansyah Web Tools" class="w-12 h-12 object-contain" />
+          <span>Ansyah</span>
+        </div>
+        <div class="flex gap-4">
+          <a href="https://instagram.com/ansyahweb" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="instagram"></i>
+          </a>
+          <a href="mailto:ansyah.web@gmail.com" class="w-11 h-11 rounded-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center hover:bg-primary hover:text-white transition">
+            <i data-lucide="mail"></i>
+          </a>
+        </div>
+      </div>
+      <div class="border-t border-slate-200 dark:border-slate-800 mb-6"></div>
+      <p class="text-center text-sm text-slate-500">© 2026 Ansyah. All rights reserved.</p>
+    </div>
+  </footer>
+
+<script>
+  lucide.createIcons();
+
+  /* =========================
+     REVEAL ANIMATION
+  ========================== */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) e.target.classList.add('active');
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  /* =========================
+     PRELOADER
+  ========================== */
+  window.addEventListener('load', () => {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) return;
+
+    preloader.style.transition = 'opacity 0.5s ease';
+    preloader.style.opacity = '0';
+    setTimeout(() => preloader.style.display = 'none', 500);
+  });
+
+  /* =========================
+     THEME ICON SYNC (GLOBAL)
+  ========================== */
+  document.addEventListener("DOMContentLoaded", () => {
+    const themeToggleBtn = document.getElementById("theme-toggle");
+    if (!themeToggleBtn) return;
+
+    const lightIcon = themeToggleBtn.querySelector(".light-icon");
+    const darkIcon = themeToggleBtn.querySelector(".dark-icon");
+
+    function updateIcons() {
+      const isDark = document.documentElement.classList.contains("dark");
+
+      if (!lightIcon || !darkIcon) return;
+
+      if (isDark) {
+        lightIcon.style.opacity = 1;
+        lightIcon.style.transform = "translateY(0)";
+        darkIcon.style.opacity = 0;
+        darkIcon.style.transform = "translateY(-4px)";
+      } else {
+        lightIcon.style.opacity = 0;
+        lightIcon.style.transform = "translateY(4px)";
+        darkIcon.style.opacity = 1;
+        darkIcon.style.transform = "translateY(0)";
+      }
+    }
+
+    updateIcons();
+
+    const observerTheme = new MutationObserver(updateIcons);
+    observerTheme.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"]
+    });
+  });
+
+  /* =========================
+     MOBILE MENU
+  ========================== */
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileOverlay = document.getElementById('mobile-overlay');
+
+  function toggleMobileMenu() {
+    if (!mobileMenu || !mobileOverlay) return;
+
+    const isHidden = mobileMenu.classList.contains('hidden');
+    mobileMenu.classList.toggle('hidden');
+    mobileOverlay.classList.toggle('hidden', !isHidden);
+  }
+
+  if (mobileBtn) mobileBtn.addEventListener('click', toggleMobileMenu);
+  if (mobileOverlay) mobileOverlay.addEventListener('click', toggleMobileMenu);
+
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      mobileMenu?.classList.add('hidden');
+      mobileOverlay?.classList.add('hidden');
+    }
+  });
+</script>
+ 
+</body>
+</html>
